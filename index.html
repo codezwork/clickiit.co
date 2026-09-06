@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLICK IT.CO | Modern Photo Booth & Instant Print Scrapbook</title>
+  <meta name="description" content="Step into Click It.co - the modern photo booth experience. Click it, Keep it, Love it. High-resolution instant prints, authentic scrapbook wall, and event rentals.">
+  
+  <!-- Google Fonts - Modern Studio (Outfit, Instrument Serif, Plus Jakarta Sans, Caveat) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Big+Shoulders+Stencil+Display:wght@700;800;900&family=Saira+Stencil+One&family=Caveat:wght@600;700&family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bungee&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-warm">
+
+  <!-- Camera Flash Overlay Effect -->
+  <div id="cameraFlashOverlay" class="camera-flash"></div>
+
+  <!-- Top Navigation -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="#" class="brand-link" title="Click It.co">
+        <img src="assets/camerashutter-out.png" alt="Click It.co Photo Booth" class="nav-brand-logo" />
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#booth-experience" class="nav-link active">The Booth</a>
+        <a href="#how-it-works" class="nav-link">Experience</a>
+        <a href="#packages" class="nav-link">Packages</a>
+        <a href="#locations" class="nav-link">Locations</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Shutter Sound Mute/Unmute Toggle (Default: Unmuted, Icon-only) -->
+        <button id="soundToggleBtn" class="sound-toggle-btn icon-only" type="button" aria-label="Mute shutter sound" title="Mute shutter sound" aria-pressed="false">
+          <span class="sound-icon-indicator" aria-hidden="true">
+            <!-- Unmuted Speaker -->
+            <svg class="icon-unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+            <!-- Muted Speaker -->
+            <svg class="icon-muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <line x1="23" y1="9" x2="17" y2="15"></line>
+              <line x1="17" y1="9" x2="23" y2="15"></line>
+            </svg>
+          </span>
+        </button>
+
+        <a href="#booking" class="btn-primary">
+          <span>Book a Booth</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section: The Architectural Wall Block Presentation -->
+  <main>
+    <section class="booth-hero-section" id="booth-experience">
+      <!-- Ambient studio atmosphere behind the wall -->
+      <div class="ambient-glow ambient-left"></div>
+      <div class="ambient-glow ambient-right"></div>
+      <div class="studio-spotlight"></div>
+
+      <div class="container hero-container">
+        
+        <!-- Warm Editorial Intro Header (Cozy Inspo Aesthetic) -->
+        <div class="hero-intro-header">
+          <div class="hero-header-badge">
+            <span class="pulse-dot"></span>
+            <span>Click It &bull; Keep It &bull; Love It</span>
+          </div>
+          <h1 class="hero-main-title">The Authentic <em>Photo Booth</em> &mdash; Retro Strips &amp; Vintage Filters</h1>
+          <p class="hero-main-subtitle">Step into Click It.co for tangible archival printouts, warm nostalgic filters, and an interactive memory wall.</p>
+        </div>
+
+        <!-- THE ARCHITECTURAL WALL BLOCK (Isolated block with left & right empty margins) -->
+        <div class="wall-stage-wrapper">
+          
+          <!-- Top Neon Header Sign (as seen in the reference photo) -->
+          <div class="top-marquee-container" id="marqueeSign">
+            <div class="marquee-sign-housing">
+              <div class="marquee-neon-tubes">
+                <span class="neon-letter">P</span>
+                <span class="neon-letter">H</span>
+                <span class="neon-letter">O</span>
+                <span class="neon-letter">T</span>
+                <span class="neon-letter">O</span>
+                <span class="neon-spacer"></span>
+                <span class="neon-letter">B</span>
+                <span class="neon-letter">O</span>
+                <span class="neon-letter">O</span>
+                <span class="neon-letter">T</span>
+                <span class="neon-letter">H</span>
+              </div>
+              <div class="neon-reflection"></div>
+            </div>
+            <!-- Overhead downlight beam -->
+            <div class="wall-top-beam"></div>
+          </div>
+
+          <!-- THE PHYSICAL WALL STRUCTURE -->
+          <div class="architectural-wall" id="boothWall">
+            
+            <!-- Brick Masonry Wall Surface (Clean White Brick) -->
+            <div class="brick-surface">
+              
+              <!-- LEFT ZONE: Wall-Mounted Camera Plaque directly on wall (No background glow) -->
+              <div class="sign-hang-zone" id="signZone">
+                <!-- Contour Camera Plaque directly on wall -->
+                <div class="contour-lightbox-sign" id="hangingSign" title="Hover or click camera to trigger shutter!">
+                  <!-- Base Resting Logo (camerashutter-out) -->
+                  <img 
+                    src="assets/camerashutter-out.png" 
+                    alt="Click It.co Photo Booth Logo" 
+                    class="contour-logo-img logo-frame logo-default" 
+                    id="brandLogoImg" 
+                  />
+                  <!-- Iris In (Open Aperture) Overlay Frame -->
+                  <img 
+                    src="assets/camerashutter-in.png" 
+                    alt="Camera Shutter Aperture Open" 
+                    class="contour-logo-img logo-frame logo-shutter-in" 
+                    id="logoShutterIn" 
+                  />
+                </div>
+
+                <!-- Soft cast drop shadow on wall -->
+                <div class="sign-wall-shadow"></div>
+              </div>
+
+              <!-- RIGHT ZONE: Pure Blackboard Scrapbook (15 Mini Photostrips pinned with 3D Pushpins) -->
+              <div class="scrapbook-zone" id="scrapbook-space">
+                <div class="realistic-blackboard-frame">
+                  <div class="blackboard-surface">
+                    <div class="blackboard-chalk-texture"></div>
+                    <div class="blackboard-inner-shadow"></div>
+
+                    <!-- 15 Clustered Mini Photostrips with 3D Pushpins -->
+                    <div class="pinned-photostrip mini-strip s1" data-strip="1">
+                      <div class="pushpin-3d pin-red"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s2" data-strip="2">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s3" data-strip="3">
+                      <div class="pushpin-3d pin-blue"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s4" data-strip="4">
+                      <div class="pushpin-3d pin-white"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s5" data-strip="5">
+                      <div class="pushpin-3d pin-cyan"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s6" data-strip="6">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s7" data-strip="7">
+                      <div class="pushpin-3d pin-red"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s8" data-strip="8">
+                      <div class="pushpin-3d pin-blue"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s9" data-strip="9">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s10" data-strip="10">
+                      <div class="pushpin-3d pin-white"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s11" data-strip="11">
+                      <div class="pushpin-3d pin-cyan"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s12" data-strip="12">
+                      <div class="pushpin-3d pin-red"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s13" data-strip="13">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s14" data-strip="14">
+                      <div class="pushpin-3d pin-blue"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s15" data-strip="15">
+                      <div class="pushpin-3d pin-white"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <!-- Additional Pinned Photostrips for Rich Memory Wall Density -->
+                    <div class="pinned-photostrip mini-strip s16" data-strip="16">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s17" data-strip="17">
+                      <div class="pushpin-3d pin-cyan"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s18" data-strip="18">
+                      <div class="pushpin-3d pin-red"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s19" data-strip="19">
+                      <div class="pushpin-3d pin-white"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s20" data-strip="20">
+                      <div class="pushpin-3d pin-blue"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s21" data-strip="21">
+                      <div class="pushpin-3d pin-gold"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s22" data-strip="22">
+                      <div class="pushpin-3d pin-cyan"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s23" data-strip="23">
+                      <div class="pushpin-3d pin-red"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                    <div class="pinned-photostrip mini-strip s24" data-strip="24">
+                      <div class="pushpin-3d pin-white"><div class="pin-head"></div><div class="pin-needle"></div></div>
+                      <div class="strip-card mini-card"><img src="assets/photostrip.png" alt="strip" /><div class="photo-paper-gloss"></div></div>
+                    </div>
+
+                  </div><!-- /.blackboard-surface -->
+                </div><!-- /.realistic-blackboard-frame -->
+              </div><!-- /.scrapbook-zone -->
+
+            </div><!-- /.brick-surface -->
+
+          </div><!-- /.architectural-wall -->
+
+          <!-- Realistic Floor Cast Shadow and Studio Reflection -->
+          <div class="wall-floor-shadow"></div>
+          <div class="floor-reflection-plate"></div>
+
+        </div><!-- /.wall-stage-wrapper -->
+
+      </div><!-- /.container -->
+    </section>
+
+    <!-- Developing Your Memories Section (Inspired by Inspo Step Section) -->
+    <section class="experience-section" id="how-it-works">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="pill-badge">THE EXPERIENCE</span>
+          <h2 class="section-heading">Developing Your <em>Memories</em></h2>
+          <p class="section-subtext">Designed for effortless smiles, unforgettable laughs, and instant tangible keepsakes you take home immediately.</p>
+        </div>
+
+        <div class="features-grid experience-grid-compact">
+          <div class="feature-card compact-card">
+            <div class="card-step-badge">
+              <span class="step-num-pill">01</span>
+              <span class="step-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </span>
+            </div>
+            <div class="card-content-wrap">
+              <div class="card-title-row">
+                <h3 class="feature-title">Step In &amp; Strike a Pose</h3>
+                <span class="feature-tag">Click It!</span>
+              </div>
+              <p class="feature-desc">Studio ring lighting with countdown &amp; 4 burst frames with retro filters.</p>
+            </div>
+          </div>
+
+          <div class="feature-card compact-card highlighted-card">
+            <div class="card-step-badge">
+              <span class="step-num-pill">02</span>
+              <span class="step-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </span>
+            </div>
+            <div class="card-content-wrap">
+              <div class="card-title-row">
+                <h3 class="feature-title">Instant Lab Prints</h3>
+                <span class="feature-tag">Keep It!</span>
+              </div>
+              <p class="feature-desc">Smudge-proof archival dye-sublimation photostrips printed in 12 seconds.</p>
+            </div>
+          </div>
+
+          <div class="feature-card compact-card">
+            <div class="card-step-badge">
+              <span class="step-num-pill">03</span>
+              <span class="step-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+              </span>
+            </div>
+            <div class="card-content-wrap">
+              <div class="card-title-row">
+                <h3 class="feature-title">Scrapbook &amp; QR Scan</h3>
+                <span class="feature-tag">Love It!</span>
+              </div>
+              <p class="feature-desc">Pin your strip to the memory wall or scan the QR code for instant phone saves.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Scrapbook Section (Cozy Chocolate Showcase) -->
+    <section class="scrapbook-gallery-section" id="scrapbook-showcase">
+      <div class="container">
+        <div class="scrapbook-header-row">
+          <div>
+            <span class="pill-badge">COMMUNITY PINBOARD</span>
+            <h2 class="section-heading">Community <em>Scrapbook</em></h2>
+            <p class="section-subtext">Every visit creates a story. Browse real photo strips captured and pinned at Click It booths.</p>
+          </div>
+          <button class="btn-primary" id="openUploadSimBtn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Pin Your Strip to Wall</span>
+          </button>
+        </div>
+
+        <!-- 2-Row Auto-Scrolling Hanging Clothesline Gallery -->
+        <div class="clothesline-marquee-board">
+          <!-- ROW 1: Hanging Twine Rope (Scrolls Left) -->
+          <div class="clothesline-row" data-row="top">
+            <div class="marquee-scroll-track scroll-left">
+              <div class="moving-rope-line"></div>
+              <!-- Group 1A: 10 Hanging Photostrips -->
+              <div class="marquee-strip-group">
+                <div class="hanging-strip-card tilt-n2" data-title="Sweet Moments" data-strip="1">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Sweet Moments</span><span class="meta-date">Sep 6 &bull; #0412</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p3" data-title="Late Night Laughs" data-strip="2">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Late Night Laughs</span><span class="meta-date">Sep 6 &bull; #0411</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n1" data-title="Cheeky Kisses" data-strip="3">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Cheeky Kisses</span><span class="meta-date">Sep 5 &bull; #0410</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p2" data-title="Golden Hour Glow" data-strip="4">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Golden Hour Glow</span><span class="meta-date">Sep 5 &bull; #0409</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n2" data-title="Besties Forever" data-strip="5">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Besties Forever</span><span class="meta-date">Sep 4 &bull; #0408</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p1" data-title="Date Night Magic" data-strip="6">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Date Night Magic</span><span class="meta-date">Sep 4 &bull; #0407</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n3" data-title="Vintage B&amp;W Vibe" data-strip="7">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Vintage B&amp;W Vibe</span><span class="meta-date">Sep 3 &bull; #0406</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p2" data-title="Double Trouble" data-strip="8">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Double Trouble</span><span class="meta-date">Sep 3 &bull; #0405</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n1" data-title="First Anniversary" data-strip="9">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">First Anniversary</span><span class="meta-date">Sep 2 &bull; #0404</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p3" data-title="Pure Happiness" data-strip="10">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Pure Happiness</span><span class="meta-date">Sep 2 &bull; #0403</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Group 1B (Duplicate for seamless infinite scroll) -->
+              <div class="marquee-strip-group" aria-hidden="true">
+                <div class="hanging-strip-card tilt-n2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Sweet Moments</span><span class="meta-date">Sep 6 &bull; #0412</span></div></div></div>
+                <div class="hanging-strip-card tilt-p3"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Late Night Laughs</span><span class="meta-date">Sep 6 &bull; #0411</span></div></div></div>
+                <div class="hanging-strip-card tilt-n1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Cheeky Kisses</span><span class="meta-date">Sep 5 &bull; #0410</span></div></div></div>
+                <div class="hanging-strip-card tilt-p2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Golden Hour Glow</span><span class="meta-date">Sep 5 &bull; #0409</span></div></div></div>
+                <div class="hanging-strip-card tilt-n2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Besties Forever</span><span class="meta-date">Sep 4 &bull; #0408</span></div></div></div>
+                <div class="hanging-strip-card tilt-p1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Date Night Magic</span><span class="meta-date">Sep 4 &bull; #0407</span></div></div></div>
+                <div class="hanging-strip-card tilt-n3"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Vintage B&amp;W Vibe</span><span class="meta-date">Sep 3 &bull; #0406</span></div></div></div>
+                <div class="hanging-strip-card tilt-p2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Double Trouble</span><span class="meta-date">Sep 3 &bull; #0405</span></div></div></div>
+                <div class="hanging-strip-card tilt-n1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">First Anniversary</span><span class="meta-date">Sep 2 &bull; #0404</span></div></div></div>
+                <div class="hanging-strip-card tilt-p3"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Pure Happiness</span><span class="meta-date">Sep 2 &bull; #0403</span></div></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ROW 2: Hanging Twine Rope (Scrolls Right) -->
+          <div class="clothesline-row" data-row="bottom">
+            <div class="marquee-scroll-track scroll-right">
+              <div class="moving-rope-line"></div>
+              <!-- Group 2A: 10 Hanging Photostrips -->
+              <div class="marquee-strip-group">
+                <div class="hanging-strip-card tilt-p2" data-title="Prom Night Memory" data-strip="11">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Prom Night Memory</span><span class="meta-date">Sep 6 &bull; #0402</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n2" data-title="Silly Faces Only" data-strip="12">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Silly Faces Only</span><span class="meta-date">Sep 5 &bull; #0401</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p1" data-title="Summer Romance" data-strip="13">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Summer Romance</span><span class="meta-date">Sep 5 &bull; #0400</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n3" data-title="Film Grain Love" data-strip="14">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Film Grain Love</span><span class="meta-date">Sep 4 &bull; #0399</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p3" data-title="Concert Night Out" data-strip="15">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Concert Night Out</span><span class="meta-date">Sep 4 &bull; #0398</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n1" data-title="Laughing Out Loud" data-strip="16">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Laughing Out Loud</span><span class="meta-date">Sep 3 &bull; #0397</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p2" data-title="Retro Kodak Magic" data-strip="17">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Retro Kodak Magic</span><span class="meta-date">Sep 3 &bull; #0396</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n2" data-title="Midnight Snack Run" data-strip="18">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Midnight Snack Run</span><span class="meta-date">Sep 2 &bull; #0395</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-p1" data-title="Soulmates Forever" data-strip="19">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Soulmates Forever</span><span class="meta-date">Sep 2 &bull; #0394</span></div>
+                  </div>
+                </div>
+
+                <div class="hanging-strip-card tilt-n2" data-title="Click It &amp; Keep It" data-strip="20">
+                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                  <div class="mini-strip-surface">
+                    <img src="assets/photostrip.png" alt="Photo strip" class="mini-strip-img" />
+                    <div class="mini-strip-meta"><span class="meta-caption">Click It &amp; Keep It</span><span class="meta-date">Sep 1 &bull; #0393</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Group 2B (Duplicate for seamless infinite scroll) -->
+              <div class="marquee-strip-group" aria-hidden="true">
+                <div class="hanging-strip-card tilt-p2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Prom Night Memory</span><span class="meta-date">Sep 6 &bull; #0402</span></div></div></div>
+                <div class="hanging-strip-card tilt-n2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Silly Faces Only</span><span class="meta-date">Sep 5 &bull; #0401</span></div></div></div>
+                <div class="hanging-strip-card tilt-p1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Summer Romance</span><span class="meta-date">Sep 5 &bull; #0400</span></div></div></div>
+                <div class="hanging-strip-card tilt-n3"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Film Grain Love</span><span class="meta-date">Sep 4 &bull; #0399</span></div></div></div>
+                <div class="hanging-strip-card tilt-p3"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Concert Night Out</span><span class="meta-date">Sep 4 &bull; #0398</span></div></div></div>
+                <div class="hanging-strip-card tilt-n1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Laughing Out Loud</span><span class="meta-date">Sep 3 &bull; #0397</span></div></div></div>
+                <div class="hanging-strip-card tilt-p2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Retro Kodak Magic</span><span class="meta-date">Sep 3 &bull; #0396</span></div></div></div>
+                <div class="hanging-strip-card tilt-n2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Midnight Snack Run</span><span class="meta-date">Sep 2 &bull; #0395</span></div></div></div>
+                <div class="hanging-strip-card tilt-p1"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Soulmates Forever</span><span class="meta-date">Sep 2 &bull; #0394</span></div></div></div>
+                <div class="hanging-strip-card tilt-n2"><div class="wooden-clothespin"><div class="peg-clip"></div></div><div class="mini-strip-surface"><img src="assets/photostrip.png" alt="strip" class="mini-strip-img" /><div class="mini-strip-meta"><span class="meta-caption">Click It &amp; Keep It</span><span class="meta-date">Sep 1 &bull; #0393</span></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages / Event Hire Section -->
+    <section class="packages-section" id="packages">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="pill-badge">BOOTH HIRE &amp; SESSIONS</span>
+          <h2 class="section-heading">Make Your Event Unforgettable</h2>
+          <p class="section-subtext">Whether dropping by our mall booth or booking for weddings, parties, and brand activations.</p>
+        </div>
+
+        <div class="pricing-cards-row">
+          <div class="pricing-card">
+            <div class="card-tag">INTIMATE POP-UP</div>
+            <h3 class="tier-title">Birthdays &amp; Socials</h3>
+            <div class="price-val">₹6,999 <span>/ 2 hours</span></div>
+            <p class="tier-desc">Compact setup with unlimited instant prints, retro filters, and custom frame border.</p>
+            <ul class="tier-perks">
+              <li>✓ Unlimited instant photo strips</li>
+              <li>✓ Custom frame header &amp; name branding</li>
+              <li>✓ Instant QR Code digital downloads</li>
+              <li>✓ Fun props kit &amp; on-site attendant</li>
+            </ul>
+            <a href="#booking" class="btn-primary">Book Event Package</a>
+          </div>
+
+          <div class="pricing-card featured-tier">
+            <div class="card-badge">MOST POPULAR</div>
+            <div class="card-tag">CELEBRATION</div>
+            <h3 class="tier-title">Party &amp; Grand Reception</h3>
+            <div class="price-val">₹11,999 <span>/ 4 hours</span></div>
+            <p class="tier-desc">Unlimited prints, custom frame branding, physical guestbook album station &amp; full gallery.</p>
+            <ul class="tier-perks">
+              <li>✓ Unlimited instant double prints</li>
+              <li>✓ Custom logo &amp; graphic branding</li>
+              <li>✓ Physical Memory Scrapbook station</li>
+              <li>✓ Fun props kit &amp; backdrop choices</li>
+              <li>✓ High-res online digital gallery</li>
+            </ul>
+            <a href="#booking" class="btn-primary">Book Event Package</a>
+          </div>
+
+          <div class="pricing-card">
+            <div class="card-tag">VIP OCCASIONS</div>
+            <h3 class="tier-title">Weddings &amp; Luxury Galas</h3>
+            <div class="price-val">₹18,999 <span>/ 6 hours</span></div>
+            <p class="tier-desc">Full luxury setup with aesthetic brick backdrop styling and handcrafted memory album.</p>
+            <ul class="tier-perks">
+              <li>✓ Unlimited double prints for all guests</li>
+              <li>✓ Handcrafted keepsake scrapbook album</li>
+              <li>✓ Metallic markers, tape &amp; glue pins</li>
+              <li>✓ Dual attendants for seamless fun</li>
+              <li>✓ Live AirDrop &amp; WhatsApp delivery</li>
+            </ul>
+            <a href="#booking" class="btn-primary">Book Event Package</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Warm Editorial Guide Card (Inspired by Inspo FAQ/Guide Section) -->
+    <section class="editorial-guide-section">
+      <div class="container">
+        <div class="editorial-guide-card">
+          <h2 class="editorial-guide-title">The Ultimate Photo Booth for <em>Aesthetic Keepsakes</em></h2>
+          <p class="editorial-lead">Handcrafted for timeless instant prints, vintage gelatin-silver tones, and unforgettable tangible memories.</p>
+
+          <div class="editorial-grid-qa">
+            <div class="qa-card">
+              <h3 class="qa-question">📸 Instant Lab Thermal Prints</h3>
+              <p class="qa-answer">Prints in 12 seconds with smudge-proof archival thermal dye-sublimation in retro B&amp;W or warm color.</p>
+            </div>
+
+            <div class="qa-card">
+              <h3 class="qa-question">📌 Physical Memory Scrapbook</h3>
+              <p class="qa-answer">Pin your strip to the memory wall with colorful pushpins, washi tape, and cute handwritten notes.</p>
+            </div>
+
+            <div class="qa-card">
+              <h3 class="qa-question">📲 High-Res QR Downloads</h3>
+              <p class="qa-answer">Scan the QR code printed directly on the strip margin for instant high-definition digital downloads.</p>
+            </div>
+
+            <div class="qa-card">
+              <h3 class="qa-question">🎉 Events, Pop-ups &amp; Weddings</h3>
+              <p class="qa-answer">Bring Click It to your celebration with custom print graphics, full props kit, and signature feature backdrop.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section class="locations-section" id="locations">
+      <div class="container">
+        <div class="location-banner-card">
+          <div class="location-info">
+            <span class="pill-badge">VISIT OUR PERMANENT BOOTH</span>
+            <h2 class="location-title">Click It.co Photo Booth Kiosk</h2>
+            <p class="location-address">Level 2, Eternity Mall, Nagpur</p>
+            <div class="location-meta-grid">
+              <div class="meta-item">
+                <span class="meta-label">Opening Hours</span>
+                <span class="meta-val">10:00 AM – 10:30 PM Daily</span>
+              </div>
+            </div>
+            <div class="loc-buttons">
+              <button class="btn-primary" onclick="alert('Opening navigation directions to Click It.co Photo Booth at Eternity Mall, Nagpur!')">Get Directions</button>
+            </div>
+          </div>
+          <div class="location-visual">
+            <div class="booth-kiosk-preview">
+              <img src="assets/booth-reference.jpg" alt="Click It.co Photo Booth Store Front" class="ref-kiosk-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking CTA Banner -->
+    <section class="cta-section" id="booking">
+      <div class="container">
+        <div class="cta-inner-card">
+          <h2 class="cta-heading">Ready to Click It, Keep It, &amp; Love It?</h2>
+          <p class="cta-sub">Reserve your date for your wedding, birthday, or festival before dates sell out.</p>
+          <form class="quick-booking-form" onsubmit="event.preventDefault(); alert('Thank you! Our Click It event coordinator will contact you shortly.');">
+            <input type="text" placeholder="Your Name" required class="form-input" />
+            <input type="tel" placeholder="Phone Number / WhatsApp" required class="form-input" />
+            <select class="form-input form-select">
+              <option value="birthday">Birthday / Anniversary</option>
+              <option value="wedding">Wedding / Reception</option>
+              <option value="corporate">Brand Event / Corporate</option>
+              <option value="other">Other Celebration</option>
+            </select>
+            <button type="submit" class="btn-primary btn-submit">Check Date Availability</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">CLICK IT.CO</div>
+        <p class="footer-motto">Click it ! Keep it ! Love it !</p>
+        <p class="footer-copy">&copy; 2026 Click It.co Photo Booths. All rights reserved.</p>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#booth-experience">The Booth Wall</a></li>
+          <li><a href="#scrapbook-space">Scrapbook Space</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#packages">Pricing &amp; Packages</a></li>
+          <li><a href="#locations">Find Our Kiosks</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4>Contact &amp; Bookings</h4>
+        <ul>
+          <li>hello@clickit.co</li>
+          <li>+91 98765 43210</li>
+          <li>Instagram: @clickit.co.photobooth</li>
+          <li>Daily: 10 AM - 10 PM</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL FOR PHOTO STRIP INSPECTION -->
+  <div class="lightbox-modal" id="photoModal" aria-hidden="true">
+    <div class="lightbox-backdrop" id="modalBackdrop"></div>
+    <div class="lightbox-dialog">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      
+      <div class="modal-content-grid">
+        <!-- Enlarged Photostrip with realistic glossy paper shine -->
+        <div class="modal-strip-showcase">
+          <div class="modal-strip-frame">
+            <img 
+              src="assets/photostrip.png" 
+              alt="Full resolution couple photostrip" 
+              class="modal-strip-image" 
+            />
+            <div class="modal-paper-texture"></div>
+          </div>
+        </div>
+
+        <!-- Photostrip details & actions -->
+        <div class="modal-strip-info">
+          <span class="modal-kicker">INSTANT RETRO PRINT</span>
+          <h3 class="modal-title">Classic 4-Pose Black &amp; White Strip</h3>
+          <p class="modal-desc">Authentic gelatin-silver tone look with high-definition sharpness, captured inside the Click It.co booth.</p>
+          
+          <div class="strip-specs-list">
+            <div class="spec-row">
+              <span class="spec-label">Print Dimensions:</span>
+              <span class="spec-val">2" &times; 6" Archival Gloss</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Capture Date:</span>
+              <span class="spec-val">September 6, 2026</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Color Tone:</span>
+              <span class="spec-val">Studio B&amp;W Matte / Gloss</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-label">Motto:</span>
+              <span class="spec-val">Click it ! Keep it ! Love it !</span>
+            </div>
+          </div>
+
+          <div class="modal-actions-row">
+            <a href="assets/photostrip.png" download="clickit-photostrip.png" class="btn-primary">
+              <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+              <span>Download Digital Strip</span>
+            </a>
+            <button class="btn-secondary" id="modalShutterTrigger">
+              <span>📸 Trigger Booth Flash</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
