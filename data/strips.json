@@ -1,0 +1,74 @@
+[
+  {
+    "id": "strip-1788774997642",
+    "title": "Monsoon Celebration",
+    "dateTag": "Sep 7 • #0425",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-07T09:56:37.642Z"
+  },
+  {
+    "id": "strip-1",
+    "title": "Sweet Moments",
+    "dateTag": "Sep 6 • #0412",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-06T12:00:00.000Z"
+  },
+  {
+    "id": "strip-2",
+    "title": "Late Night Laughs",
+    "dateTag": "Sep 6 • #0411",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-06T13:00:00.000Z"
+  },
+  {
+    "id": "strip-3",
+    "title": "Cheeky Kisses",
+    "dateTag": "Sep 5 • #0410",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-05T14:00:00.000Z"
+  },
+  {
+    "id": "strip-4",
+    "title": "Golden Hour Glow",
+    "dateTag": "Sep 5 • #0409",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-05T15:00:00.000Z"
+  },
+  {
+    "id": "strip-5",
+    "title": "Besties Forever",
+    "dateTag": "Sep 4 • #0408",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-04T16:00:00.000Z"
+  },
+  {
+    "id": "strip-6",
+    "title": "Date Night Magic",
+    "dateTag": "Sep 4 • #0407",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-04T17:00:00.000Z"
+  },
+  {
+    "id": "strip-7",
+    "title": "Vintage B&W Vibe",
+    "dateTag": "Sep 3 • #0406",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-03T18:00:00.000Z"
+  },
+  {
+    "id": "strip-8",
+    "title": "Double Trouble",
+    "dateTag": "Sep 3 • #0405",
+    "imageUrl": "assets/photostrip.png",
+    "displayTarget": "both",
+    "createdAt": "2026-09-03T19:00:00.000Z"
+  }
+]

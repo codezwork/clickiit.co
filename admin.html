@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLICK IT.CO &bull; Admin Studio Portal &amp; CMS</title>
+  <meta name="description" content="Click It.co Photo Booth Administrator Dashboard, Bookings Management, Calendar Availability, and Photo Strips CMS.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@700;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css?v=3">
+</head>
+<body class="admin-body">
+
+  <!-- =========================================================================
+       1. ADMIN PASSWORD AUTHENTICATION SCREEN
+       ========================================================================= -->
+  <div id="loginScreen" class="login-overlay">
+    <div class="login-box">
+      <div class="login-header">
+        <div class="brand-badge">
+          <span class="pulse-dot"></span>
+          <span>Studio Admin Portal</span>
+        </div>
+        <h1 class="login-title">CLICK IT<span>.CO</span></h1>
+        <p class="login-subtitle">Enter your studio administrator passcode to manage bookings, availability, and photo strips.</p>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="adminPassword">Master Passcode</label>
+          <div class="password-input-wrap">
+            <input 
+              type="password" 
+              id="adminPassword" 
+              class="form-control" 
+              placeholder="••••••••••••" 
+              required 
+              autocomplete="current-password"
+            />
+            <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" title="Show password">👁</button>
+          </div>
+          <span class="input-hint">Default studio key: <code>clickit@admin2026</code></span>
+        </div>
+
+        <div id="loginError" class="login-error" style="display:none;">
+          Invalid passcode. Please try again.
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn-primary login-btn">
+          <span>Access Studio Dashboard</span>
+          <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <a href="index.html" class="back-link">&larr; Back to Click It Public Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. MAIN ADMIN DASHBOARD
+       ========================================================================= -->
+  <div id="adminDashboard" class="admin-app" style="display:none;">
+
+    <!-- Top Navigation Bar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <a href="index.html" class="brand-logo" title="View Public Website">
+          <span class="brand-main">CLICK IT<span class="brand-dot">.CO</span></span>
+          <span class="badge-role">ADMIN CMS</span>
+        </a>
+        <div class="sync-indicator" id="syncStatus">
+          <span class="status-dot online"></span>
+          <span>Live Server Synced</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div class="admin-datetime" id="liveClock">--:--:--</div>
+        <button id="refreshDataBtn" class="btn-icon" title="Refresh all data">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+          </svg>
+          <span>Refresh</span>
+        </button>
+        <a href="index.html" target="_blank" class="btn-ghost" title="Open live website in new tab">
+          <span>View Site ↗</span>
+        </a>
+        <button id="logoutBtn" class="btn-danger-outline" title="Log out">
+          <span>Log Out</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Metrics Summary Header -->
+    <section class="metrics-banner">
+      <div class="metric-card">
+        <div class="metric-icon metric-amber">📋</div>
+        <div class="metric-content">
+          <span class="metric-label">Total Bookings</span>
+          <span class="metric-val" id="metricTotal">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-yellow">⏳</div>
+        <div class="metric-content">
+          <span class="metric-label">Pending Approval</span>
+          <span class="metric-val" id="metricPending">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-green">✅</div>
+        <div class="metric-content">
+          <span class="metric-label">Confirmed Events</span>
+          <span class="metric-val" id="metricConfirmed">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-purple">🎉</div>
+        <div class="metric-content">
+          <span class="metric-label">Completed Events</span>
+          <span class="metric-val" id="metricCompleted">0</span>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon metric-cyan">🎞️</div>
+        <div class="metric-content">
+          <span class="metric-label">CMS Photo Strips</span>
+          <span class="metric-val" id="metricStrips">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Navigation Tabs -->
+    <nav class="admin-nav-tabs">
+      <button class="nav-tab active" data-tab="tab-bookings">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>Bookings</span>
+        <span class="tab-badge" id="pendingTabBadge">0</span>
+      </button>
+
+      <button class="nav-tab" data-tab="tab-calendar">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>Calendar</span>
+      </button>
+
+      <button class="nav-tab" data-tab="tab-cms">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>
+        <span>Strips CMS</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: BOOKINGS MANAGEMENT -->
+    <main id="tab-bookings" class="tab-pane active">
+      <div class="pane-header">
+        <div class="pane-title-group">
+          <h2>Client Inquiries &amp; Bookings</h2>
+          <p>Review customer requests, confirm booked dates, or contact clients directly on WhatsApp.</p>
+        </div>
+
+        <div class="pane-actions">
+          <button id="openManualBookingBtn" class="btn-primary">
+            <span>+ Manual Booking</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters and Search Toolbar -->
+      <div class="table-toolbar">
+        <div class="filter-pills" id="statusFilterPills">
+          <button class="filter-pill active" data-filter="all">All (<span id="filterCountAll">0</span>)</button>
+          <button class="filter-pill" data-filter="pending">Pending (<span id="filterCountPending">0</span>)</button>
+          <button class="filter-pill" data-filter="confirmed">Confirmed (<span id="filterCountConfirmed">0</span>)</button>
+          <button class="filter-pill" data-filter="completed">Completed (<span id="filterCountCompleted">0</span>)</button>
+          <button class="filter-pill" data-filter="blocked">Blocked (<span id="filterCountBlocked">0</span>)</button>
+        </div>
+
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="bookingSearchInput" placeholder="Search by name, WhatsApp, date..." />
+        </div>
+      </div>
+
+      <!-- Bookings List Container -->
+      <div class="bookings-table-wrapper">
+        <table class="bookings-table">
+          <thead>
+            <tr>
+              <th>ID &amp; Date</th>
+              <th>Client Details</th>
+              <th>Event Info</th>
+              <th>Session Plan</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="bookingsTableBody">
+            <!-- Dynamic Rows rendered via admin.js -->
+          </tbody>
+        </table>
+        <div id="bookingsEmptyState" class="empty-state" style="display:none;">
+          <p>No bookings found matching your search/filter criteria.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- TAB 2: CALENDAR & AVAILABILITY -->
+    <div id="tab-calendar" class="tab-pane">
+      <div class="pane-header">
+        <div class="pane-title-group">
+          <h2>Calendar &amp; Date Availability</h2>
+          <p>Dates with confirmed bookings or studio reservations are blocked from new client bookings.</p>
+        </div>
+        <div class="calendar-legend">
+          <span class="legend-item"><span class="legend-dot green"></span> Available</span>
+          <span class="legend-item"><span class="legend-dot red"></span> Confirmed Booked</span>
+          <span class="legend-item"><span class="legend-dot yellow"></span> Pending Request</span>
+          <span class="legend-item"><span class="legend-dot grey"></span> Admin Blocked</span>
+        </div>
+      </div>
+
+      <div class="calendar-layout">
+        <div class="calendar-main-card">
+          <div class="calendar-nav-bar">
+            <button id="prevMonthBtn" class="btn-cal-nav">&larr; Previous</button>
+            <h3 id="currentMonthYearLabel" class="month-title">September 2026</h3>
+            <button id="nextMonthBtn" class="btn-cal-nav">Next &rarr;</button>
+          </div>
+
+          <div class="calendar-grid-header">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendarDaysGrid" class="calendar-days-grid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Selected Date Inspector Sidebar -->
+        <div class="calendar-sidebar-card">
+          <h3 id="selectedDateHeader" class="sidebar-date-title">Select a Date</h3>
+          <div id="selectedDateContent" class="sidebar-date-content">
+            <p class="text-muted">Click any date on the calendar to view scheduled events or quickly block/unblock that date.</p>
+          </div>
+
+          <div class="sidebar-block-actions" id="dateQuickActions" style="display:none;">
+            <button id="quickBlockBtn" class="btn-warning-block">
+              <span>🚫 Block This Entire Date</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: PHOTO STRIPS CMS -->
+    <div id="tab-cms" class="tab-pane">
+      <div class="pane-header">
+        <div class="pane-title-group">
+          <h2>Photo Strips Content Management (CMS)</h2>
+          <p>Self-edit the photo strips displayed on the public website's memory wall and clothesline gallery.</p>
+        </div>
+      </div>
+
+      <div class="cms-layout">
+        <!-- Add New Strip Form -->
+        <div class="cms-add-card">
+          <h3>Add New Photo Strip</h3>
+          <p class="card-desc">Upload a photo strip scan or digital print to publish immediately to the live site.</p>
+
+          <form id="addStripForm">
+            <div class="form-group">
+              <label for="stripTitleInput">Strip Caption / Title</label>
+              <input type="text" id="stripTitleInput" class="form-control" placeholder="e.g. Wedding Magic, Birthday Shenanigans" required />
+            </div>
+
+            <div class="form-group">
+              <label for="stripTagInput">Date &amp; Code Tag</label>
+              <input type="text" id="stripTagInput" class="form-control" placeholder="e.g. Sep 12 • #0425" />
+            </div>
+
+            <div class="form-group">
+              <label for="stripTargetSelect">Display Placement</label>
+              <select id="stripTargetSelect" class="form-control">
+                <option value="both">Both (Clothesline Gallery &amp; Wall Board)</option>
+                <option value="clothesline">Clothesline Gallery Only</option>
+                <option value="board">Scrapbook Wall Board Only</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Photo Strip Image</label>
+              <div class="upload-dropzone" id="stripDropzone">
+                <input type="file" id="stripFileInput" accept="image/*" class="file-hidden" />
+                <div class="dropzone-prompt" id="dropzonePrompt">
+                  <span class="upload-icon">📷</span>
+                  <span class="upload-main-text">Click or drag image file here</span>
+                  <span class="upload-sub-text">PNG, JPG, WebP (Vertical photo strip)</span>
+                </div>
+                <div class="dropzone-preview" id="dropzonePreview" style="display:none;">
+                  <img id="previewImageTag" src="" alt="Strip preview" />
+                  <button type="button" id="removePreviewBtn" class="remove-preview-btn">&times;</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="stripUrlInput">Or use Image URL / Existing Asset</label>
+              <input type="text" id="stripUrlInput" class="form-control" placeholder="assets/photostrip.png or https://..." />
+            </div>
+
+            <button type="submit" id="addStripSubmitBtn" class="btn-primary btn-block">
+              <span>Publish Strip to Website</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Current Live Strips Grid -->
+        <div class="cms-list-card">
+          <div class="cms-list-header">
+            <h3>Live Published Strips (<span id="cmsStripCount">0</span>)</h3>
+            <span class="info-note">Click Delete to remove any strip from the public website instantly.</span>
+          </div>
+
+          <div id="cmsStripsGrid" class="cms-strips-grid">
+            <!-- Dynamic Strips List -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       MODAL: MANUAL BOOKING / BLOCK DATE
+       ========================================================================= -->
+  <div class="admin-modal-overlay" id="manualBookingModal" style="display:none;">
+    <div class="admin-modal-box">
+      <div class="modal-header">
+        <h3 id="manualModalTitle">Add Manual / Offline Booking</h3>
+        <button class="modal-close" id="closeManualModalBtn">&times;</button>
+      </div>
+
+      <form id="manualBookingForm" class="modal-body-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="manualName">Client / Event Name *</label>
+            <input type="text" id="manualName" class="form-control" placeholder="e.g. Meera & Rohan Wedding" required />
+          </div>
+          <div class="form-group">
+            <label for="manualWhatsapp">WhatsApp Number</label>
+            <input type="tel" id="manualWhatsapp" class="form-control" placeholder="+91 97670 74984" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="manualDate">Event Date *</label>
+            <input type="date" id="manualDate" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="manualTime">Event Start Time</label>
+            <input type="time" id="manualTime" class="form-control" value="18:00" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="manualType">Event Type</label>
+            <select id="manualType" class="form-control">
+              <option value="Wedding / Reception">Wedding / Reception</option>
+              <option value="Birthday / Anniversary">Birthday / Anniversary</option>
+              <option value="Brand Event / Corporate">Brand Event / Corporate</option>
+              <option value="College Fest / Social">College Fest / Social</option>
+              <option value="Private Party">Private Party</option>
+              <option value="Admin Blocked / Studio Maintenance">Admin Blocked / Studio Maintenance</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="manualPlan">Session Plan</label>
+            <select id="manualPlan" class="form-control">
+              <option value="2 Hours">2 Hours Session</option>
+              <option value="4 Hours" selected>4 Hours Session</option>
+              <option value="6 Hours">6 Hours Session</option>
+              <option value="Full Day">Full Day / Unlimited</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="manualAddress">Venue Location / Address</label>
+          <input type="text" id="manualAddress" class="form-control" placeholder="e.g. Hotel Centre Point, Ramdaspeth, Nagpur" />
+        </div>
+
+        <div class="form-group">
+          <label for="manualNotes">Internal Studio Notes</label>
+          <textarea id="manualNotes" class="form-control" rows="2" placeholder="Custom photo strip border, backdrop preference, etc."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="manualStatus">Initial Status</label>
+          <select id="manualStatus" class="form-control">
+            <option value="confirmed" selected>Confirmed (Blocks date on calendar)</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed Event</option>
+            <option value="blocked">Studio Blocked / Unavailable</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="cancelManualModalBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Save Booking &amp; Update Calendar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="adminToast" class="admin-toast" style="display:none;"></div>
+
+  <!-- Admin Controller Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

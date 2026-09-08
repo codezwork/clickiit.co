@@ -1,0 +1,10 @@
+{
+  "name": "clickit2.0",
+  "version": "1.0.0",
+  "description": "Clickit 2.0 Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}
