@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CLICKIIT.CO | Archival Photo Booth & Instant Print Experiences</title>
-  <meta name="description" content="Clickiit.co — High-end archival photo booth kiosks, nostalgic gelatin-silver prints, tactile memory scrapbook, and luxury event activations.">
-  
+  <meta name="description"
+    content="Clickiit.co — High-end archival photo booth kiosks, nostalgic gelatin-silver prints, tactile memory scrapbook, and luxury event activations.">
+
   <!-- Editorial Typography from Dark-Themed Landing Page: Barlow, Barlow Condensed, Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@700;900&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
   <!-- Design System Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=13">
+  <link rel="stylesheet" href="style.css?v=14">
 </head>
+
 <body>
 
   <!-- Shutter Camera Flash Overlay Effect -->
@@ -21,7 +26,8 @@
 
   <!-- Announcement Bar (Editorial Minimalist Header) -->
   <div class="announcement-bar">
-    <span>STUDIO EXPERIENCES &bull; PRIVATE EVENT ACTIVATIONS <span class="accent">✦</span> INSTANT ARCHIVAL PHOTO STRIPS <span class="accent">✦</span> LEVEL 2, ETERNITY MALL</span>
+    <span>STUDIO EXPERIENCES &bull; PRIVATE EVENT ACTIVATIONS <span class="accent">✦</span> INSTANT ARCHIVAL PHOTO
+      STRIPS <span class="accent">✦</span> LEVEL 2, ETERNITY MALL</span>
   </div>
 
   <!-- Top Navigation Header -->
@@ -41,12 +47,15 @@
 
       <div class="header-actions">
         <!-- Mechanical Sound Toggle -->
-        <button id="soundToggleBtn" class="sound-toggle-btn" type="button" aria-label="Toggle shutter audio" title="Toggle camera shutter sound">
-          <svg class="icon-unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <button id="soundToggleBtn" class="sound-toggle-btn" type="button" aria-label="Toggle shutter audio"
+          title="Toggle camera shutter sound">
+          <svg class="icon-unmuted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           </svg>
-          <svg class="icon-muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="icon-muted" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <line x1="23" y1="9" x2="17" y2="15"></line>
             <line x1="17" y1="9" x2="23" y2="15"></line>
@@ -82,30 +91,30 @@
   <main>
     <!-- HERO STAGE SECTION: DARK THEME SPACIOUS LAYOUT WITH PHOTO BOOTH CAMERA -->
     <section class="hero-stage-section" id="booth-experience">
-      
+
       <!-- Giant Brand Type — Background Layer -->
       <div class="hero-giant-backdrop" aria-hidden="true">
         <span>CLICKIIT.CO</span>
       </div>
 
-      <!-- Centered Photo Booth Machine Centerpiece -->
+      <!-- Centered Photo Booth Camera Shutter Centerpiece -->
       <div class="hero-camera-centerpiece" id="heroBoothWrapper">
         <div class="hero-camera-inner">
-          <img 
-            src="assets/photobooth_machine.png" 
-            alt="Clickiit.co Photo Booth Machine Kiosk" 
-            class="hero-machine-img"
-            id="heroBoothMachine"
-            title="Click photo booth to snap camera shutter!"
-          />
+          <div class="hero-shutter-display" id="heroShutterDisplay" role="button" tabindex="0" title="Click camera to snap shutter!" aria-label="Snap camera shutter">
+            <img src="assets/camerashutter-out.png" alt="CLICKIIT.CO Camera Shutter - Ready" class="hero-shutter-img shutter-out-layer" id="heroShutterOut" />
+            <img src="assets/camerashutter-in.png" alt="CLICKIIT.CO Camera Shutter - Open" class="hero-shutter-img shutter-in-layer" id="heroShutterIn" />
+            <div class="shutter-lens-flash" aria-hidden="true"></div>
+          </div>
           <!-- Floating Label Badge -->
-          <div class="hero-floating-badge">Est. 2026</div>
+          <div class="hero-floating-badge">Est. 2025</div>
 
           <!-- Interactive Shutter Snap Floating Beacon -->
-          <button class="booth-shutter-beacon" id="boothInteractiveBeacon" type="button" aria-label="Snap booth shutter">
+          <button class="booth-shutter-beacon" id="boothInteractiveBeacon" type="button"
+            aria-label="Snap booth shutter">
             <span class="beacon-pulse"></span>
             <span class="beacon-icon">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                 <circle cx="12" cy="13" r="4"></circle>
               </svg>
@@ -118,7 +127,7 @@
       <!-- Bottom Copy Block & Generous Empty Spaces -->
       <div class="hero-bottom-copy-block">
         <div class="hero-bottom-inner">
-          
+
           <!-- Left Column: Kicker, Big Heading, Subtitle -->
           <div class="hero-copy-left">
             <p class="hero-kicker-text">Premium Event Photo Booths</p>
@@ -160,10 +169,14 @@
     <!-- HIGH-CONTRAST MARQUEE TICKER (Matching Dark Theme Ticker) -->
     <div class="ticker-ribbon-bar">
       <div class="ticker-track">
-        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT ARCHIVAL PRINTS ✦&nbsp;</span>
-        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT ARCHIVAL PRINTS ✦&nbsp;</span>
-        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT ARCHIVAL PRINTS ✦&nbsp;</span>
-        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT ARCHIVAL PRINTS ✦&nbsp;</span>
+        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT
+          ARCHIVAL PRINTS ✦&nbsp;</span>
+        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT
+          ARCHIVAL PRINTS ✦&nbsp;</span>
+        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT
+          ARCHIVAL PRINTS ✦&nbsp;</span>
+        <span class="ticker-item">CLICKIIT.CO ✦ PHOTO BOOTHS ✦ WEDDINGS ✦ CORPORATE ✦ GALAS ✦ BIRTHDAYS ✦ INSTANT
+          ARCHIVAL PRINTS ✦&nbsp;</span>
       </div>
     </div>
 
@@ -173,7 +186,8 @@
         <div class="section-header-block">
           <span class="section-kicker-pill"><span class="pill-star">✦</span> THE THREE-STEP FLOW</span>
           <h2 class="section-title">Developing Your <em>Memories</em></h2>
-          <p class="section-description">Crafted for spontaneous laughter, warm nostalgic looks, and instant tangible keepsakes you keep forever.</p>
+          <p class="section-description">Crafted for spontaneous laughter, warm nostalgic looks, and instant tangible
+            keepsakes you keep forever.</p>
         </div>
 
         <div class="steps-cards-grid">
@@ -190,7 +204,8 @@
             </div>
             <div class="step-card-body">
               <h3>Step In &amp; Pose</h3>
-              <p>Studio ring illumination, multi-pose countdown timer, and 4 high-definition burst frames with vintage warm filters.</p>
+              <p>Studio ring illumination, multi-pose countdown timer, and 4 high-definition burst frames with vintage
+                warm filters.</p>
             </div>
             <div class="step-card-footer">
               <span>Click It &bull; Action</span>
@@ -211,7 +226,8 @@
             </div>
             <div class="step-card-body">
               <h3>Instant Lab Prints</h3>
-              <p>Smudge-proof archival dye-sublimation thermal printouts ready in 12 seconds with timeless glossy finish.</p>
+              <p>Smudge-proof archival dye-sublimation thermal printouts ready in 12 seconds with timeless glossy
+                finish.</p>
             </div>
             <div class="step-card-footer">
               <span>Keep It &bull; Archival</span>
@@ -224,13 +240,15 @@
               <span class="step-number">03</span>
               <div class="step-icon-wrap">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                  <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
               </div>
             </div>
             <div class="step-card-body">
               <h3>Pin &amp; Scan QR</h3>
-              <p>Clip your strip to our physical community clothesline scrapbook or scan the strip's QR code for instant mobile downloads.</p>
+              <p>Clip your strip to our physical community clothesline scrapbook or scan the strip's QR code for instant
+                mobile downloads.</p>
             </div>
             <div class="step-card-footer">
               <span>Love It &bull; Digital &amp; Tangible</span>
@@ -247,7 +265,8 @@
           <div>
             <span class="section-kicker-pill dark-kicker"><span class="pill-star">✦</span> COMMUNITY PINBOARD</span>
             <h2 class="section-title title-inverse">The Living <em>Scrapbook</em></h2>
-            <p class="section-description desc-inverse">Every capture writes an authentic memory. Browse recent physical photo strips captured at Clickiit.co.</p>
+            <p class="section-description desc-inverse">Every capture writes an authentic memory. Browse recent physical
+              photo strips captured at Clickiit.co.</p>
           </div>
           <a href="#booking" class="btn-primary" style="background:#FFFFFF; color:#111112; border-color:#FFFFFF;">
             <span>Create Your Strip</span>
@@ -261,316 +280,472 @@
             <div class="marquee-scroll-track scroll-left">
               <div class="moving-rope-line"></div>
               <div class="marquee-strip-group">
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_01.png" data-title="Archive Strip #01">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_01.png"
+                  data-title="Archive Strip #01">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_01.png" alt="Photo strip #01" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_02.png" data-title="Archive Strip #02">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_02.png"
+                  data-title="Archive Strip #02">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_02.png" alt="Photo strip #02" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_03.png" data-title="Archive Strip #03">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_03.png"
+                  data-title="Archive Strip #03">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_03.png" alt="Photo strip #03" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_04.png" data-title="Archive Strip #04">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_04.png"
+                  data-title="Archive Strip #04">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_04.png" alt="Photo strip #04" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_05.png" data-title="Archive Strip #05">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_05.png"
+                  data-title="Archive Strip #05">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_05.png" alt="Photo strip #05" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_06.png" data-title="Archive Strip #06">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_06.png"
+                  data-title="Archive Strip #06">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_06.png" alt="Photo strip #06" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_07.png" data-title="Archive Strip #07">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_07.png"
+                  data-title="Archive Strip #07">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_07.png" alt="Photo strip #07" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_08.png" data-title="Archive Strip #08">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_08.png"
+                  data-title="Archive Strip #08">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_08.png" alt="Photo strip #08" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_09.png" data-title="Archive Strip #09">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_09.png"
+                  data-title="Archive Strip #09">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_09.png" alt="Photo strip #09" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_10.png" data-title="Archive Strip #10">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_10.png"
+                  data-title="Archive Strip #10">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_10.png" alt="Photo strip #10" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_11.png" data-title="Archive Strip #11">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_11.png"
+                  data-title="Archive Strip #11">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_11.png" alt="Photo strip #11" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_12.png" data-title="Archive Strip #12">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_12.png"
+                  data-title="Archive Strip #12">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_12.png" alt="Photo strip #12" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_13.png" data-title="Archive Strip #13">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_13.png"
+                  data-title="Archive Strip #13">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_13.png" alt="Photo strip #13" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_14.png" data-title="Archive Strip #14">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_14.png"
+                  data-title="Archive Strip #14">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_14.png" alt="Photo strip #14" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_15.png" data-title="Archive Strip #15">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_15.png"
+                  data-title="Archive Strip #15">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_15.png" alt="Photo strip #15" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_16.png" data-title="Archive Strip #16">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_16.png"
+                  data-title="Archive Strip #16">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_16.png" alt="Photo strip #16" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_17.png" data-title="Archive Strip #17">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_17.png"
+                  data-title="Archive Strip #17">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_17.png" alt="Photo strip #17" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_18.png" data-title="Archive Strip #18">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_18.png"
+                  data-title="Archive Strip #18">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_18.png" alt="Photo strip #18" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_19.png" data-title="Archive Strip #19">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_19.png"
+                  data-title="Archive Strip #19">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_19.png" alt="Photo strip #19" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_20.png" data-title="Archive Strip #20">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_20.png"
+                  data-title="Archive Strip #20">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_20.png" alt="Photo strip #20" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_21.png" data-title="Archive Strip #21">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_21.png"
+                  data-title="Archive Strip #21">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_21.png" alt="Photo strip #21" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_22.png" data-title="Archive Strip #22">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_22.png"
+                  data-title="Archive Strip #22">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_22.png" alt="Photo strip #22" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_23.png" data-title="Archive Strip #23">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_23.png"
+                  data-title="Archive Strip #23">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_23.png" alt="Photo strip #23" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_24.png" data-title="Archive Strip #24">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_24.png"
+                  data-title="Archive Strip #24">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_24.png" alt="Photo strip #24" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_25.png" data-title="Archive Strip #25">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_25.png"
+                  data-title="Archive Strip #25">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_25.png" alt="Photo strip #25" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_26.png" data-title="Archive Strip #26">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_26.png"
+                  data-title="Archive Strip #26">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_26.png" alt="Photo strip #26" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
               </div>
               <div class="marquee-strip-group" aria-hidden="true">
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_01.png" data-title="Archive Strip #01">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_01.png"
+                  data-title="Archive Strip #01">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_01.png" alt="Photo strip #01" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_02.png" data-title="Archive Strip #02">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_02.png"
+                  data-title="Archive Strip #02">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_02.png" alt="Photo strip #02" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_03.png" data-title="Archive Strip #03">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_03.png"
+                  data-title="Archive Strip #03">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_03.png" alt="Photo strip #03" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_04.png" data-title="Archive Strip #04">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_04.png"
+                  data-title="Archive Strip #04">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_04.png" alt="Photo strip #04" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_05.png" data-title="Archive Strip #05">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_05.png"
+                  data-title="Archive Strip #05">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_05.png" alt="Photo strip #05" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_06.png" data-title="Archive Strip #06">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_06.png"
+                  data-title="Archive Strip #06">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_06.png" alt="Photo strip #06" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_07.png" data-title="Archive Strip #07">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_07.png"
+                  data-title="Archive Strip #07">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_07.png" alt="Photo strip #07" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_08.png" data-title="Archive Strip #08">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_08.png"
+                  data-title="Archive Strip #08">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_08.png" alt="Photo strip #08" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_09.png" data-title="Archive Strip #09">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_09.png"
+                  data-title="Archive Strip #09">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_09.png" alt="Photo strip #09" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_10.png" data-title="Archive Strip #10">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_10.png"
+                  data-title="Archive Strip #10">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_10.png" alt="Photo strip #10" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_11.png" data-title="Archive Strip #11">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_11.png"
+                  data-title="Archive Strip #11">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_11.png" alt="Photo strip #11" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_12.png" data-title="Archive Strip #12">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_12.png"
+                  data-title="Archive Strip #12">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_12.png" alt="Photo strip #12" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_13.png" data-title="Archive Strip #13">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_13.png"
+                  data-title="Archive Strip #13">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_13.png" alt="Photo strip #13" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_14.png" data-title="Archive Strip #14">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_14.png"
+                  data-title="Archive Strip #14">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_14.png" alt="Photo strip #14" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_15.png" data-title="Archive Strip #15">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_15.png"
+                  data-title="Archive Strip #15">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_15.png" alt="Photo strip #15" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_16.png" data-title="Archive Strip #16">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_16.png"
+                  data-title="Archive Strip #16">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_16.png" alt="Photo strip #16" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_17.png" data-title="Archive Strip #17">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_17.png"
+                  data-title="Archive Strip #17">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_17.png" alt="Photo strip #17" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_18.png" data-title="Archive Strip #18">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n3" data-src="assets/Strips/strip_18.png"
+                  data-title="Archive Strip #18">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_18.png" alt="Photo strip #18" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_19.png" data-title="Archive Strip #19">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_19.png"
+                  data-title="Archive Strip #19">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_19.png" alt="Photo strip #19" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_20.png" data-title="Archive Strip #20">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_20.png"
+                  data-title="Archive Strip #20">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_20.png" alt="Photo strip #20" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_21.png" data-title="Archive Strip #21">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_21.png"
+                  data-title="Archive Strip #21">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_21.png" alt="Photo strip #21" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_22.png" data-title="Archive Strip #22">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n1" data-src="assets/Strips/strip_22.png"
+                  data-title="Archive Strip #22">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_22.png" alt="Photo strip #22" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_23.png" data-title="Archive Strip #23">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p2" data-src="assets/Strips/strip_23.png"
+                  data-title="Archive Strip #23">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_23.png" alt="Photo strip #23" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_24.png" data-title="Archive Strip #24">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p3" data-src="assets/Strips/strip_24.png"
+                  data-title="Archive Strip #24">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_24.png" alt="Photo strip #24" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_25.png" data-title="Archive Strip #25">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-n2" data-src="assets/Strips/strip_25.png"
+                  data-title="Archive Strip #25">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_25.png" alt="Photo strip #25" class="mini-strip-img" loading="lazy" />
                   </div>
                 </div>
-                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_26.png" data-title="Archive Strip #26">
-                  <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+                <div class="hanging-strip-card tilt-p1" data-src="assets/Strips/strip_26.png"
+                  data-title="Archive Strip #26">
+                  <div class="wooden-clothespin">
+                    <div class="peg-clip"></div>
+                  </div>
                   <div class="mini-strip-surface">
                     <img src="assets/Strips/strip_26.png" alt="Photo strip #26" class="mini-strip-img" loading="lazy" />
                   </div>
@@ -589,7 +764,8 @@
         <div class="section-header-block">
           <span class="section-kicker-pill"><span class="pill-star">✦</span> SESSION PACKAGES</span>
           <h2 class="section-title">Elevate Your <em>Celebration</em></h2>
-          <p class="section-description">Choose between our dedicated Strip Print Count packages or Unlimited Hourly time packages for your private celebration.</p>
+          <p class="section-description">Choose between our dedicated Strip Print Count packages or Unlimited Hourly
+            time packages for your private celebration.</p>
         </div>
 
         <!-- Package Category Tab Switcher -->
@@ -620,7 +796,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips" data-plan="150 Prints (₹12,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="150 Prints (₹12,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -640,7 +817,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips" data-plan="200 Prints (₹15,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="200 Prints (₹15,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -659,7 +837,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips" data-plan="300 Prints (₹20,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="300 Prints (₹20,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -678,7 +857,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips" data-plan="500 Prints (₹30,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="500 Prints (₹30,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -702,7 +882,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time" data-plan="3 Hours Unlimited (₹14,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="3 Hours Unlimited (₹14,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -722,7 +903,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time" data-plan="4 Hours Unlimited (₹16,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="4 Hours Unlimited (₹16,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -741,7 +923,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time" data-plan="5 Hours Unlimited (₹20,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="5 Hours Unlimited (₹20,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -760,7 +943,8 @@
                 <li>Customized photo template design</li>
                 <li>Friendly on-site booth attendant</li>
               </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time" data-plan="8 Hours Unlimited (₹32,000)">
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="8 Hours Unlimited (₹32,000)">
                 <span>Reserve Package</span>
                 <span class="btn-arrow">↗</span>
               </a>
@@ -787,27 +971,49 @@
       <div class="container">
         <div class="editorial-guide-card">
           <h2 class="editorial-guide-title">Designed for <em>Aesthetic Keepsakes</em></h2>
-          <p class="editorial-lead">Archival instant prints, authentic tactile memories, and modern studio engineering.</p>
+          <p class="editorial-lead">Archival instant prints, authentic tactile memories, and modern studio engineering.
+          </p>
 
           <div class="editorial-grid-qa">
             <div class="qa-card">
-              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg> Instant Lab Thermal Prints</h3>
-              <p class="qa-answer">Prints in 12 seconds with smudge-proof archival dye-sublimation in retro B&amp;W or clean grayscale tone.</p>
+              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg> Instant Lab Thermal Prints</h3>
+              <p class="qa-answer">Prints in 12 seconds with smudge-proof archival dye-sublimation in retro B&amp;W or
+                clean grayscale tone.</p>
             </div>
 
             <div class="qa-card">
-              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="17" x2="12" y2="22"></line><path d="M5 17h14v-2l-2-2V5h1V2H6v3h1v8l-2 2v2z"></path></svg> Physical Memory Scrapbook</h3>
-              <p class="qa-answer">Pin your strip to the memory wall with steel clips, washi tape, and authentic handwritten notes.</p>
+              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="17" x2="12" y2="22"></line>
+                  <path d="M5 17h14v-2l-2-2V5h1V2H6v3h1v8l-2 2v2z"></path>
+                </svg> Physical Memory Scrapbook</h3>
+              <p class="qa-answer">Pin your strip to the memory wall with steel clips, washi tape, and authentic
+                handwritten notes.</p>
             </div>
 
             <div class="qa-card">
-              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg> High-Res QR Downloads</h3>
-              <p class="qa-answer">Scan the QR code printed directly on the strip margin for instant high-definition digital downloads on your phone.</p>
+              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg> High-Res QR Downloads</h3>
+              <p class="qa-answer">Scan the QR code printed directly on the strip margin for instant high-definition
+                digital downloads on your phone.</p>
             </div>
 
             <div class="qa-card">
-              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Events, Pop-ups &amp; Weddings</h3>
-              <p class="qa-answer">Bring Clickiit.co to your celebration with custom print graphics, full props kit, and signature feature backdrop.</p>
+              <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                  </polygon>
+                </svg> Events, Pop-ups &amp; Weddings</h3>
+              <p class="qa-answer">Bring Clickiit.co to your celebration with custom print graphics, full props kit, and
+                signature feature backdrop.</p>
             </div>
           </div>
         </div>
@@ -822,7 +1028,7 @@
             <span class="pill-badge">✦ PERMANENT BOOTH LOCATION</span>
             <h2 class="location-title">Clickiit.co Photo Booth Kiosk</h2>
             <p class="location-address">Level 2, Eternity Mall, Variety Square, Nagpur</p>
-            
+
             <div class="location-meta-grid">
               <div class="meta-item">
                 <span class="meta-label">Operating Hours</span>
@@ -835,7 +1041,8 @@
             </div>
 
             <div class="loc-buttons">
-              <button class="btn-primary" type="button" onclick="alert('Opening navigation to Clickiit.co at Eternity Mall, Level 2, Nagpur!')">
+              <button class="btn-primary" type="button"
+                onclick="alert('Opening navigation to Clickiit.co at Eternity Mall, Level 2, Nagpur!')">
                 <span>Get Directions</span>
                 <span class="btn-arrow">↗</span>
               </button>
@@ -844,7 +1051,8 @@
 
           <div class="location-visual">
             <div class="booth-kiosk-preview">
-              <img src="assets/booth-reference.jpg" alt="Clickiit.co Photo Booth Kiosk at Eternity Mall" class="ref-kiosk-img" />
+              <img src="assets/booth-reference.jpg" alt="Clickiit.co Photo Booth Kiosk at Eternity Mall"
+                class="ref-kiosk-img" />
             </div>
           </div>
         </div>
@@ -861,7 +1069,8 @@
               <span>LIVE AVAILABILITY &amp; EVENT RESERVATIONS</span>
             </div>
             <h2 class="booking-main-title">Reserve Clickiit.co for Your <em>Special Date</em></h2>
-            <p class="booking-sub-title">Verify real-time date availability, customize your celebration package, and confirm your slot instantly.</p>
+            <p class="booking-sub-title">Verify real-time date availability, customize your celebration package, and
+              confirm your slot instantly.</p>
           </div>
 
           <form id="publicBookingForm" class="booking-experience-form">
@@ -874,7 +1083,8 @@
               <div class="form-grid-2">
                 <div class="field-group">
                   <label for="clientName">Full Name *</label>
-                  <input type="text" id="clientName" class="portal-input" placeholder="e.g. Priya Sharma / Aarav Patel" required />
+                  <input type="text" id="clientName" class="portal-input" placeholder="e.g. Priya Sharma / Aarav Patel"
+                    required />
                 </div>
                 <div class="field-group">
                   <label for="clientWhatsapp">WhatsApp Phone Number *</label>
@@ -884,7 +1094,8 @@
               </div>
               <div class="field-group full-width">
                 <label for="clientAddress">Event Venue Address / Location *</label>
-                <input type="text" id="clientAddress" class="portal-input" placeholder="e.g. Hotel Centre Point, Ramdaspeth, Nagpur" required />
+                <input type="text" id="clientAddress" class="portal-input"
+                  placeholder="e.g. Hotel Centre Point, Ramdaspeth, Nagpur" required />
               </div>
             </div>
 
@@ -900,7 +1111,8 @@
                 <label for="mobileEventTypeSelect" class="mobile-picker-label">Choose Celebration Type</label>
                 <div class="mobile-select-custom-box">
                   <select id="mobileEventTypeSelect" class="portal-input mobile-picker-select">
-                    <option value="Wedding / Reception" selected>Wedding / Reception &bull; Couple prints & album</option>
+                    <option value="Wedding / Reception" selected>Wedding / Reception &bull; Couple prints & album
+                    </option>
                     <option value="Birthday / Anniversary">Birthday / Anniversary &bull; Party props & frames</option>
                     <option value="Brand Event / Corporate">Brand Event &bull; Logo branding & QR airdrop</option>
                     <option value="College Fest / Farewell">College Fest &bull; High-capacity rapid prints</option>
@@ -915,7 +1127,8 @@
                   <input type="radio" name="eventTypeRadio" value="Wedding / Reception" checked />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="14" r="7"></circle>
                         <path d="M12 7l-2-4h4l-2 4z"></path>
                         <path d="M10 3h4"></path>
@@ -930,7 +1143,8 @@
                   <input type="radio" name="eventTypeRadio" value="Birthday / Anniversary" />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"></path>
                         <path d="M4 16s2-1 4-1 4 1 4 1 2-1 4-1 4 1 4 1"></path>
                         <path d="M2 21h20"></path>
@@ -947,7 +1161,8 @@
                   <input type="radio" name="eventTypeRadio" value="Brand Event / Corporate" />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="4" y="2" width="16" height="20" rx="1"></rect>
                         <line x1="9" y1="6" x2="9" y2="6.01"></line>
                         <line x1="15" y1="6" x2="15" y2="6.01"></line>
@@ -967,7 +1182,8 @@
                   <input type="radio" name="eventTypeRadio" value="College Fest / Farewell" />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M22 10v6"></path>
                         <path d="M2 10l10-5 10 5-10 5z"></path>
                         <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"></path>
@@ -982,8 +1198,11 @@
                   <input type="radio" name="eventTypeRadio" value="Private Party" />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"></path>
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                          d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z">
+                        </path>
                         <path d="M5 3v3"></path>
                         <path d="M19 18v3"></path>
                         <path d="M3.5 4.5h3"></path>
@@ -1195,7 +1414,8 @@
               <!-- Real-time Availability Alert Banner -->
               <div id="availabilityBanner" class="availability-banner status-prompt">
                 <div class="avail-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                     <line x1="16" y1="2" x2="16" y2="6"></line>
                     <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -1204,7 +1424,8 @@
                 </div>
                 <div class="avail-text">
                   <div class="avail-status-heading">Select an event date above</div>
-                  <p class="avail-status-sub">We'll instantly verify availability against our studio bookings calendar.</p>
+                  <p class="avail-status-sub">We'll instantly verify availability against our studio bookings calendar.
+                  </p>
                 </div>
               </div>
             </div>
@@ -1213,7 +1434,8 @@
             <div class="booking-form-section">
               <div class="field-group full-width">
                 <label for="clientNotes">Special Requests / Preferences (Optional)</label>
-                <textarea id="clientNotes" class="portal-input textarea-notes" rows="2" placeholder="Tell us about custom color palettes, backdrop choices, or personalized monogram text..."></textarea>
+                <textarea id="clientNotes" class="portal-input textarea-notes" rows="2"
+                  placeholder="Tell us about custom color palettes, backdrop choices, or personalized monogram text..."></textarea>
               </div>
 
               <div class="booking-submit-row">
@@ -1224,7 +1446,8 @@
 
                 <button type="button" id="instantWhatsappBtn" class="btn-whatsapp-direct">
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.026-.062-.239-.082-.53-.207-.866-.358-.809-.364-1.533-1.077-1.923-1.492-.125-.133-.591-.786-.591-1.499 0-.713.373-1.064.506-1.209.133-.145.292-.181.389-.181.097 0 .194.001.278.006.09.005.21-.034.327.248.125.298.423 1.035.46 1.111.037.075.062.164.013.262-.05.099-.074.16-.148.247-.074.086-.156.193-.223.259-.075.074-.153.155-.066.305.087.15.387.639.83 1.034.57.508 1.05.665 1.2.739.15.075.238.063.326-.038.088-.101.376-.438.476-.588.1-.151.2-.126.338-.075.138.05.877.413 1.028.489.15.075.25.113.287.176.038.063.038.365-.106.77z"/>
+                    <path
+                      d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.026-.062-.239-.082-.53-.207-.866-.358-.809-.364-1.533-1.077-1.923-1.492-.125-.133-.591-.786-.591-1.499 0-.713.373-1.064.506-1.209.133-.145.292-.181.389-.181.097 0 .194.001.278.006.09.005.21-.034.327.248.125.298.423 1.035.46 1.111.037.075.062.164.013.262-.05.099-.074.16-.148.247-.074.086-.156.193-.223.259-.075.074-.153.155-.066.305.087.15.387.639.83 1.034.57.508 1.05.665 1.2.739.15.075.238.063.326-.038.088-.101.376-.438.476-.588.1-.151.2-.126.338-.075.138.05.877.413 1.028.489.15.075.25.113.287.176.038.063.038.365-.106.77z" />
                   </svg>
                   <span>Chat on WhatsApp</span>
                 </button>
@@ -1263,7 +1486,13 @@
           <li>+91 97670 74984</li>
           <li>Instagram: @clickiit.co.photobooth</li>
           <li>Daily: 10 AM &ndash; 10:30 PM</li>
-          <li><a href="admin.html" target="_blank" class="admin-footer-link" style="color: var(--accent-bronze); font-size: 0.8125rem; display: inline-flex; align-items: center; gap: 5px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Studio Admin Portal ↗</a></li>
+          <li><a href="admin.html" target="_blank" class="admin-footer-link"
+              style="color: var(--accent-bronze); font-size: 0.8125rem; display: inline-flex; align-items: center; gap: 5px;"><svg
+                viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg> Studio Admin Portal ↗</a></li>
         </ul>
       </div>
     </div>
@@ -1274,23 +1503,20 @@
     <div class="lightbox-backdrop" id="modalBackdrop"></div>
     <div class="lightbox-dialog">
       <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">&times;</button>
-      
+
       <div class="modal-content-grid">
         <div class="modal-strip-showcase">
           <div class="modal-strip-frame">
-            <img 
-              src="assets/photostrip.png" 
-              alt="Full resolution couple photostrip" 
-              class="modal-strip-image" 
-            />
+            <img src="assets/photostrip.png" alt="Full resolution couple photostrip" class="modal-strip-image" />
           </div>
         </div>
 
         <div class="modal-strip-info">
           <span class="modal-kicker">✦ INSTANT RETRO PRINT</span>
           <h3 class="modal-title">Classic 4-Pose Black &amp; White Strip</h3>
-          <p class="modal-desc">Authentic gelatin-silver tone look with high-definition clarity, captured inside the Clickiit.co booth.</p>
-          
+          <p class="modal-desc">Authentic gelatin-silver tone look with high-definition clarity, captured inside the
+            Clickiit.co booth.</p>
+
           <div class="strip-specs-list">
             <div class="spec-row">
               <span class="spec-label">Print Dimensions:</span>
@@ -1316,7 +1542,12 @@
               <span class="btn-arrow">↗</span>
             </a>
             <button class="btn-secondary" id="modalShutterTrigger" type="button">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:-2px; margin-right:5px;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="display:inline-block; vertical-align:-2px; margin-right:5px;">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
               <span>Trigger Booth Flash</span>
             </button>
           </div>
@@ -1331,12 +1562,17 @@
     <div class="success-dialog-card">
       <button class="modal-close-btn" id="closeSuccessModalTopBtn" aria-label="Close modal">&times;</button>
       <div class="success-icon-badge">
-        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
       </div>
       <span class="success-kicker">DATE INQUIRY RECEIVED</span>
       <h3 class="success-title">Your Photo Booth is Reserved!</h3>
-      <p class="success-desc">Thank you! We have logged your celebration details. Our Clickiit.co coordinator will review and confirm your slot.</p>
-      
+      <p class="success-desc">Thank you! We have logged your celebration details. Our Clickiit.co coordinator will
+        review and confirm your slot.</p>
+
       <div class="booking-receipt-box">
         <div class="receipt-row">
           <span class="r-label">Booking ID:</span>
@@ -1365,8 +1601,12 @@
       </div>
 
       <div class="success-actions-row">
-        <a href="#" id="receiptWhatsappLink" target="_blank" class="btn-primary btn-success-wa" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.026-.062-.239-.082-.53-.207-.866-.358-.809-.364-1.533-1.077-1.923-1.492-.125-.133-.591-.786-.591-1.499 0-.713.373-1.064.506-1.209.133-.145.292-.181.389-.181.097 0 .194.001.278.006.09.005.21-.034.327.248.125.298.423 1.035.46 1.111.037.075.062.164.013.262-.05.099-.074.16-.148.247-.074.086-.156.193-.223.259-.075.074-.153.155-.066.305.087.15.387.639.83 1.034.57.508 1.05.665 1.2.739.15.075.238.063.326-.038.088-.101.376-.438.476-.588.1-.151.2-.126.338-.075.138.05.877.413 1.028.489.15.075.25.113.287.176.038.063.038.365-.106.77z"/></svg>
+        <a href="#" id="receiptWhatsappLink" target="_blank" class="btn-primary btn-success-wa"
+          style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path
+              d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.072-1.026-.062-.239-.082-.53-.207-.866-.358-.809-.364-1.533-1.077-1.923-1.492-.125-.133-.591-.786-.591-1.499 0-.713.373-1.064.506-1.209.133-.145.292-.181.389-.181.097 0 .194.001.278.006.09.005.21-.034.327.248.125.298.423 1.035.46 1.111.037.075.062.164.013.262-.05.099-.074.16-.148.247-.074.086-.156.193-.223.259-.075.074-.153.155-.066.305.087.15.387.639.83 1.034.57.508 1.05.665 1.2.739.15.075.238.063.326-.038.088-.101.376-.438.476-.588.1-.151.2-.126.338-.075.138.05.877.413 1.028.489.15.075.25.113.287.176.038.063.038.365-.106.77z" />
+          </svg>
           <span>Chat on WhatsApp to Confirm Instantly</span>
         </a>
         <button type="button" id="closeSuccessModalBtn" class="btn-secondary">
@@ -1377,6 +1617,7 @@
   </div>
 
   <!-- Interactive Logic Controller -->
-  <script src="app.js?v=5"></script>
+  <script src="app.js?v=6"></script>
 </body>
+
 </html>

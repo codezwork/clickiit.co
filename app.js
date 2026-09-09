@@ -56,86 +56,71 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   let audioCtx = null;
   let shutterBuffer = null;
+  let audioUnlocked = false;
 
-  function initAudioContext() {
-    if (!audioCtx) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (AudioContextClass) {
-        audioCtx = new AudioContextClass();
-      }
-    }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume().catch(() => {});
-    }
-  }
-
-  async function preloadShutterAudioBuffer() {
+  async function initAudioEngine() {
     try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioCtx = new AudioContextClass();
+
       const response = await fetch('assets/shutter.wav');
-      const arrayBuffer = await response.arrayBuffer();
-      initAudioContext();
-      if (audioCtx) {
-        audioCtx.decodeAudioData(
-          arrayBuffer,
-          (decoded) => {
-            shutterBuffer = decoded;
-          },
-          (err) => {
-            console.warn('decodeAudioData notice:', err);
-          }
-        );
+      if (response.ok) {
+        const arrayBuffer = await response.arrayBuffer();
+        shutterBuffer = await audioCtx.decodeAudioData(arrayBuffer);
       }
     } catch (e) {
-      console.warn('Audio prefetch notice:', e);
+      console.warn('Audio decoding fallback to synthesized shutter:', e);
     }
   }
+  initAudioEngine();
 
-  preloadShutterAudioBuffer();
-
+  // Unlock AudioContext on earliest user interaction
   function unlockAudioEngine() {
-    initAudioContext();
+    if (audioUnlocked) return;
     if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume().catch(() => {});
+      audioCtx.resume().then(() => {
+        audioUnlocked = true;
+      }).catch(() => {});
+    } else {
+      audioUnlocked = true;
     }
   }
-
-  ['pointerdown', 'click', 'touchstart', 'keydown'].forEach((evtType) => {
-    window.addEventListener(evtType, unlockAudioEngine, { passive: true, once: true });
+  ['click', 'touchstart', 'keydown'].forEach(evt => {
+    window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
   });
 
+  // Synthesized mechanical two-curtain shutter sound
   function playSynthesizedShutter() {
     if (isSoundMuted) return;
-
     try {
-      initAudioContext();
-      if (!audioCtx) return;
-      if (audioCtx.state === 'suspended') {
-        audioCtx.resume().catch(() => {});
-      }
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      if (!audioCtx) audioCtx = new AudioContextClass();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
 
       const now = audioCtx.currentTime;
 
-      // Click 1 (Mirror flip)
+      // Click 1 (First curtain release)
       const osc1 = audioCtx.createOscillator();
       const gain1 = audioCtx.createGain();
       osc1.type = 'triangle';
-      osc1.frequency.setValueAtTime(140, now);
-      osc1.frequency.exponentialRampToValueAtTime(35, now + 0.045);
-      gain1.gain.setValueAtTime(0.7, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+      osc1.frequency.setValueAtTime(320, now);
+      osc1.frequency.exponentialRampToValueAtTime(60, now + 0.07);
+      gain1.gain.setValueAtTime(0.9, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
       osc1.connect(gain1);
       gain1.connect(audioCtx.destination);
       osc1.start(now);
-      osc1.stop(now + 0.05);
+      osc1.stop(now + 0.08);
 
-      // Noise burst (Curtain travel)
-      const bufferSize = audioCtx.sampleRate * 0.08;
+      // Noise Burst (Focal plane curtain friction)
+      const bufferSize = audioCtx.sampleRate * 0.06;
       const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
         output[i] = Math.random() * 2 - 1;
       }
-
       const whiteNoise = audioCtx.createBufferSource();
       whiteNoise.buffer = noiseBuffer;
 
@@ -204,14 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. Camera Shutter Execution & Subtle Flash
+  // 2. Camera Shutter Execution & Subtle Flash with Shutter Blade Animation
   // =========================================================================
   let isShutterAnimating = false;
 
   function executeCameraShutter() {
     playShutterSound();
 
-    // Trigger subtle studio flash effect
+    // Trigger subtle studio flash overlay effect
     if (cameraFlashOverlay) {
       cameraFlashOverlay.classList.add('flash-active');
       setTimeout(() => {
@@ -222,7 +207,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isShutterAnimating) return;
     isShutterAnimating = true;
 
-    if (heroBoothMachine) {
+    if (heroShutterDisplay) {
+      // 1. Tactile recoil mechanical snap
+      heroShutterDisplay.classList.add('shutter-snapping');
+
+      // 2. Shutter blades open (reveal camerashutter-in.png and lens bloom)
+      setTimeout(() => {
+        heroShutterDisplay.classList.add('shutter-open');
+      }, 35);
+
+      // 3. Shutter blades close (snap back to camerashutter-out.png)
+      setTimeout(() => {
+        heroShutterDisplay.classList.remove('shutter-open');
+      }, 260);
+
+      // 4. Reset recoil state
+      setTimeout(() => {
+        heroShutterDisplay.classList.remove('shutter-snapping');
+        isShutterAnimating = false;
+      }, 450);
+    } else if (heroBoothMachine) {
       heroBoothMachine.style.transform = 'scale(0.985)';
       setTimeout(() => {
         heroBoothMachine.style.transform = '';
@@ -233,13 +237,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Bind booth machine triggers
-  if (heroBoothMachine) {
+  // Bind camera shutter display triggers
+  if (heroShutterDisplay) {
+    heroShutterDisplay.addEventListener('click', (e) => {
+      e.stopPropagation();
+      executeCameraShutter();
+    });
+    heroShutterDisplay.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        executeCameraShutter();
+      }
+    });
+  } else if (heroBoothMachine) {
     heroBoothMachine.addEventListener('click', (e) => {
       e.stopPropagation();
       executeCameraShutter();
     });
   }
+
   if (boothInteractiveBeacon) {
     boothInteractiveBeacon.addEventListener('click', (e) => {
       e.stopPropagation();
