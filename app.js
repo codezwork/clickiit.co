@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener(evt, unlockAudioEngine, { once: true, passive: true });
   });
 
-  // Synthesized mechanical two-curtain shutter sound
+  // Synthesized camera lens focus + mechanical two-curtain shutter sound
   function playSynthesizedShutter() {
     if (isSoundMuted) return;
     try {
@@ -101,21 +101,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const now = audioCtx.currentTime;
 
+      // 1. Lens focus motor sound (0s to 0.85s)
+      const motorOsc = audioCtx.createOscillator();
+      const motorGain = audioCtx.createGain();
+      motorOsc.type = 'sawtooth';
+      motorOsc.frequency.setValueAtTime(140, now);
+      motorOsc.frequency.linearRampToValueAtTime(190, now + 0.35);
+      motorOsc.frequency.linearRampToValueAtTime(160, now + 0.7);
+      motorOsc.frequency.linearRampToValueAtTime(120, now + 0.85);
+
+      const motorFilter = audioCtx.createBiquadFilter();
+      motorFilter.type = 'lowpass';
+      motorFilter.frequency.setValueAtTime(650, now);
+
+      motorGain.gain.setValueAtTime(0.04, now);
+      motorGain.gain.linearRampToValueAtTime(0.06, now + 0.35);
+      motorGain.gain.exponentialRampToValueAtTime(0.001, now + 0.88);
+
+      motorOsc.connect(motorFilter);
+      motorFilter.connect(motorGain);
+      motorGain.connect(audioCtx.destination);
+      motorOsc.start(now);
+      motorOsc.stop(now + 0.88);
+
+      // 2. Mechanical Shutter Snap at 0.95s
+      const snapTime = now + 0.95;
+
       // Click 1 (First curtain release)
       const osc1 = audioCtx.createOscillator();
       const gain1 = audioCtx.createGain();
       osc1.type = 'triangle';
-      osc1.frequency.setValueAtTime(320, now);
-      osc1.frequency.exponentialRampToValueAtTime(60, now + 0.07);
-      gain1.gain.setValueAtTime(0.9, now);
-      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc1.frequency.setValueAtTime(340, snapTime);
+      osc1.frequency.exponentialRampToValueAtTime(60, snapTime + 0.07);
+      gain1.gain.setValueAtTime(0.9, snapTime);
+      gain1.gain.exponentialRampToValueAtTime(0.001, snapTime + 0.08);
       osc1.connect(gain1);
       gain1.connect(audioCtx.destination);
-      osc1.start(now);
-      osc1.stop(now + 0.08);
+      osc1.start(snapTime);
+      osc1.stop(snapTime + 0.08);
 
       // Noise Burst (Focal plane curtain friction)
-      const bufferSize = audioCtx.sampleRate * 0.06;
+      const bufferSize = Math.floor(audioCtx.sampleRate * 0.07);
       const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
       for (let i = 0; i < bufferSize; i++) {
@@ -126,32 +152,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.setValueAtTime(1800, now + 0.02);
-      filter.Q.setValueAtTime(2.5, now + 0.02);
+      filter.frequency.setValueAtTime(1800, snapTime + 0.02);
+      filter.Q.setValueAtTime(2.5, snapTime + 0.02);
 
       const noiseGain = audioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0, now);
-      noiseGain.gain.setValueAtTime(0.55, now + 0.02);
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      noiseGain.gain.setValueAtTime(0, snapTime);
+      noiseGain.gain.setValueAtTime(0.55, snapTime + 0.02);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, snapTime + 0.08);
 
       whiteNoise.connect(filter);
       filter.connect(noiseGain);
       noiseGain.connect(audioCtx.destination);
-      whiteNoise.start(now + 0.02);
-      whiteNoise.stop(now + 0.08);
+      whiteNoise.start(snapTime + 0.02);
+      whiteNoise.stop(snapTime + 0.08);
 
       // Click 2 (Second curtain closure)
       const osc2 = audioCtx.createOscillator();
       const gain2 = audioCtx.createGain();
       osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(220, now + 0.09);
-      osc2.frequency.exponentialRampToValueAtTime(40, now + 0.16);
-      gain2.gain.setValueAtTime(0.8, now + 0.09);
-      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+      osc2.frequency.setValueAtTime(220, snapTime + 0.09);
+      osc2.frequency.exponentialRampToValueAtTime(40, snapTime + 0.16);
+      gain2.gain.setValueAtTime(0.8, snapTime + 0.09);
+      gain2.gain.exponentialRampToValueAtTime(0.001, snapTime + 0.17);
       osc2.connect(gain2);
       gain2.connect(audioCtx.destination);
-      osc2.start(now + 0.09);
-      osc2.stop(now + 0.17);
+      osc2.start(snapTime + 0.09);
+      osc2.stop(snapTime + 0.17);
     } catch (e) {
       console.warn('Synthesized shutter error:', e);
     }
@@ -189,52 +215,55 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. Camera Shutter Execution & Subtle Flash with Shutter Blade Animation
+  // 2. Camera Shutter Execution & Synced Lens / Shutter Flash Animation
   // =========================================================================
   let isShutterAnimating = false;
 
   function executeCameraShutter() {
-    playShutterSound();
-
-    // Trigger subtle studio flash overlay effect
-    if (cameraFlashOverlay) {
-      cameraFlashOverlay.classList.add('flash-active');
-      setTimeout(() => {
-        cameraFlashOverlay.classList.remove('flash-active');
-      }, 90);
-    }
-
     if (isShutterAnimating) return;
     isShutterAnimating = true;
 
-    if (heroShutterDisplay) {
-      // 1. Tactile recoil mechanical snap
-      heroShutterDisplay.classList.add('shutter-snapping');
+    // 1. Play camera audio: starts with lens focusing whir, followed by shutter snap
+    playShutterSound();
 
-      // 2. Shutter blades open (reveal camerashutter-in.png and lens bloom)
+    // 2. While the lens sound comes in, open the inner circular shutter blades
+    if (heroShutterDisplay) {
       setTimeout(() => {
         heroShutterDisplay.classList.add('shutter-open');
-      }, 35);
-
-      // 3. Shutter blades close (snap back to camerashutter-out.png)
-      setTimeout(() => {
-        heroShutterDisplay.classList.remove('shutter-open');
-      }, 260);
-
-      // 4. Reset recoil state
-      setTimeout(() => {
-        heroShutterDisplay.classList.remove('shutter-snapping');
-        isShutterAnimating = false;
-      }, 450);
-    } else if (heroBoothMachine) {
-      heroBoothMachine.style.transform = 'scale(0.985)';
-      setTimeout(() => {
-        heroBoothMachine.style.transform = '';
-        isShutterAnimating = false;
-      }, 200);
-    } else {
-      isShutterAnimating = false;
+      }, 50);
     }
+
+    // 3. When the actual mechanical shutter sound fires (~950ms), trigger the flash effect
+    setTimeout(() => {
+      if (cameraFlashOverlay) {
+        cameraFlashOverlay.classList.add('flash-active');
+      }
+      if (heroShutterDisplay) {
+        heroShutterDisplay.classList.add('flash-active');
+      }
+
+      // Flash fades away smoothly
+      setTimeout(() => {
+        if (cameraFlashOverlay) {
+          cameraFlashOverlay.classList.remove('flash-active');
+        }
+        if (heroShutterDisplay) {
+          heroShutterDisplay.classList.remove('flash-active');
+        }
+      }, 120);
+    }, 950);
+
+    // 4. Close the inner circular shutter blades right as the shutter click ends (~1120ms)
+    setTimeout(() => {
+      if (heroShutterDisplay) {
+        heroShutterDisplay.classList.remove('shutter-open');
+      }
+    }, 1120);
+
+    // 5. Reset shutter state
+    setTimeout(() => {
+      isShutterAnimating = false;
+    }, 1300);
   }
 
   // Bind camera shutter display triggers
@@ -297,14 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function openModal(imageSrc, imageTitle) {
     if (photoModal) {
       const modalImg = photoModal.querySelector('.modal-strip-image');
-      const modalDownloadBtn = photoModal.querySelector('a.btn-primary');
       const modalTitleEl = photoModal.querySelector('.modal-title');
       if (modalImg && imageSrc) {
         modalImg.src = imageSrc;
         modalImg.alt = imageTitle || 'Photo strip';
-      }
-      if (modalDownloadBtn && imageSrc) {
-        modalDownloadBtn.href = imageSrc;
       }
       if (modalTitleEl && imageTitle) {
         modalTitleEl.textContent = imageTitle;
@@ -694,4 +719,58 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeSuccessModalBtn) closeSuccessModalBtn.addEventListener('click', closeSuccessModal);
   if (closeSuccessModalTopBtn) closeSuccessModalTopBtn.addEventListener('click', closeSuccessModal);
   if (bookingSuccessBackdrop) bookingSuccessBackdrop.addEventListener('click', closeSuccessModal);
+
+  // =========================================================================
+  // 7. College & Campus Fest Sponsorship WhatsApp Form
+  // =========================================================================
+  const collegeSponsorForm = document.getElementById('collegeSponsorForm');
+  const sponsorSuccessNotice = document.getElementById('sponsorSuccessNotice');
+
+  if (collegeSponsorForm) {
+    collegeSponsorForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const collegeName = document.getElementById('sponsorCollegeName').value.trim();
+      const festName = document.getElementById('sponsorFestName').value.trim();
+      const festDates = document.getElementById('sponsorFestDates').value.trim();
+      const footfall = document.getElementById('sponsorFootfall').value;
+      const leadName = document.getElementById('sponsorLeadName').value.trim();
+      const leadPhone = document.getElementById('sponsorLeadPhone').value.trim();
+      const notes = document.getElementById('sponsorNotes').value.trim();
+
+      if (!collegeName || !festName || !festDates || !leadName || !leadPhone) {
+        alert('Please fill in all required fest and organizer details (*).');
+        return;
+      }
+
+      const cleanStudioPhone = '919767074984';
+
+      let msg = `🎓 *College Fest Sponsorship & Stall Inquiry - CLICKIIT.CO*\n` +
+        `─────────────────────────────\n` +
+        `🏛️ *College / Institute:* ${collegeName}\n` +
+        `🎉 *Fest / Event:* ${festName}\n` +
+        `📅 *Dates & Duration:* ${festDates}\n` +
+        `👥 *Expected Footfall:* ${footfall || 'Not specified'}\n` +
+        `👤 *Lead Organizer:* ${leadName}\n` +
+        `📱 *Organizer WhatsApp:* ${leadPhone}\n`;
+
+      if (notes) {
+        msg += `📝 *Requirements / Notes:* ${notes}\n`;
+      }
+
+      msg += `─────────────────────────────\n` +
+        `Hi CLICKIIT team! We would like to invite CLICKIIT.CO as a stall sponsor for our college fest. Please share your stall sponsorship proposal and payout terms!`;
+
+      // Show inline success notice
+      if (sponsorSuccessNotice) {
+        sponsorSuccessNotice.style.display = 'block';
+        setTimeout(() => {
+          sponsorSuccessNotice.style.display = 'none';
+        }, 6000);
+      }
+
+      // Open WhatsApp chat directly with pre-composed proposal
+      window.open(`https://wa.me/${cleanStudioPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    });
+  }
 });

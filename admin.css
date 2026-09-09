@@ -440,11 +440,27 @@ body.admin-body {
   flex-shrink: 0;
 }
 
-.metric-amber { background: #FEF3C7; color: #B45309; }
-.metric-yellow { background: #FFFBEB; color: #D97706; }
-.metric-green { background: #D1FAE5; color: #065F46; }
-.metric-purple { background: #EDE9FE; color: #6D28D9; }
-.metric-cyan { background: #E0F2FE; color: #0369A1; }
+.metric-amber, 
+.metric-yellow, 
+.metric-green, 
+.metric-purple, 
+.metric-cyan { 
+  background: #F4F4F5; 
+  color: #111112; 
+  border: 1px solid #E4E4E7;
+}
+
+@media (prefers-color-scheme: dark) {
+  .metric-amber, 
+  .metric-yellow, 
+  .metric-green, 
+  .metric-purple, 
+  .metric-cyan { 
+    background: #1C1C1F; 
+    color: #F4F4F5; 
+    border: 1px solid #2E2E32;
+  }
+}
 
 .metric-label {
   display: block;
