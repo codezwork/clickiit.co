@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CLICK IT.CO &bull; Admin Studio Portal &amp; CMS</title>
-  <meta name="description" content="Click It.co Photo Booth Administrator Dashboard, Bookings Management, Calendar Availability, and Photo Strips CMS.">
-  
+  <meta name="description"
+    content="Click It.co Photo Booth Administrator Dashboard, Bookings Management, Calendar Availability, and Photo Strips CMS.">
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@700;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@700;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
 
   <link rel="stylesheet" href="admin.css?v=3">
 </head>
+
 <body class="admin-body">
 
   <!-- =========================================================================
@@ -26,26 +31,25 @@
           <span>Studio Admin Portal</span>
         </div>
         <h1 class="login-title">CLICK IT<span>.CO</span></h1>
-        <p class="login-subtitle">Enter your studio administrator passcode to manage bookings, availability, and photo strips.</p>
+        <p class="login-subtitle">Enter your studio administrator passcode to manage bookings, availability, and photo
+          strips.</p>
       </div>
 
       <form id="loginForm" class="login-form">
         <div class="form-group">
           <label for="adminPassword">Master Passcode</label>
           <div class="password-input-wrap">
-            <input 
-              type="password" 
-              id="adminPassword" 
-              class="form-control" 
-              placeholder="••••••••••••" 
-              required 
-              autocomplete="current-password"
-            />
-            <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" title="Show password" aria-label="Toggle password visibility">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <input type="password" id="adminPassword" class="form-control" placeholder="••••••••••••" required
+              autocomplete="current-password" />
+            <button type="button" id="togglePasswordBtn" class="toggle-pwd-btn" title="Show password"
+              aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
             </button>
           </div>
-          <span class="input-hint">Default studio key: <code>clickit@admin2026</code></span>
         </div>
 
         <div id="loginError" class="login-error" style="display:none;">
@@ -55,7 +59,9 @@
         <button type="submit" id="loginSubmitBtn" class="btn-primary login-btn">
           <span>Access Studio Dashboard</span>
           <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            <path fill-rule="evenodd"
+              d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+              clip-rule="evenodd" />
           </svg>
         </button>
       </form>
@@ -85,10 +91,35 @@
       </div>
 
       <div class="topbar-right">
+        <!-- Google Sheets Two-Way Sync Status Pill -->
+        <button id="openSheetConfigBtn" class="btn-sheet-pill" type="button"
+          title="Configure Google Sheets Two-Way Sync & Alerts">
+          <span class="sheet-status-dot" id="sheetStatusDot"></span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="3" y1="15" x2="21" y2="15"></line>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+          <span id="sheetStatusText">Google Sheets</span>
+        </button>
+
+        <button id="syncSheetBtn" class="btn-sync-sheet" type="button" title="Sync now from Google Sheet"
+          style="display:none;">
+          <svg class="sync-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Sync Sheet</span>
+        </button>
+
         <div class="admin-datetime" id="liveClock">--:--:--</div>
         <button id="refreshDataBtn" class="btn-icon" title="Refresh all data">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+            <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
           </svg>
           <span>Refresh</span>
         </button>
@@ -105,7 +136,8 @@
     <section class="metrics-banner">
       <div class="metric-card">
         <div class="metric-icon metric-amber">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
             <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
           </svg>
@@ -118,7 +150,8 @@
 
       <div class="metric-card">
         <div class="metric-icon metric-yellow">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
@@ -131,7 +164,8 @@
 
       <div class="metric-card">
         <div class="metric-icon metric-green">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22 4 12 14.01 9 11.01"></polyline>
           </svg>
@@ -144,8 +178,11 @@
 
       <div class="metric-card">
         <div class="metric-icon metric-purple">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+            </polygon>
           </svg>
         </div>
         <div class="metric-content">
@@ -156,7 +193,8 @@
 
       <div class="metric-card">
         <div class="metric-icon metric-cyan">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
             <line x1="7" y1="2" x2="7" y2="22"></line>
             <line x1="17" y1="2" x2="17" y2="22"></line>
@@ -225,8 +263,10 @@
         <div class="filter-pills" id="statusFilterPills">
           <button class="filter-pill active" data-filter="all">All (<span id="filterCountAll">0</span>)</button>
           <button class="filter-pill" data-filter="pending">Pending (<span id="filterCountPending">0</span>)</button>
-          <button class="filter-pill" data-filter="confirmed">Confirmed (<span id="filterCountConfirmed">0</span>)</button>
-          <button class="filter-pill" data-filter="completed">Completed (<span id="filterCountCompleted">0</span>)</button>
+          <button class="filter-pill" data-filter="confirmed">Confirmed (<span
+              id="filterCountConfirmed">0</span>)</button>
+          <button class="filter-pill" data-filter="completed">Completed (<span
+              id="filterCountCompleted">0</span>)</button>
           <button class="filter-pill" data-filter="blocked">Blocked (<span id="filterCountBlocked">0</span>)</button>
         </div>
 
@@ -297,12 +337,18 @@
         <div class="calendar-sidebar-card">
           <h3 id="selectedDateHeader" class="sidebar-date-title">Select a Date</h3>
           <div id="selectedDateContent" class="sidebar-date-content">
-            <p class="text-muted">Click any date on the calendar to view scheduled events or quickly block/unblock that date.</p>
+            <p class="text-muted">Click any date on the calendar to view scheduled events or quickly block/unblock that
+              date.</p>
           </div>
 
           <div class="sidebar-block-actions" id="dateQuickActions" style="display:none;">
             <button id="quickBlockBtn" class="btn-warning-block">
-              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:-2px; margin-right:4px;"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"
+                style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+              </svg>
               <span>Block This Entire Date</span>
             </button>
           </div>
@@ -328,7 +374,8 @@
           <form id="addStripForm">
             <div class="form-group">
               <label for="stripTitleInput">Strip Caption / Title</label>
-              <input type="text" id="stripTitleInput" class="form-control" placeholder="e.g. Wedding Magic, Birthday Shenanigans" required />
+              <input type="text" id="stripTitleInput" class="form-control"
+                placeholder="e.g. Wedding Magic, Birthday Shenanigans" required />
             </div>
 
             <div class="form-group">
@@ -351,7 +398,12 @@
                 <input type="file" id="stripFileInput" accept="image/*" class="file-hidden" />
                 <div class="dropzone-prompt" id="dropzonePrompt">
                   <span class="upload-icon">
-                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                      </path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
                   </span>
                   <span class="upload-main-text">Click or drag image file here</span>
                   <span class="upload-sub-text">PNG, JPG, WebP (Vertical photo strip)</span>
@@ -365,7 +417,8 @@
 
             <div class="form-group">
               <label for="stripUrlInput">Or use Image URL / Existing Asset</label>
-              <input type="text" id="stripUrlInput" class="form-control" placeholder="assets/photostrip.png or https://..." />
+              <input type="text" id="stripUrlInput" class="form-control"
+                placeholder="assets/photostrip.png or https://..." />
             </div>
 
             <button type="submit" id="addStripSubmitBtn" class="btn-primary btn-block">
@@ -448,12 +501,14 @@
 
         <div class="form-group">
           <label for="manualAddress">Venue Location / Address</label>
-          <input type="text" id="manualAddress" class="form-control" placeholder="e.g. Hotel Centre Point, Ramdaspeth, Nagpur" />
+          <input type="text" id="manualAddress" class="form-control"
+            placeholder="e.g. Hotel Centre Point, Ramdaspeth, Nagpur" />
         </div>
 
         <div class="form-group">
           <label for="manualNotes">Internal Studio Notes</label>
-          <textarea id="manualNotes" class="form-control" rows="2" placeholder="Custom photo strip border, backdrop preference, etc."></textarea>
+          <textarea id="manualNotes" class="form-control" rows="2"
+            placeholder="Custom photo strip border, backdrop preference, etc."></textarea>
         </div>
 
         <div class="form-group">
@@ -474,10 +529,72 @@
     </div>
   </div>
 
+  <!-- =========================================================================
+       MODAL: GOOGLE SHEETS & EMAIL NOTIFICATION CONFIGURATION
+       ========================================================================= -->
+  <div class="admin-modal-overlay" id="sheetConfigModal" style="display:none;">
+    <div class="admin-modal-box sheet-modal-box">
+      <div class="modal-header">
+        <div>
+          <span class="badge-role" style="display:inline-block; margin-bottom:4px;">✦ TWO-WAY DATABASE</span>
+          <h3 id="sheetModalTitle">Google Sheets &amp; Alerts Settings</h3>
+        </div>
+        <button class="modal-close" id="closeSheetConfigBtn" type="button" aria-label="Close modal">&times;</button>
+      </div>
+
+      <form id="sheetConfigForm" class="modal-body-form">
+        <div class="sheet-setup-guide">
+          <h4>How to connect your Google Sheet:</h4>
+          <ol>
+            <li>Create a new spreadsheet on Google Sheets: <code>Clickiit Bookings 2026</code>.</li>
+            <li>Go to <strong>Extensions &rarr; Apps Script</strong>.</li>
+            <li>Paste the ready-made code from <code>google-apps-script.js</code> (found in this project).</li>
+            <li>Click <strong>Deploy &rarr; New Deployment</strong>, choose <strong>Web app</strong>, set <em>Who has
+                access</em> to <strong>Anyone</strong>, and copy the Web App URL.</li>
+          </ol>
+        </div>
+
+        <div class="form-group">
+          <label for="googleSheetUrlInput">Google Apps Script Web App URL *</label>
+          <input type="url" id="googleSheetUrlInput" class="form-control"
+            placeholder="https://script.google.com/macros/s/.../exec" required />
+          <span class="input-hint">Must be the deployment URL ending with <code>/exec</code></span>
+        </div>
+
+        <div class="form-group">
+          <label for="notificationEmailInput">Admin Notification Email (Optional)</label>
+          <input type="email" id="notificationEmailInput" class="form-control"
+            placeholder="e.g. clickiit.studio@gmail.com" />
+          <span class="input-hint">Receive instant email notifications whenever a client books.</span>
+        </div>
+
+        <div class="sheet-test-row">
+          <button type="button" id="testSheetConnBtn" class="btn-ghost-action">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Test Connection</span>
+          </button>
+          <span id="sheetTestFeedback" class="sheet-test-feedback"></span>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-ghost" id="cancelSheetConfigBtn">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveSheetConfigBtn">
+            <span>Save &amp; Connect</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="adminToast" class="admin-toast" style="display:none;"></div>
 
   <!-- Admin Controller Script -->
   <script src="admin.js"></script>
 </body>
+
 </html>

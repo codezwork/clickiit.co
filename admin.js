@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. DATA FETCHING & SYNCHRONIZATION
   // =========================================================================
   async function loadAllData() {
-    await Promise.all([fetchBookings(), fetchStrips()]);
+    await Promise.all([fetchBookings(), fetchStrips(), loadSheetConfig()]);
     updateMetrics();
     renderBookings();
     renderCalendar();
@@ -215,6 +215,220 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshDataBtn.classList.remove('rotating');
     showToast('Data refreshed');
   });
+
+  // =========================================================================
+  // 4.1 GOOGLE SHEETS TWO-WAY INTEGRATION
+  // =========================================================================
+  const openSheetConfigBtn = document.getElementById('openSheetConfigBtn');
+  const syncSheetBtn = document.getElementById('syncSheetBtn');
+  const sheetStatusDot = document.getElementById('sheetStatusDot');
+  const sheetStatusText = document.getElementById('sheetStatusText');
+  const sheetConfigModal = document.getElementById('sheetConfigModal');
+  const closeSheetConfigBtn = document.getElementById('closeSheetConfigBtn');
+  const cancelSheetConfigBtn = document.getElementById('cancelSheetConfigBtn');
+  const sheetConfigForm = document.getElementById('sheetConfigForm');
+  const googleSheetUrlInput = document.getElementById('googleSheetUrlInput');
+  const notificationEmailInput = document.getElementById('notificationEmailInput');
+  const testSheetConnBtn = document.getElementById('testSheetConnBtn');
+  const sheetTestFeedback = document.getElementById('sheetTestFeedback');
+  const saveSheetConfigBtn = document.getElementById('saveSheetConfigBtn');
+
+  let sheetConfig = {
+    googleSheetUrl: '',
+    notificationEmail: '',
+    isConnected: false
+  };
+
+  async function loadSheetConfig() {
+    try {
+      const res = await fetch('/api/admin/sheet-config', {
+        headers: { 'Authorization': `Bearer ${authToken}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        sheetConfig = data;
+        updateSheetUi(data.isConnected);
+        if (googleSheetUrlInput) googleSheetUrlInput.value = data.googleSheetUrl || '';
+        if (notificationEmailInput) notificationEmailInput.value = data.notificationEmail || '';
+      }
+    } catch (e) {
+      console.warn('Could not load sheet config:', e);
+    }
+  }
+
+  function updateSheetUi(isConnected) {
+    if (isConnected) {
+      if (sheetStatusDot) {
+        sheetStatusDot.className = 'sheet-status-dot online';
+      }
+      if (sheetStatusText) {
+        sheetStatusText.textContent = 'Google Sheet Synced';
+      }
+      if (syncSheetBtn) {
+        syncSheetBtn.style.display = 'inline-flex';
+      }
+    } else {
+      if (sheetStatusDot) {
+        sheetStatusDot.className = 'sheet-status-dot offline';
+      }
+      if (sheetStatusText) {
+        sheetStatusText.textContent = 'Connect Google Sheet';
+      }
+      if (syncSheetBtn) {
+        syncSheetBtn.style.display = 'none';
+      }
+    }
+  }
+
+  function openSheetModal() {
+    if (sheetConfigModal) {
+      sheetConfigModal.style.display = 'flex';
+      if (sheetTestFeedback) sheetTestFeedback.textContent = '';
+      if (googleSheetUrlInput) googleSheetUrlInput.value = sheetConfig.googleSheetUrl || '';
+      if (notificationEmailInput) notificationEmailInput.value = sheetConfig.notificationEmail || '';
+    }
+  }
+
+  function closeSheetModal() {
+    if (sheetConfigModal) {
+      sheetConfigModal.style.display = 'none';
+    }
+  }
+
+  if (openSheetConfigBtn) openSheetConfigBtn.addEventListener('click', openSheetModal);
+  if (closeSheetConfigBtn) closeSheetConfigBtn.addEventListener('click', closeSheetModal);
+  if (cancelSheetConfigBtn) cancelSheetConfigBtn.addEventListener('click', closeSheetModal);
+
+  if (sheetConfigModal) {
+    sheetConfigModal.addEventListener('click', (e) => {
+      if (e.target === sheetConfigModal) closeSheetModal();
+    });
+  }
+
+  // Test Connection
+  if (testSheetConnBtn) {
+    testSheetConnBtn.addEventListener('click', async () => {
+      const url = googleSheetUrlInput.value.trim();
+      if (!url) {
+        sheetTestFeedback.textContent = 'Please paste a Web App URL first';
+        sheetTestFeedback.className = 'sheet-test-feedback error';
+        return;
+      }
+
+      testSheetConnBtn.disabled = true;
+      sheetTestFeedback.textContent = 'Connecting...';
+      sheetTestFeedback.className = 'sheet-test-feedback';
+
+      try {
+        const res = await fetch('/api/admin/sheet-test', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({ googleSheetUrl: url })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          sheetTestFeedback.textContent = '✓ Connected! ' + (data.message || 'Sheet is live.');
+          sheetTestFeedback.className = 'sheet-test-feedback success';
+        } else {
+          sheetTestFeedback.textContent = '✕ Error: ' + (data.error || 'Connection failed');
+          sheetTestFeedback.className = 'sheet-test-feedback error';
+        }
+      } catch (err) {
+        sheetTestFeedback.textContent = '✕ Test failed: ' + err.message;
+        sheetTestFeedback.className = 'sheet-test-feedback error';
+      } finally {
+        testSheetConnBtn.disabled = false;
+      }
+    });
+  }
+
+  // Save Config
+  if (sheetConfigForm) {
+    sheetConfigForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const url = googleSheetUrlInput.value.trim();
+      const email = notificationEmailInput.value.trim();
+
+      saveSheetConfigBtn.disabled = true;
+      saveSheetConfigBtn.textContent = 'Connecting...';
+
+      try {
+        const res = await fetch('/api/admin/sheet-config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: JSON.stringify({
+            googleSheetUrl: url,
+            notificationEmail: email
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          sheetConfig.googleSheetUrl = url;
+          sheetConfig.notificationEmail = email;
+          sheetConfig.isConnected = !!url;
+          updateSheetUi(!!url);
+          closeSheetModal();
+          showToast('Google Sheet connected successfully!');
+
+          // Immediately trigger initial sync
+          if (url) {
+            await syncFromGoogleSheet();
+          }
+        } else {
+          alert('Could not save: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Failed to save settings: ' + err.message);
+      } finally {
+        saveSheetConfigBtn.disabled = false;
+        saveSheetConfigBtn.innerHTML = '<span>Save &amp; Connect</span>';
+      }
+    });
+  }
+
+  // Sync From Google Sheet
+  async function syncFromGoogleSheet() {
+    if (!syncSheetBtn) return;
+    const icon = syncSheetBtn.querySelector('.sync-icon-svg');
+    if (icon) icon.classList.add('spin');
+    syncSheetBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/admin/sync-sheet', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${authToken}` }
+      });
+
+      const data = await res.json();
+      if (data.success && Array.isArray(data.bookings)) {
+        bookings = data.bookings;
+        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+        updateMetrics();
+        renderBookings();
+        renderCalendar();
+        showToast(`✓ Google Sheet synced: ${data.count} bookings up to date`);
+      } else {
+        showToast('Sync warning: ' + (data.error || 'Could not sync'));
+      }
+    } catch (err) {
+      showToast('Sync failed: ' + err.message);
+    } finally {
+      if (icon) icon.classList.remove('spin');
+      syncSheetBtn.disabled = false;
+    }
+  }
+
+  if (syncSheetBtn) {
+    syncSheetBtn.addEventListener('click', syncFromGoogleSheet);
+  }
 
   async function fetchBookings() {
     try {

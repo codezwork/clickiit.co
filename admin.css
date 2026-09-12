@@ -1449,6 +1449,161 @@ body.admin-body {
 }
 
 /* =========================================================================
+   9.1 GOOGLE SHEETS TWO-WAY SYNC & MODAL STYLES
+   ========================================================================= */
+.btn-sheet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-full, 9999px);
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-sheet-pill:hover {
+  background: var(--bg-cream-tint);
+  border-color: var(--text-main);
+}
+
+.sheet-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #9CA3AF;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.sheet-status-dot.online {
+  background: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+}
+
+.sheet-status-dot.offline {
+  background: #9CA3AF;
+}
+
+.sheet-status-dot.error {
+  background: #EF4444;
+}
+
+.btn-sync-sheet {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--text-main);
+  color: #FFFFFF;
+  border: 1px solid var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-sync-sheet:hover {
+  background: #000000;
+  transform: translateY(-1px);
+}
+
+.sync-icon-svg.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.sheet-modal-box {
+  max-width: 580px;
+}
+
+.sheet-setup-guide {
+  background: var(--bg-cream-tint);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.sheet-setup-guide h4 {
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.sheet-setup-guide ol {
+  padding-left: 18px;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.sheet-setup-guide li {
+  margin-bottom: 6px;
+}
+
+.sheet-setup-guide code {
+  background: #FFFFFF;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-main);
+}
+
+.sheet-test-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+.btn-ghost-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-ghost-action:hover {
+  background: var(--bg-cream-tint);
+}
+
+.sheet-test-feedback {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.sheet-test-feedback.success {
+  color: #059669;
+}
+
+.sheet-test-feedback.error {
+  color: #DC2626;
+}
+
+/* =========================================================================
    10. MOBILE RESPONSIVE OPTIMIZATION (MOBILE-FIRST PERFECTION)
    ========================================================================= */
 @media (max-width: 768px) {
