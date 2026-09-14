@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clean WhatsApp Phone for deep-link
         const cleanPhone = (b.whatsapp || '').replace(/[^0-9]/g, '');
         const waMessage = encodeURIComponent(
-          `Hello ${b.name}! This is Click It.co Photo Booth (+91 97670 74984) regarding your booking for ${b.eventDate} (${b.sessionPlan || '4 Hours'}). We're happy to connect!`
+          `Hello ${b.name}! This is Clickiit.co Photo Booth (+91 95185 97366) regarding your booking for ${b.eventDate} (${b.sessionPlan || 'Classic — 200 Prints'}). We're happy to connect!`
         );
         const waLink = cleanPhone ? `https://wa.me/${cleanPhone}?text=${waMessage}` : '#';
 
@@ -721,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const newBooking = {
       name: document.getElementById('manualName').value.trim(),
-      whatsapp: document.getElementById('manualWhatsapp').value.trim() || '+91 97670 74984',
+      whatsapp: document.getElementById('manualWhatsapp').value.trim() || '+91 95185 97366',
       eventDate: document.getElementById('manualDate').value,
       eventTime: document.getElementById('manualTime').value,
       eventType: document.getElementById('manualType').value,
@@ -951,7 +951,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bookings.unshift({
           id: 'BLK-' + Date.now().toString().slice(-6),
           name: reason,
-          whatsapp: '+91 97670 74984',
+          whatsapp: '+91 95185 97366',
           address: '-',
           eventDate: dateStr,
           eventTime: 'All Day',
@@ -967,7 +967,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bookings.unshift({
         id: 'BLK-' + Date.now().toString().slice(-6),
         name: reason,
-        whatsapp: '+91 97670 74984',
+        whatsapp: '+91 95185 97366',
         address: '-',
         eventDate: dateStr,
         eventTime: 'All Day',

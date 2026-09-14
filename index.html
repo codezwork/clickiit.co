@@ -16,7 +16,7 @@
     rel="stylesheet">
 
   <!-- Design System Stylesheet -->
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=23">
 </head>
 
 <body>
@@ -40,8 +40,8 @@
       <nav class="desktop-nav">
         <a href="#booth-experience" class="nav-link link-hover active">The Booth</a>
         <a href="#how-it-works" class="nav-link link-hover">Experience</a>
-        <a href="#scrapbook-showcase" class="nav-link link-hover">Scrapbook</a>
         <a href="#packages" class="nav-link link-hover">Packages</a>
+        <a href="#scrapbook-showcase" class="nav-link link-hover">Scrapbook</a>
         <a href="#college-sponsorship" class="nav-link link-hover">College Fests</a>
         <a href="#locations" class="nav-link link-hover">Locations</a>
       </nav>
@@ -80,8 +80,8 @@
     <div class="mobile-nav-drawer" id="mobileNavDrawer">
       <a href="#booth-experience" class="nav-link mobile-nav-link">The Booth</a>
       <a href="#how-it-works" class="nav-link mobile-nav-link">Experience</a>
-      <a href="#scrapbook-showcase" class="nav-link mobile-nav-link">Community Scrapbook</a>
       <a href="#packages" class="nav-link mobile-nav-link">Packages &amp; Pricing</a>
+      <a href="#scrapbook-showcase" class="nav-link mobile-nav-link">Community Scrapbook</a>
       <a href="#college-sponsorship" class="nav-link mobile-nav-link">College Fest Stall</a>
       <a href="#locations" class="nav-link mobile-nav-link">Mall Kiosk Location</a>
       <a href="#booking" class="btn-primary mobile-nav-link">
@@ -110,9 +110,6 @@
               class="hero-shutter-img shutter-in-layer" id="heroShutterIn" />
             <div class="shutter-lens-flash" aria-hidden="true"></div>
           </div>
-          <!-- Floating Label Badge -->
-          <div class="hero-floating-badge">Est. 2025</div>
-
           <!-- Interactive Shutter Snap Floating Beacon -->
           <button class="booth-shutter-beacon" id="boothInteractiveBeacon" type="button"
             aria-label="Snap booth shutter">
@@ -135,7 +132,10 @@
 
           <!-- Left Column: Kicker, Big Heading, Subtitle -->
           <div class="hero-copy-left">
-            <p class="hero-kicker-text">Premium Event Photo Booths</p>
+            <div class="hero-kicker-wrap">
+              <span class="hero-est-badge">EST. 2025</span>
+              <p class="hero-kicker-text">Premium Event Photo Booths</p>
+            </div>
             <h1 class="hero-display-heading">
               Capture<br>
               Unforgettable<br>
@@ -262,6 +262,253 @@
       </div>
     </section>
 
+    <!-- PACKAGES & BOOTH HIRE (TWO DISTINCT CATEGORIES: STRIPS-BASED & TIME-BASED) -->
+    <section class="packages-section" id="packages">
+      <div class="container">
+        <div class="section-header-block">
+          <span class="section-kicker-pill"><span class="pill-star">✦</span> SESSION PACKAGES</span>
+          <h2 class="section-title">Elevate Your <em>Celebration</em></h2>
+          <p class="section-description">Choose between our dedicated Strip Print Count packages or Unlimited Hourly
+            time packages for your private celebration.</p>
+        </div>
+
+        <!-- Package Category Tab Switcher -->
+        <div class="package-category-switcher-wrap">
+          <div class="package-category-switcher">
+            <button type="button" class="pkg-switch-btn active" data-target="pkg-strips">
+              <span>Based on Strips / Prints</span>
+            </button>
+            <button type="button" class="pkg-switch-btn" data-target="pkg-time">
+              <span>Based on Time (Unlimited)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CATEGORY 1: PRINT PACKAGES (CHOOSE BY NUMBER OF PRINTS) -->
+        <div class="pricing-category-panel active" id="pkg-strips">
+          <div class="pricing-cards-row pkg-grid-4">
+            <!-- 150 Prints: Essential -->
+            <div class="pricing-card">
+              <div class="card-tag">ESSENTIAL TIER</div>
+              <h3 class="tier-title">Essential</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">150 Prints</div>
+              <div class="price-val">₹9,999</div>
+              <p class="tier-desc">Ideal for birthdays, intimate dinners, and small private gatherings.</p>
+              <ul class="tier-perks">
+                <li>150 Lab-Quality Prints</li>
+                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
+                <li>Live AI face-matching guest gallery</li>
+                <li>Customized photo template design</li>
+                <li>Friendly on-site booth attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="Essential — 150 Prints (₹9,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 200 Prints: Classic (Featured) -->
+            <div class="pricing-card featured-tier">
+              <div class="tier-badge">MOST POPULAR</div>
+              <div class="card-tag">SIGNATURE CHOICE</div>
+              <h3 class="tier-title">Classic</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">200 Prints</div>
+              <div class="price-val">₹12,999</div>
+              <p class="tier-desc">Our sweet spot for receptions, anniversaries, and social celebrations.</p>
+              <ul class="tier-perks">
+                <li>200 Lab-Quality Prints</li>
+                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
+                <li>Live AI face-matching guest gallery</li>
+                <li>Customized photo template design</li>
+                <li>Friendly on-site booth attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="Classic — 200 Prints (₹12,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 300 Prints: Premium -->
+            <div class="pricing-card">
+              <div class="card-tag">HIGH VOLUME</div>
+              <h3 class="tier-title">Premium</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">300 Prints</div>
+              <div class="price-val">₹16,999</div>
+              <p class="tier-desc">High-volume instant prints for larger gatherings and milestone events.</p>
+              <ul class="tier-perks">
+                <li>300 Lab-Quality Prints</li>
+                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
+                <li>Live AI face-matching guest gallery</li>
+                <li>Customized photo template design</li>
+                <li>Friendly on-site booth attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="Premium — 300 Prints (₹16,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 500 Prints: Signature -->
+            <div class="pricing-card">
+              <div class="card-tag">GRAND GALA</div>
+              <h3 class="tier-title">Signature</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">500 Prints</div>
+              <div class="price-val">₹21,999</div>
+              <p class="tier-desc">Designed for mega weddings, corporate galas, and large festivals.</p>
+              <ul class="tier-perks">
+                <li>500 Lab-Quality Prints</li>
+                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
+                <li>Live AI face-matching guest gallery</li>
+                <li>Customized photo template design</li>
+                <li>Friendly on-site booth attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
+                data-plan="Signature — 500 Prints (₹21,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY 2: UNLIMITED PACKAGES (UNLIMITED SESSIONS, BY DURATION) -->
+        <div class="pricing-category-panel" id="pkg-time">
+          <div class="pricing-cards-row pkg-grid-5">
+            <!-- 3 Hours -->
+            <div class="pricing-card">
+              <div class="card-tag">STANDARD HIRE</div>
+              <h3 class="tier-title">3 Hours</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">Unlimited Sessions</div>
+              <div class="price-val">₹11,999</div>
+              <p class="tier-desc">Continuous printing and unlimited fun for 3 full hours.</p>
+              <ul class="tier-perks">
+                <li>Unlimited photo sessions</li>
+                <li>4R lab prints or 2x6 strips</li>
+                <li>Live AI face-matching gallery</li>
+                <li>Customized template design</li>
+                <li>Friendly on-site attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="3 Hours Unlimited (₹11,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 4 Hours (Featured) -->
+            <div class="pricing-card featured-tier">
+              <div class="tier-badge">MOST POPULAR</div>
+              <div class="card-tag">WEDDINGS &amp; EVENTS</div>
+              <h3 class="tier-title">4 Hours</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">Unlimited Sessions</div>
+              <div class="price-val">₹13,999</div>
+              <p class="tier-desc">The premier package for wedding receptions, sangeets, and galas.</p>
+              <ul class="tier-perks">
+                <li>Unlimited photo sessions</li>
+                <li>4R lab prints or 2x6 strips</li>
+                <li>Live AI face-matching gallery</li>
+                <li>Customized template design</li>
+                <li>Friendly on-site attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="4 Hours Unlimited (₹13,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 5 Hours -->
+            <div class="pricing-card">
+              <div class="card-tag">EXTENDED PARTY</div>
+              <h3 class="tier-title">5 Hours</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">Unlimited Sessions</div>
+              <div class="price-val">₹16,999</div>
+              <p class="tier-desc">Extended booth duration for long receptions and celebration parties.</p>
+              <ul class="tier-perks">
+                <li>Unlimited photo sessions</li>
+                <li>4R lab prints or 2x6 strips</li>
+                <li>Live AI face-matching gallery</li>
+                <li>Customized template design</li>
+                <li>Friendly on-site attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="5 Hours Unlimited (₹16,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 8 Hours -->
+            <div class="pricing-card">
+              <div class="card-tag">FULL DAY VIP</div>
+              <h3 class="tier-title">8 Hours</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">Unlimited Sessions</div>
+              <div class="price-val">₹21,999</div>
+              <p class="tier-desc">Full day coverage for expos, corporate festivals, and luxury weddings.</p>
+              <ul class="tier-perks">
+                <li>Unlimited photo sessions</li>
+                <li>4R lab prints or 2x6 strips</li>
+                <li>Live AI face-matching gallery</li>
+                <li>Customized template design</li>
+                <li>Friendly on-site attendant</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="8 Hours Unlimited (₹21,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+
+            <!-- 10 Hours -->
+            <div class="pricing-card">
+              <div class="card-tag">ULTRA CELEBRATION</div>
+              <h3 class="tier-title">10 Hours</h3>
+              <div class="tier-print-count" style="font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; color: var(--taupe); margin-bottom: 0.5rem; text-transform: uppercase;">Unlimited Sessions</div>
+              <div class="price-val">₹25,999</div>
+              <p class="tier-desc">All-day non-stop photo experiences for mega festivals &amp; marathons.</p>
+              <ul class="tier-perks">
+                <li>Unlimited photo sessions</li>
+                <li>4R lab prints or 2x6 strips</li>
+                <li>Live AI face-matching gallery</li>
+                <li>Customized template design</li>
+                <li>Dedicated booth managers</li>
+              </ul>
+              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
+                data-plan="10 Hours Unlimited (₹25,999)">
+                <span>Reserve Package</span>
+                <span class="btn-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quotation Policy Note -->
+        <div class="packages-policy-note">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div>
+            <p><strong>Booking &amp; Travel Policy:</strong> All prices are in INR. Travel charges are not included and are calculated separately based on the event location.</p>
+            <p style="margin-top: 0.35rem;">A <strong>50% advance payment</strong> secures your booking date; the remaining balance is due on the day of the event.</p>
+          </div>
+        </div>
+
+        <!-- Add-ons Bar -->
+        <div class="packages-addons-bar">
+          <div class="addons-label">✦ Popular Add-Ons:</div>
+          <div class="addons-tags">
+            <span class="addon-tag">Photo Frames</span>
+            <span class="addon-tag">Fridge Magnets</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- COMMUNITY SCRAPBOOK PINBOARD GALLERY (Deep Obsidian Section) -->
     <section class="scrapbook-gallery-section" id="scrapbook-showcase">
       <div class="container">
@@ -272,10 +519,6 @@
             <p class="section-description desc-inverse">Every capture writes an authentic memory. Browse recent physical
               photo strips captured at Clickiit.co.</p>
           </div>
-          <a href="#locations" class="btn-primary" style="background:#FFFFFF; color:#111112; border-color:#FFFFFF;">
-            <span>Create Your Strip</span>
-            <span class="btn-arrow">↗</span>
-          </a>
         </div>
 
         <!-- Single-Row Auto-Scrolling Hanging Clothesline Gallery -->
@@ -762,222 +1005,16 @@
       </div>
     </section>
 
-    <!-- PACKAGES & BOOTH HIRE (TWO DISTINCT CATEGORIES: STRIPS-BASED & TIME-BASED) -->
-    <section class="packages-section" id="packages">
+    <!-- EDITORIAL GUIDE & ARCHIVAL KEEPSAKES -->
+    <section class="editorial-guide-section" id="keepsakes">
       <div class="container">
         <div class="section-header-block">
-          <span class="section-kicker-pill"><span class="pill-star">✦</span> SESSION PACKAGES</span>
-          <h2 class="section-title">Elevate Your <em>Celebration</em></h2>
-          <p class="section-description">Choose between our dedicated Strip Print Count packages or Unlimited Hourly
-            time packages for your private celebration.</p>
+          <span class="section-kicker-pill"><span class="pill-star">✦</span> ARCHIVAL CRAFT</span>
+          <h2 class="section-title">Designed for <em>Aesthetic Keepsakes</em></h2>
+          <p class="section-description">Archival instant prints, authentic tactile memories, and modern studio engineering.</p>
         </div>
 
-        <!-- Package Category Tab Switcher -->
-        <div class="package-category-switcher-wrap">
-          <div class="package-category-switcher">
-            <button type="button" class="pkg-switch-btn active" data-target="pkg-strips">
-              <span>Based on Strips / Prints</span>
-            </button>
-            <button type="button" class="pkg-switch-btn" data-target="pkg-time">
-              <span>Based on Time (Unlimited)</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- CATEGORY 1: BASED ON STRIPS / PRINTS -->
-        <div class="pricing-category-panel active" id="pkg-strips">
-          <div class="pricing-cards-row pkg-grid-4">
-            <!-- 150 Prints -->
-            <div class="pricing-card">
-              <div class="card-tag">INTIMATE GATHERING</div>
-              <h3 class="tier-title">150 Prints</h3>
-              <div class="price-val">₹12,000 <span><del>₹15,000</del></span></div>
-              <p class="tier-desc">Ideal for birthdays, dinner parties, and small private gatherings.</p>
-              <ul class="tier-perks">
-                <li>Up to 150 total prints</li>
-                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
-                data-plan="150 Prints (₹12,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 200 Prints (Featured) -->
-            <div class="pricing-card featured-tier">
-              <div class="tier-badge">MOST POPULAR</div>
-              <div class="card-tag">SIGNATURE CHOICE</div>
-              <h3 class="tier-title">200 Prints</h3>
-              <div class="price-val">₹15,000 <span><del>₹20,000</del></span></div>
-              <p class="tier-desc">Our sweet spot for receptions, anniversaries, and social celebrations.</p>
-              <ul class="tier-perks">
-                <li>Up to 200 total prints</li>
-                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
-                data-plan="200 Prints (₹15,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 300 Prints -->
-            <div class="pricing-card">
-              <div class="card-tag">EXTENDED PARTY</div>
-              <h3 class="tier-title">300 Prints</h3>
-              <div class="price-val">₹20,000 <span><del>₹30,000</del></span></div>
-              <p class="tier-desc">High-volume instant prints for larger gatherings and milestone events.</p>
-              <ul class="tier-perks">
-                <li>Up to 300 total prints</li>
-                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
-                data-plan="300 Prints (₹20,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 500 Prints -->
-            <div class="pricing-card">
-              <div class="card-tag">GRAND GALA</div>
-              <h3 class="tier-title">500 Prints</h3>
-              <div class="price-val">₹30,000 <span><del>₹50,000</del></span></div>
-              <p class="tier-desc">Designed for mega weddings, corporate annuals, and large festivals.</p>
-              <ul class="tier-perks">
-                <li>Up to 500 total prints</li>
-                <li>Choice of 4R size or 2x6 strips (2 copies)</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="strips"
-                data-plan="500 Prints (₹30,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- CATEGORY 2: BASED ON TIME (UNLIMITED HOURLY) -->
-        <div class="pricing-category-panel" id="pkg-time">
-          <div class="pricing-cards-row pkg-grid-4">
-            <!-- 3 Hours -->
-            <div class="pricing-card">
-              <div class="card-tag">STANDARD HIRE</div>
-              <h3 class="tier-title">3 - Hours</h3>
-              <div class="price-val">₹14,000 <span><del>₹18,000</del></span></div>
-              <p class="tier-desc">Continuous printing and unlimited fun for 3 full hours.</p>
-              <ul class="tier-perks">
-                <li>Unlimited photo sessions (1 print/session)</li>
-                <li>4R size lab prints</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
-                data-plan="3 Hours Unlimited (₹14,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 4 Hours (Featured) -->
-            <div class="pricing-card featured-tier">
-              <div class="tier-badge">MOST POPULAR</div>
-              <div class="card-tag">WEDDINGS &amp; EVENTS</div>
-              <h3 class="tier-title">4 - Hours</h3>
-              <div class="price-val">₹16,000 <span><del>₹24,000</del></span></div>
-              <p class="tier-desc">The premier package for wedding receptions, sangeets, and galas.</p>
-              <ul class="tier-perks">
-                <li>Unlimited photo sessions (1 print/session)</li>
-                <li>4R size lab prints</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
-                data-plan="4 Hours Unlimited (₹16,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 5 Hours -->
-            <div class="pricing-card">
-              <div class="card-tag">EXTENDED CELEBRATION</div>
-              <h3 class="tier-title">5 - Hours</h3>
-              <div class="price-val">₹20,000 <span><del>₹30,000</del></span></div>
-              <p class="tier-desc">Extended booth duration for long receptions and celebration parties.</p>
-              <ul class="tier-perks">
-                <li>Unlimited photo sessions (1 print/session)</li>
-                <li>4R size lab prints</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
-                data-plan="5 Hours Unlimited (₹20,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-
-            <!-- 8 Hours -->
-            <div class="pricing-card">
-              <div class="card-tag">FULL DAY VIP</div>
-              <h3 class="tier-title">8 - Hours</h3>
-              <div class="price-val">₹32,000 <span><del>₹50,000</del></span></div>
-              <p class="tier-desc">Full day coverage for expos, corporate festivals, and luxury weddings.</p>
-              <ul class="tier-perks">
-                <li>Unlimited photo sessions (1 print/session)</li>
-                <li>4R size lab prints</li>
-                <li>Live AI face-matching guest gallery</li>
-                <li>Customized photo template design</li>
-                <li>Friendly on-site booth attendant</li>
-              </ul>
-              <a href="#booking" class="btn-primary select-pkg-btn" data-category="time"
-                data-plan="8 Hours Unlimited (₹32,000)">
-                <span>Reserve Package</span>
-                <span class="btn-arrow">↗</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Add-ons Bar -->
-        <div class="packages-addons-bar">
-          <div class="addons-label">✦ Popular Add-Ons:</div>
-          <div class="addons-tags">
-            <span class="addon-tag">Photo Frames</span>
-            <span class="addon-tag">Fridge Magnets</span>
-            <span class="addon-tag">Custom Coffee Mugs</span>
-            <span class="addon-tag">360 Video Booth</span>
-            <span class="addon-tag">AI Photo Booth</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EDITORIAL GUIDE & FAQS -->
-    <section class="editorial-guide-section">
-      <div class="container">
         <div class="editorial-guide-card">
-          <h2 class="editorial-guide-title">Designed for <em>Aesthetic Keepsakes</em></h2>
-          <p class="editorial-lead">Archival instant prints, authentic tactile memories, and modern studio engineering.
-          </p>
-
           <div class="editorial-grid-qa">
             <div class="qa-card">
               <h3 class="qa-question"><svg class="inline-qa-svg" viewBox="0 0 24 24" width="18" height="18" fill="none"
@@ -1036,7 +1073,7 @@
             <div class="location-meta-grid">
               <div class="meta-item">
                 <span class="meta-label">Operating Hours</span>
-                <span class="meta-val">10:00 AM &ndash; 10:30 PM Daily</span>
+                <span class="meta-val">11:00 AM &ndash; 10:00 PM Daily</span>
               </div>
               <div class="meta-item">
                 <span class="meta-label">Experience</span>
@@ -1045,18 +1082,21 @@
             </div>
 
             <div class="loc-buttons">
-              <button class="btn-primary" type="button"
-                onclick="alert('Opening navigation to Clickiit.co at Eternity Mall, Level 2, Nagpur!')">
+              <a href="https://maps.app.goo.gl/SnNqTz91iBMxjRru6" target="_blank"
+                rel="noopener noreferrer" class="btn-primary" aria-label="Get directions to Eternity Mall Nagpur on Google Maps">
                 <span>Get Directions</span>
                 <span class="btn-arrow">↗</span>
-              </button>
+              </a>
             </div>
           </div>
 
           <div class="location-visual">
             <div class="booth-kiosk-preview">
-              <img src="assets/booth-reference.jpg" alt="Clickiit.co Photo Booth Kiosk at Eternity Mall"
-                class="ref-kiosk-img" />
+              <a href="https://maps.app.goo.gl/SnNqTz91iBMxjRru6" target="_blank" rel="noopener noreferrer"
+                title="View Clickiit.co at Eternity Mall on Google Maps">
+                <img src="assets/booth-reference.jpg" alt="Clickiit.co Photo Booth Kiosk at Eternity Mall"
+                  class="ref-kiosk-img" />
+              </a>
             </div>
           </div>
         </div>
@@ -1067,7 +1107,7 @@
     <section class="college-sponsor-section" id="college-sponsorship">
       <div class="container">
         <div class="college-sponsor-card">
-          
+
           <!-- Left Column: The Value Proposition & Organizer Perks -->
           <div class="college-sponsor-pitch">
             <div class="sponsor-kicker-pill">
@@ -1081,14 +1121,18 @@
             </h2>
 
             <p class="college-sponsor-desc">
-              Organizing an annual cultural fest, tech conclave, freshers' carnival, or college day? <strong>CLICKIIT.CO</strong> sets up an aesthetic photo booth stall on your campus for 1 to 4 days and pays guaranteed stall sponsorship fees directly to your college or student committee. We handle 100% of equipment, studio lighting, and prints.
+              Organizing an annual cultural fest, tech conclave, freshers' carnival, or college day?
+              <strong>CLICKIIT.CO</strong> sets up an aesthetic photo booth stall on your campus for 1 to 4 days and
+              pays guaranteed stall sponsorship fees directly to your college or student committee. We handle 100% of
+              equipment, studio lighting, and prints.
             </p>
 
             <!-- Benefits / Pillars List -->
             <div class="sponsor-perks-list">
               <div class="sponsor-perk-item">
                 <div class="perk-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="6" width="20" height="12" rx="2"></rect>
                     <circle cx="12" cy="12" r="2.5"></circle>
                     <path d="M6 12h.01M18 12h.01"></path>
@@ -1096,32 +1140,37 @@
                 </div>
                 <div class="perk-info">
                   <h3 class="perk-heading">Guaranteed Fest Sponsorship Payout</h3>
-                  <p class="perk-sub">We pay an upfront stall rental and sponsorship fee directly to your college fest committee or student council treasury.</p>
+                  <p class="perk-sub">We pay an upfront stall rental and sponsorship fee directly to your college fest
+                    committee or student council treasury.</p>
                 </div>
               </div>
 
               <div class="sponsor-perk-item">
                 <div class="perk-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                   </svg>
                 </div>
                 <div class="perk-info">
                   <h3 class="perk-heading">Turnkey Pop-Up Setup &amp; Staffing</h3>
-                  <p class="perk-sub">We supply our signature booth kiosk, flattering studio flash, fun themed props, and on-site staff. Zero logistics burden for your team.</p>
+                  <p class="perk-sub">We supply our signature booth kiosk, flattering studio flash, fun themed props,
+                    and on-site staff. Zero logistics burden for your team.</p>
                 </div>
               </div>
 
               <div class="sponsor-perk-item">
                 <div class="perk-icon-wrap" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
                     <circle cx="12" cy="13" r="4"></circle>
                   </svg>
                 </div>
                 <div class="perk-info">
                   <h3 class="perk-heading">Custom Fest-Branded Photo Strips</h3>
-                  <p class="perk-sub">Every student walks away with high-gloss keepsake strips custom-printed with your official college &amp; fest logo and hashtags.</p>
+                  <p class="perk-sub">Every student walks away with high-gloss keepsake strips custom-printed with your
+                    official college &amp; fest logo and hashtags.</p>
                 </div>
               </div>
             </div>
@@ -1129,7 +1178,8 @@
             <!-- Quick Trust Callout -->
             <div class="sponsor-badge-callout">
               <span class="callout-tag">CAMPUS READY</span>
-              <span class="callout-text">Ideal for 1-day to 4-day college fests, cultural nights &amp; campus carnivals.</span>
+              <span class="callout-text">Ideal for 1-day to 4-day college fests, cultural nights &amp; campus
+                carnivals.</span>
             </div>
           </div>
 
@@ -1141,25 +1191,29 @@
                 <span>INSTANT WHATSAPP PROPOSAL DESK</span>
               </div>
               <h3 class="sponsor-form-title">Invite CLICKIIT.CO to Campus</h3>
-              <p class="sponsor-form-sub">Share your fest details below to receive our sponsorship proposal and lock your dates directly on WhatsApp.</p>
+              <p class="sponsor-form-sub">Share your fest details below to receive our sponsorship proposal and lock
+                your dates directly on WhatsApp.</p>
             </div>
 
             <form id="collegeSponsorForm" class="college-sponsor-form" novalidate>
               <div class="sponsor-form-grid">
-                
+
                 <div class="sponsor-field">
                   <label for="sponsorCollegeName">College / University Name *</label>
-                  <input type="text" id="sponsorCollegeName" class="sponsor-input" placeholder="e.g. VNIT, RCOEM, Raisoni..." required />
+                  <input type="text" id="sponsorCollegeName" class="sponsor-input"
+                    placeholder="e.g. VNIT, RCOEM, Raisoni..." required />
                 </div>
 
                 <div class="sponsor-field">
                   <label for="sponsorFestName">Fest / Event Name *</label>
-                  <input type="text" id="sponsorFestName" class="sponsor-input" placeholder="e.g. Aarohi, Cultural Fiesta 2026..." required />
+                  <input type="text" id="sponsorFestName" class="sponsor-input"
+                    placeholder="e.g. Aarohi, Cultural Fiesta 2026..." required />
                 </div>
 
                 <div class="sponsor-field">
                   <label for="sponsorFestDates">Fest Dates &amp; Duration *</label>
-                  <input type="text" id="sponsorFestDates" class="sponsor-input" placeholder="e.g. 2 Days (Oct 18 &ndash; 19)" required />
+                  <input type="text" id="sponsorFestDates" class="sponsor-input"
+                    placeholder="e.g. 2 Days (Oct 18 &ndash; 19)" required />
                 </div>
 
                 <div class="sponsor-field">
@@ -1175,17 +1229,20 @@
 
                 <div class="sponsor-field">
                   <label for="sponsorLeadName">Organizer / Lead Name *</label>
-                  <input type="text" id="sponsorLeadName" class="sponsor-input" placeholder="e.g. Rohan (Fest Head)" required />
+                  <input type="text" id="sponsorLeadName" class="sponsor-input" placeholder="e.g. Rohan (Fest Head)"
+                    required />
                 </div>
 
                 <div class="sponsor-field">
                   <label for="sponsorLeadPhone">Organizer WhatsApp Number *</label>
-                  <input type="tel" id="sponsorLeadPhone" class="sponsor-input" placeholder="+91 98765 43210" required />
+                  <input type="tel" id="sponsorLeadPhone" class="sponsor-input" placeholder="+91 98765 43210"
+                    required />
                 </div>
 
                 <div class="sponsor-field sponsor-field-full">
                   <label for="sponsorNotes">Stall Requirements or Specific Notes (Optional)</label>
-                  <textarea id="sponsorNotes" class="sponsor-input sponsor-textarea" rows="2" placeholder="e.g. Open ground or indoor auditorium, electrical points available, sponsorship slab requested..."></textarea>
+                  <textarea id="sponsorNotes" class="sponsor-input sponsor-textarea" rows="2"
+                    placeholder="e.g. Open ground or indoor auditorium, electrical points available, sponsorship slab requested..."></textarea>
                 </div>
 
               </div>
@@ -1193,12 +1250,15 @@
               <div class="sponsor-form-actions">
                 <button type="submit" id="submitSponsorWaBtn" class="btn-sponsor-whatsapp">
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.123.553 4.116 1.518 5.844l-1.518 5.544 5.727-1.502c1.674.908 3.59 1.42 5.626 1.42 6.627 0 12-5.373 12-12s-5.373-12-12-12z"/>
+                    <path
+                      d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.123.553 4.116 1.518 5.844l-1.518 5.544 5.727-1.502c1.674.908 3.59 1.42 5.626 1.42 6.627 0 12-5.373 12-12s-5.373-12-12-12z" />
                   </svg>
                   <span>Submit Fest Details &amp; Chat on WhatsApp</span>
                 </button>
                 <p class="sponsor-guarantee-note">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:-2px; margin-right:4px;">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    style="display:inline-block; vertical-align:-2px; margin-right:4px;">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                   </svg>Direct line to Founders &amp; Fest Operations. Quick response within 2 hours.
@@ -1250,7 +1310,7 @@
                 </div>
                 <div class="field-group">
                   <label for="clientWhatsapp">WhatsApp Phone Number *</label>
-                  <input type="tel" id="clientWhatsapp" class="portal-input" placeholder="+91 97670 74984" required />
+                  <input type="tel" id="clientWhatsapp" class="portal-input" placeholder="+91 95185 97366" required />
                   <span class="field-hint">We'll send booking verification &amp; digital strip proof here.</span>
                 </div>
               </div>
@@ -1276,7 +1336,8 @@
                     <option value="Wedding / Reception" selected>Wedding / Reception &bull; Couple prints & album
                     </option>
                     <option value="Birthday / Anniversary">Birthday / Anniversary &bull; Party props & frames</option>
-                    <option value="Brand Event / Corporate">Brand Event &bull; Logo branding & QR airdrop</option>
+                    <option value="Corporate Event">Corporate Event &bull; Summits, galas & brand activations</option>
+                    <option value="Brand Event">Brand Event &bull; Logo branding & QR airdrop</option>
                     <option value="College Fest / Farewell">College Fest &bull; High-capacity rapid prints</option>
                     <option value="Private Party">Private Party &bull; Intimate studio setup</option>
                   </select>
@@ -1320,7 +1381,22 @@
                 </label>
 
                 <label class="event-type-card">
-                  <input type="radio" name="eventTypeRadio" value="Brand Event / Corporate" />
+                  <input type="radio" name="eventTypeRadio" value="Corporate Event" />
+                  <div class="event-type-content">
+                    <span class="event-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                      </svg>
+                    </span>
+                    <span class="event-name">Corporate Event</span>
+                    <span class="event-desc">Summits, galas &amp; brand launches</span>
+                  </div>
+                </label>
+
+                <label class="event-type-card">
+                  <input type="radio" name="eventTypeRadio" value="Brand Event" />
                   <div class="event-type-content">
                     <span class="event-icon" aria-hidden="true">
                       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
@@ -1402,17 +1478,18 @@
                 <label for="mobileSessionPlanSelect" class="mobile-picker-label">Select Package Tier</label>
                 <div class="mobile-select-custom-box">
                   <select id="mobileSessionPlanSelect" class="portal-input mobile-picker-select">
-                    <optgroup label="✦ BASED ON STRIPS / PRINTS ✦">
-                      <option value="150 Prints (₹12,000)">150 Prints — ₹12,000 (4R or 2x6 Strips)</option>
-                      <option value="200 Prints (₹15,000)" selected>200 Prints — ₹15,000 (Most Popular)</option>
-                      <option value="300 Prints (₹20,000)">300 Prints — ₹20,000 (High Volume)</option>
-                      <option value="500 Prints (₹30,000)">500 Prints — ₹30,000 (Grand Gala)</option>
+                    <optgroup label="✦ PRINT PACKAGES (BY PRINTS) ✦">
+                      <option value="Essential — 150 Prints (₹9,999)">Essential — 150 Prints (₹9,999)</option>
+                      <option value="Classic — 200 Prints (₹12,999)" selected>Classic — 200 Prints (₹12,999) — Most Popular</option>
+                      <option value="Premium — 300 Prints (₹16,999)">Premium — 300 Prints (₹16,999)</option>
+                      <option value="Signature — 500 Prints (₹21,999)">Signature — 500 Prints (₹21,999)</option>
                     </optgroup>
-                    <optgroup label="✦ BASED ON TIME (UNLIMITED) ✦">
-                      <option value="3 Hours Unlimited (₹14,000)">3 - Hours Unlimited — ₹14,000</option>
-                      <option value="4 Hours Unlimited (₹16,000)">4 - Hours Unlimited — ₹16,000 (Most Popular)</option>
-                      <option value="5 Hours Unlimited (₹20,000)">5 - Hours Unlimited — ₹20,000</option>
-                      <option value="8 Hours Unlimited (₹32,000)">8 - Hours Unlimited — ₹32,000 (Full Day VIP)</option>
+                    <optgroup label="✦ UNLIMITED PACKAGES (BY DURATION) ✦">
+                      <option value="3 Hours Unlimited (₹11,999)">3 Hours Unlimited — ₹11,999</option>
+                      <option value="4 Hours Unlimited (₹13,999)">4 Hours Unlimited — ₹13,999 (Most Popular)</option>
+                      <option value="5 Hours Unlimited (₹16,999)">5 Hours Unlimited — ₹16,999</option>
+                      <option value="8 Hours Unlimited (₹21,999)">8 Hours Unlimited — ₹21,999</option>
+                      <option value="10 Hours Unlimited (₹25,999)">10 Hours Unlimited — ₹25,999</option>
                     </optgroup>
                   </select>
                   <span class="mobile-select-arrow">▾</span>
@@ -1422,14 +1499,14 @@
               <!-- Desktop Plan Grid: Category 1 (Strips) -->
               <div class="session-plans-grid form-plans-panel active" id="form-plans-strips">
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="150 Prints (₹12,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="Essential — 150 Prints (₹9,999)" />
                   <div class="session-card-inner">
-                    <div class="session-badge">INTIMATE</div>
+                    <div class="session-badge">ESSENTIAL</div>
                     <div class="session-duration">150 Prints</div>
-                    <div class="session-price-tag">₹12,000</div>
-                    <div class="session-summary">Ideal for birthdays &amp; small dinners</div>
+                    <div class="session-price-tag">₹9,999</div>
+                    <div class="session-summary">Ideal for birthdays &amp; intimate dinners</div>
                     <ul class="session-perks">
-                      <li>Up to 150 total prints</li>
+                      <li>150 Lab-Quality Prints</li>
                       <li>Choice of 4R or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
@@ -1438,14 +1515,14 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="200 Prints (₹15,000)" checked />
+                  <input type="radio" name="sessionPlanRadio" value="Classic — 200 Prints (₹12,999)" checked />
                   <div class="session-card-inner">
                     <div class="session-badge gold">MOST POPULAR</div>
                     <div class="session-duration">200 Prints</div>
-                    <div class="session-price-tag">₹15,000</div>
+                    <div class="session-price-tag">₹12,999</div>
                     <div class="session-summary">Signature choice for socials &amp; receptions</div>
                     <ul class="session-perks">
-                      <li>Up to 200 total prints</li>
+                      <li>200 Lab-Quality Prints</li>
                       <li>Choice of 4R or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
@@ -1454,14 +1531,14 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="300 Prints (₹20,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="Premium — 300 Prints (₹16,999)" />
                   <div class="session-card-inner">
-                    <div class="session-badge">EXTENDED</div>
+                    <div class="session-badge">PREMIUM</div>
                     <div class="session-duration">300 Prints</div>
-                    <div class="session-price-tag">₹20,000</div>
+                    <div class="session-price-tag">₹16,999</div>
                     <div class="session-summary">High-volume prints for milestone events</div>
                     <ul class="session-perks">
-                      <li>Up to 300 total prints</li>
+                      <li>300 Lab-Quality Prints</li>
                       <li>Choice of 4R or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
@@ -1470,14 +1547,14 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="500 Prints (₹30,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="Signature — 500 Prints (₹21,999)" />
                   <div class="session-card-inner">
-                    <div class="session-badge">GRAND GALA</div>
+                    <div class="session-badge">SIGNATURE</div>
                     <div class="session-duration">500 Prints</div>
-                    <div class="session-price-tag">₹30,000</div>
+                    <div class="session-price-tag">₹21,999</div>
                     <div class="session-summary">Designed for mega weddings &amp; festivals</div>
                     <ul class="session-perks">
-                      <li>Up to 500 total prints</li>
+                      <li>500 Lab-Quality Prints</li>
                       <li>Choice of 4R or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
@@ -1489,15 +1566,15 @@
               <!-- Desktop Plan Grid: Category 2 (Time) -->
               <div class="session-plans-grid form-plans-panel" id="form-plans-time">
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="3 Hours Unlimited (₹14,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="3 Hours Unlimited (₹11,999)" />
                   <div class="session-card-inner">
                     <div class="session-badge">STANDARD</div>
-                    <div class="session-duration">3 - Hours</div>
-                    <div class="session-price-tag">₹14,000</div>
+                    <div class="session-duration">3 Hours</div>
+                    <div class="session-price-tag">₹11,999</div>
                     <div class="session-summary">Continuous printing for 3 full hours</div>
                     <ul class="session-perks">
-                      <li>Unlimited photo sessions (1 print/session)</li>
-                      <li>4R size lab prints</li>
+                      <li>Unlimited photo sessions</li>
+                      <li>4R lab prints or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
                     </ul>
@@ -1505,15 +1582,15 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="4 Hours Unlimited (₹16,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="4 Hours Unlimited (₹13,999)" />
                   <div class="session-card-inner">
                     <div class="session-badge gold">MOST POPULAR</div>
-                    <div class="session-duration">4 - Hours</div>
-                    <div class="session-price-tag">₹16,000</div>
+                    <div class="session-duration">4 Hours</div>
+                    <div class="session-price-tag">₹13,999</div>
                     <div class="session-summary">Signature choice for receptions &amp; sangeets</div>
                     <ul class="session-perks">
-                      <li>Unlimited photo sessions (1 print/session)</li>
-                      <li>4R size lab prints</li>
+                      <li>Unlimited photo sessions</li>
+                      <li>4R lab prints or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
                     </ul>
@@ -1521,15 +1598,15 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="5 Hours Unlimited (₹20,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="5 Hours Unlimited (₹16,999)" />
                   <div class="session-card-inner">
                     <div class="session-badge">EXTENDED</div>
-                    <div class="session-duration">5 - Hours</div>
-                    <div class="session-price-tag">₹20,000</div>
+                    <div class="session-duration">5 Hours</div>
+                    <div class="session-price-tag">₹16,999</div>
                     <div class="session-summary">Extended duration for long receptions</div>
                     <ul class="session-perks">
-                      <li>Unlimited photo sessions (1 print/session)</li>
-                      <li>4R size lab prints</li>
+                      <li>Unlimited photo sessions</li>
+                      <li>4R lab prints or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
                     </ul>
@@ -1537,15 +1614,31 @@
                 </label>
 
                 <label class="session-plan-card">
-                  <input type="radio" name="sessionPlanRadio" value="8 Hours Unlimited (₹32,000)" />
+                  <input type="radio" name="sessionPlanRadio" value="8 Hours Unlimited (₹21,999)" />
                   <div class="session-card-inner">
                     <div class="session-badge">FULL DAY VIP</div>
-                    <div class="session-duration">8 - Hours</div>
-                    <div class="session-price-tag">₹32,000</div>
+                    <div class="session-duration">8 Hours</div>
+                    <div class="session-price-tag">₹21,999</div>
                     <div class="session-summary">Full day coverage for expos &amp; luxury weddings</div>
                     <ul class="session-perks">
-                      <li>Unlimited photo sessions (1 print/session)</li>
-                      <li>4R size lab prints</li>
+                      <li>Unlimited photo sessions</li>
+                      <li>4R lab prints or 2x6 strips</li>
+                      <li>Live AI face-matching gallery</li>
+                      <li>Custom photo template design</li>
+                    </ul>
+                  </div>
+                </label>
+
+                <label class="session-plan-card">
+                  <input type="radio" name="sessionPlanRadio" value="10 Hours Unlimited (₹25,999)" />
+                  <div class="session-card-inner">
+                    <div class="session-badge">ULTRA CELEBRATION</div>
+                    <div class="session-duration">10 Hours</div>
+                    <div class="session-price-tag">₹25,999</div>
+                    <div class="session-summary">All-day non-stop photo experiences for mega festivals</div>
+                    <ul class="session-perks">
+                      <li>Unlimited photo sessions</li>
+                      <li>4R lab prints or 2x6 strips</li>
                       <li>Live AI face-matching gallery</li>
                       <li>Custom photo template design</li>
                     </ul>
@@ -1627,7 +1720,7 @@
       <div class="footer-brand">
         <div class="footer-logo">CLICKIIT.CO</div>
         <p class="footer-motto">Click it &bull; Keep it &bull; Love it</p>
-        <p class="footer-copy">&copy; 2026 Clickiit.co Photo Booths. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2026 Clickiit.co Photo Booths. Nagpur &amp; Maharashtra.</p>
       </div>
 
       <div class="footer-links-col">
@@ -1635,26 +1728,24 @@
         <ul>
           <li><a href="#booth-experience">The Booth</a></li>
           <li><a href="#how-it-works">The Experience</a></li>
-          <li><a href="#scrapbook-showcase">Community Scrapbook</a></li>
           <li><a href="#packages">Pricing &amp; Packages</a></li>
+          <li><a href="#scrapbook-showcase">Community Scrapbook</a></li>
           <li><a href="#locations">Find Our Kiosks</a></li>
+          <li><a href="#booking">Reserve Booth</a></li>
         </ul>
       </div>
 
       <div class="footer-links-col">
         <h4>Contact &amp; Bookings</h4>
         <ul>
-          <li>hello@clickiit.co</li>
-          <li>+91 97670 74984</li>
-          <li>Instagram: @clickiit.co.photobooth</li>
-          <li>Daily: 10 AM &ndash; 10:30 PM</li>
-          <li><a href="admin.html" target="_blank" class="admin-footer-link"
-              style="color: var(--accent-bronze); font-size: 0.8125rem; display: inline-flex; align-items: center; gap: 5px;"><svg
-                viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg> Studio Admin Portal ↗</a></li>
+          <li><a href="mailto:clickiitcoevents@gmail.com" style="color: inherit;">clickiitcoevents@gmail.com</a></li>
+          <li><a href="tel:+919518597366" style="color: inherit;">+91 95185 97366</a> &bull; <a href="tel:+919226697839" style="color: inherit;">+91 92266 97839</a></li>
+          <li><a href="https://instagram.com/clickiit.co_events" target="_blank" rel="noopener" style="color: inherit; display: inline-flex; align-items: center; gap: 4px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            @clickiit.co_events ↗
+          </a></li>
+          <li>Nagpur &amp; Maharashtra</li>
+          <li>Daily: 11 AM &ndash; 10 PM</li>
         </ul>
       </div>
     </div>

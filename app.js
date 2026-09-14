@@ -551,7 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const radioEl = document.querySelector('.form-plans-panel.active input[name="sessionPlanRadio"]:checked')
       || document.querySelector('input[name="sessionPlanRadio"]:checked');
     if (radioEl) return radioEl.value;
-    return mobileSel && mobileSel.value ? mobileSel.value : '200 Prints (₹15,000)';
+    return mobileSel && mobileSel.value ? mobileSel.value : 'Classic — 200 Prints (₹12,999)';
   }
 
   const mobileEventTypeSelect = document.getElementById('mobileEventTypeSelect');
@@ -665,7 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (receiptStatus) receiptStatus.textContent = 'Slot Held &bull; Reviewing';
 
       if (receiptWhatsappLink) {
-        const cleanStudioPhone = '919767074984';
+        const cleanStudioPhone = '919518597366';
         const msg = encodeURIComponent(
           `Hi Clickiit.co! I just reserved photo booth booking ID: ${assignedId}\nName: ${name}\nEvent: ${eventType} (${sessionPlan})\nDate: ${eventDate} at ${eventTime}\nVenue: ${address}`
         );
@@ -701,7 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const eventType = getSelectedEventType();
       const sessionPlan = getSelectedSessionPlan();
 
-      const cleanStudioPhone = '919767074984';
+      const cleanStudioPhone = '919518597366';
       const waMsg = encodeURIComponent(
         `Hello Clickiit.co Photo Booth! I'd like to check availability and book a booth for ${eventType} (${sessionPlan}) on ${eventDate} at ${eventTime}.\nClient: ${name}\nVenue: ${address}`
       );
@@ -743,7 +743,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const cleanStudioPhone = '919767074984';
+      const cleanStudioPhone = '919518597366';
 
       let msg = `🎓 *College Fest Sponsorship & Stall Inquiry - CLICKIIT.CO*\n` +
         `─────────────────────────────\n` +

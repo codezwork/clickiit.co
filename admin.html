@@ -461,7 +461,7 @@
           </div>
           <div class="form-group">
             <label for="manualWhatsapp">WhatsApp Number</label>
-            <input type="tel" id="manualWhatsapp" class="form-control" placeholder="+91 97670 74984" />
+            <input type="tel" id="manualWhatsapp" class="form-control" placeholder="+91 95185 97366" />
           </div>
         </div>
 
@@ -482,7 +482,8 @@
             <select id="manualType" class="form-control">
               <option value="Wedding / Reception">Wedding / Reception</option>
               <option value="Birthday / Anniversary">Birthday / Anniversary</option>
-              <option value="Brand Event / Corporate">Brand Event / Corporate</option>
+              <option value="Corporate Event">Corporate Event</option>
+              <option value="Brand Event">Brand Event</option>
               <option value="College Fest / Social">College Fest / Social</option>
               <option value="Private Party">Private Party</option>
               <option value="Admin Blocked / Studio Maintenance">Admin Blocked / Studio Maintenance</option>
@@ -491,10 +492,19 @@
           <div class="form-group">
             <label for="manualPlan">Session Plan</label>
             <select id="manualPlan" class="form-control">
-              <option value="2 Hours">2 Hours Session</option>
-              <option value="4 Hours" selected>4 Hours Session</option>
-              <option value="6 Hours">6 Hours Session</option>
-              <option value="Full Day">Full Day / Unlimited</option>
+              <optgroup label="Print Packages (By Prints)">
+                <option value="Essential — 150 Prints (₹9,999)">Essential — 150 Prints (₹9,999)</option>
+                <option value="Classic — 200 Prints (₹12,999)" selected>Classic — 200 Prints (₹12,999)</option>
+                <option value="Premium — 300 Prints (₹16,999)">Premium — 300 Prints (₹16,999)</option>
+                <option value="Signature — 500 Prints (₹21,999)">Signature — 500 Prints (₹21,999)</option>
+              </optgroup>
+              <optgroup label="Unlimited Packages (By Duration)">
+                <option value="3 Hours Unlimited (₹11,999)">3 Hours Unlimited (₹11,999)</option>
+                <option value="4 Hours Unlimited (₹13,999)">4 Hours Unlimited (₹13,999)</option>
+                <option value="5 Hours Unlimited (₹16,999)">5 Hours Unlimited (₹16,999)</option>
+                <option value="8 Hours Unlimited (₹21,999)">8 Hours Unlimited (₹21,999)</option>
+                <option value="10 Hours Unlimited (₹25,999)">10 Hours Unlimited (₹25,999)</option>
+              </optgroup>
             </select>
           </div>
         </div>
