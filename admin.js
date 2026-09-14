@@ -5,7 +5,7 @@
  * - Full Mobile-First Responsive UI
  * - Full Booking Lifecycle: Pending, Confirmed, Completed, Cancelled, Blocked
  * - Revert confirmed/completed bookings back to Pending at any time
- * - Direct WhatsApp integration with official number: 9767074984
+ * - Direct WhatsApp integration with official number: 9518597366
  * - Visual interactive calendar with color-coded event days
  * - Photo Strips CMS with live publish & deletion
  */
