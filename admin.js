@@ -883,7 +883,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (res.ok) {
-        showToast('Photo strip published to website!');
+        showToast('Photo strip published to website! ✓');
+        await fetchStrips();
+        localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
       } else {
         const fallbackStrip = {
           id: 'strip-' + Date.now(),

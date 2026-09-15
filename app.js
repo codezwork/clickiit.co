@@ -378,6 +378,96 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
+  // 4b. Dynamic Scrapbook Gallery — Loaded from Admin CMS (/api/strips)
+  // =========================================================================
+  const TILT_CLASSES = ['tilt-n3', 'tilt-n2', 'tilt-n1', 'tilt-p1', 'tilt-p2', 'tilt-p3'];
+  const stripGroupPrimary = document.getElementById('stripGroupPrimary');
+  const stripGroupClone = document.getElementById('stripGroupClone');
+  const scrapbookEmptyState = document.getElementById('scrapbookEmptyState');
+  const clotheslineRow = document.getElementById('clotheslineRow');
+
+  /**
+   * Build a single hanging-strip-card DOM element from a strip data object.
+   * Matches the same HTML structure that was previously hardcoded.
+   */
+  function buildStripCard(strip, index) {
+    const tilt = TILT_CLASSES[index % TILT_CLASSES.length];
+    const card = document.createElement('div');
+    card.className = `hanging-strip-card ${tilt}`;
+    card.setAttribute('data-src', strip.imageUrl || '');
+    card.setAttribute('data-title', strip.title || 'Photo Strip');
+    card.innerHTML = `
+      <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+      <div class="mini-strip-surface">
+        <img src="${strip.imageUrl || ''}" alt="${strip.title || 'Photo Strip'}" class="mini-strip-img" loading="lazy" />
+      </div>`;
+    return card;
+  }
+
+  /**
+   * Render the strips array into the clothesline marquee gallery.
+   * Shows the empty state when strips = [].
+   */
+  function renderPublicStrips(strips) {
+    if (!stripGroupPrimary) return;
+
+    stripGroupPrimary.innerHTML = '';
+    if (stripGroupClone) stripGroupClone.innerHTML = '';
+
+    if (!strips || strips.length === 0) {
+      // Show the empty state, hide the clothesline row
+      if (scrapbookEmptyState) scrapbookEmptyState.style.display = 'flex';
+      if (clotheslineRow) clotheslineRow.style.display = 'none';
+      return;
+    }
+
+    // Hide empty state, show clothesline
+    if (scrapbookEmptyState) scrapbookEmptyState.style.display = 'none';
+    if (clotheslineRow) clotheslineRow.style.display = '';
+
+    // Build primary strip cards
+    strips.forEach((strip, i) => {
+      stripGroupPrimary.appendChild(buildStripCard(strip, i));
+    });
+
+    // Clone cards into the second group for seamless infinite marquee scroll
+    if (stripGroupClone) {
+      strips.forEach((strip, i) => {
+        const clone = buildStripCard(strip, i);
+        stripGroupClone.appendChild(clone);
+      });
+    }
+  }
+
+  /**
+   * Fetch strips from backend API. Falls back to localStorage on failure.
+   */
+  async function loadPublicStrips() {
+    let strips = [];
+    try {
+      const res = await fetch('/api/strips');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data)) {
+          strips = data;
+          // Update localStorage cache so next load is instant
+          localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
+        }
+      } else {
+        throw new Error('API unavailable');
+      }
+    } catch {
+      // Fallback: use strips previously saved by admin (works on live domain without running server)
+      const cached = localStorage.getItem('clickit_strips_local');
+      strips = cached ? JSON.parse(cached) : [];
+    }
+    renderPublicStrips(strips);
+  }
+
+  // Load strips immediately on page load
+  loadPublicStrips();
+
+  // =========================================================================
   // 5. Real-Time Date Availability Engine
   // =========================================================================
   let bookedDatesCache = [];
