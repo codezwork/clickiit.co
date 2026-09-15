@@ -984,22 +984,6 @@ button {
   border-bottom: 1px solid #1E1E1E;
 }
 
-/* Empty state when no strips are published via Admin CMS */
-.scrapbook-empty-state {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 5rem 2rem;
-  text-align: center;
-}
-.scrapbook-empty-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--beige-light);
-}
 
 .scrapbook-header-row {
   display: flex;
@@ -1067,13 +1051,8 @@ button {
 .hanging-strip-card {
   position: relative;
   z-index: 2;
-  cursor: pointer;
-  transition: transform var(--transition-fast), filter var(--transition-fast);
-}
-.hanging-strip-card:hover {
-  transform: scale(1.1) translateY(-4px) !important;
-  z-index: 10;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.7));
+  cursor: default;
+  user-select: none;
 }
 
 /* Halved wooden clothespin */
