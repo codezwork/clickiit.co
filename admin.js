@@ -71,9 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // CMS Elements
   const addStripForm = document.getElementById('addStripForm');
-  const stripTitleInput = document.getElementById('stripTitleInput');
-  const stripTagInput = document.getElementById('stripTagInput');
-  const stripTargetSelect = document.getElementById('stripTargetSelect');
   const stripDropzone = document.getElementById('stripDropzone');
   const stripFileInput = document.getElementById('stripFileInput');
   const dropzonePrompt = document.getElementById('dropzonePrompt');
@@ -855,9 +852,6 @@ document.addEventListener('DOMContentLoaded', () => {
   addStripForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const title = stripTitleInput.value.trim();
-    const dateTag = stripTagInput.value.trim() || 'Today';
-    const displayTarget = stripTargetSelect.value;
     const imageUrl = stripImageBase64 || stripUrlInput.value.trim();
 
     if (!imageUrl) {
@@ -865,10 +859,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // Auto-generate title from timestamp (admin only, not shown on public site)
+    const autoTitle = 'Strip ' + new Date().toISOString().slice(0, 10);
+
     const newStripData = {
-      title,
-      dateTag,
-      displayTarget,
+      title: autoTitle,
+      dateTag: new Date().toLocaleDateString('en-IN'),
+      displayTarget: 'both',
       imageUrl
     };
 
