@@ -1004,18 +1004,34 @@ button {
 .clothesline-row {
   position: relative;
   overflow: hidden;
-  padding: 0.85rem 0 1.25rem;
+  padding: 1.25rem 0 2rem;
+  width: 100%;
+}
+
+/* Continuous background rope spanning full screen edge-to-edge */
+.clothesline-row::before {
+  content: '';
+  position: absolute;
+  top: 29px;
+  left: -50vw;
+  right: -50vw;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #A1A1AA 0, #A1A1AA 10px, #52525B 10px, #52525B 20px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .marquee-scroll-track {
   display: flex;
   width: max-content;
+  position: relative;
 }
 .marquee-scroll-track.scroll-left {
-  animation: trackScrollLeft 60s linear infinite;
+  animation: trackScrollLeft 50s linear infinite;
 }
 .marquee-scroll-track.scroll-right {
-  animation: trackScrollRight 60s linear infinite;
+  animation: trackScrollRight 50s linear infinite;
 }
 .clothesline-row:hover .marquee-scroll-track {
   animation-play-state: paused;
@@ -1030,61 +1046,77 @@ button {
   100% { transform: translateX(0); }
 }
 
+/* Moving foreground rope that travels with the clamps */
 .moving-rope-line {
   position: absolute;
-  top: 14px;
+  top: 9px;
   left: 0;
   right: 0;
-  height: 2px;
-  background: repeating-linear-gradient(90deg, #71717A 0, #71717A 8px, #3F3F46 8px, #3F3F46 16px);
-  opacity: 0.45;
-  z-index: 1;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #E4E4E7 0, #E4E4E7 10px, #71717A 10px, #71717A 20px);
+  opacity: 0.9;
+  z-index: 2;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .marquee-strip-group {
   display: flex;
   align-items: flex-start;
-  gap: 1.15rem;
-  padding-right: 1.15rem;
+  gap: 3.5rem;
+  padding-right: 3.5rem;
 }
 
 .hanging-strip-card {
   position: relative;
-  z-index: 2;
-  cursor: default;
+  z-index: 3;
+  cursor: grab;
   user-select: none;
+  width: 78px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+.hanging-strip-card:active {
+  cursor: grabbing;
 }
 
-/* Halved wooden clothespin */
+.hanging-strip-card.clamp-only {
+  min-height: 50px;
+}
+
+/* Clothespin clamp attached to the rope */
 .wooden-clothespin {
   position: absolute;
-  top: -5px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  width: 9px;
-  height: 20px;
-  background: linear-gradient(180deg, #E4E4E7 0%, #A1A1AA 60%, #52525B 100%);
-  border-radius: 1px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+  width: 10px;
+  height: 22px;
+  background: linear-gradient(180deg, #F4F4F5 0%, #A1A1AA 50%, #52525B 100%);
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.55);
   z-index: 5;
 }
 .wooden-clothespin .peg-clip {
   position: absolute;
-  top: 9px;
+  top: 10px;
   left: 1px;
   right: 1px;
   height: 2px;
-  background: #606060;
+  background: #27272A;
   border-radius: 1px;
 }
 
-/* Halved photo strip surface */
+/* Photo strip surface clamped below the clothespin */
 .mini-strip-surface {
+  margin-top: 14px;
   background: #FFFFFF;
   padding: 4px 4px 5px;
-  border-radius: 0;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-  width: 68px;
+  border-radius: 1px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+  width: 76px;
   display: flex;
   flex-direction: column;
   gap: 2px;

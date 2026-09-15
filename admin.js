@@ -875,6 +875,11 @@ document.addEventListener('DOMContentLoaded', () => {
   addStripForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    if (strips.length >= 15) {
+      alert('Maximum capacity of 15 photo strips reached. Please delete an older strip before uploading a new one.');
+      return;
+    }
+
     let finalImageUrl = stripUrlInput.value.trim();
 
     // 1. Upload to Supabase Storage bucket 'strips' if a file was selected
@@ -967,7 +972,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderStrips() {
     cmsStripsGrid.innerHTML = '';
-    cmsStripCount.textContent = strips.length;
+    cmsStripCount.textContent = `${strips.length} / 15`;
+
+    const addStripSubmitBtn = document.getElementById('addStripSubmitBtn');
+    if (addStripSubmitBtn) {
+      if (strips.length >= 15) {
+        addStripSubmitBtn.disabled = true;
+        addStripSubmitBtn.innerHTML = '<span>Limit Reached (15/15) — Delete a Strip Below</span>';
+        addStripSubmitBtn.style.opacity = '0.6';
+        addStripSubmitBtn.style.cursor = 'not-allowed';
+      } else {
+        addStripSubmitBtn.disabled = false;
+        addStripSubmitBtn.innerHTML = '<span>Publish Strip to Website</span>';
+        addStripSubmitBtn.style.opacity = '1';
+        addStripSubmitBtn.style.cursor = 'pointer';
+      }
+    }
 
     if (strips.length === 0) {
       cmsStripsGrid.innerHTML = '<div class="empty-state">No photo strips added yet. Upload one above!</div>';

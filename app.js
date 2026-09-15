@@ -386,25 +386,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const clotheslineRow    = document.getElementById('clotheslineRow');
   const marqueeTrack      = document.getElementById('marqueeScrollTrack');
 
-  /** Build one hanging-strip-card element (not clickable, no popup). */
-  function buildStripCard(strip, index) {
-    const tilt = TILT_CLASSES[index % TILT_CLASSES.length];
+  const TOTAL_ROPE_SLOTS = 15; // Exactly 15 clamps across the moving clothesline
+
+  /** Build one clamp element on the rope — either holding a photo strip or an empty clamp */
+  function buildSlotCard(strip, slotIndex) {
     const card = document.createElement('div');
-    card.className = `hanging-strip-card ${tilt}`;
-    // No data-src / data-title needed — strips don't open a modal
-    card.innerHTML = `
-      <div class="wooden-clothespin"><div class="peg-clip"></div></div>
-      <div class="mini-strip-surface">
-        <img src="${strip.imageUrl || ''}" alt="Photo strip" class="mini-strip-img" loading="lazy" />
-      </div>`;
+    if (strip && strip.imageUrl) {
+      const tilt = TILT_CLASSES[slotIndex % TILT_CLASSES.length];
+      card.className = `hanging-strip-card has-strip ${tilt}`;
+      card.innerHTML = `
+        <div class="wooden-clothespin"><div class="peg-clip"></div></div>
+        <div class="mini-strip-surface">
+          <img src="${strip.imageUrl}" alt="Photo strip" class="mini-strip-img" loading="lazy" />
+        </div>`;
+    } else {
+      // Empty clamp hanging from the moving rope
+      card.className = 'hanging-strip-card clamp-only';
+      card.innerHTML = `
+        <div class="wooden-clothespin"><div class="peg-clip"></div></div>`;
+    }
     return card;
   }
 
   /**
-   * Fill the clothesline with strips from the CMS.
-   * - Always shows the rope (clotheslineRow always visible).
-   * - Duplicates strips enough times so the track fills the viewport for smooth looping.
-   * - Never shows an "empty state" text — just an empty rope if no strips yet.
+   * Render the moving clothesline rope with 15 clamps.
+   * - If 0 strips: all 15 clamps are empty clamps moving across the rope.
+   * - If 1 strip: exactly 1 clamp holds that strip, other 14 are empty clamps.
+   * - If N strips (up to 15): each strip is clamped at its own slot, rest are empty clamps.
+   * - Never duplicates strips side-by-side.
    */
   function renderPublicStrips(strips) {
     if (!stripGroupPrimary) return;
@@ -412,17 +421,18 @@ document.addEventListener('DOMContentLoaded', () => {
     stripGroupPrimary.innerHTML = '';
     if (stripGroupClone) stripGroupClone.innerHTML = '';
 
-    // Always keep the rope visible
+    // Always keep the rope visible across the screen
     if (clotheslineRow) clotheslineRow.style.display = '';
 
-    if (!strips || strips.length === 0) return; // Empty rope — no strips, just the rope
+    const validStrips = Array.isArray(strips) ? strips.slice(0, TOTAL_ROPE_SLOTS) : [];
 
-    // Add exactly the strips the admin published — no repetition, no duplication
-    strips.forEach((strip, i) => {
-      stripGroupPrimary.appendChild(buildStripCard(strip, i));
-    });
+    // Always fill exactly TOTAL_ROPE_SLOTS (15) across the primary group
+    for (let i = 0; i < TOTAL_ROPE_SLOTS; i++) {
+      const strip = validStrips[i] || null;
+      stripGroupPrimary.appendChild(buildSlotCard(strip, i));
+    }
 
-    // Clone group: silent mirror for seamless infinite CSS scroll loop (not visible as duplicates)
+    // Mirror to clone group for seamless infinite CSS scroll loop
     if (stripGroupClone) {
       stripGroupPrimary.querySelectorAll('.hanging-strip-card').forEach(card => {
         stripGroupClone.appendChild(card.cloneNode(true));
@@ -440,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
           .select('*')
           .order('createdAt', { ascending: false });
 
-        if (!error && Array.isArray(data) && data.length > 0) {
+        if (!error && Array.isArray(data)) {
           strips = data;
           localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
           renderPublicStrips(strips);
