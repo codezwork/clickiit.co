@@ -406,25 +406,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Always keep the rope visible
     if (clotheslineRow) clotheslineRow.style.display = '';
 
-    if (!strips || strips.length === 0) return; // Empty rope — no clothespins, no strips
+    if (!strips || strips.length === 0) return; // Empty rope — no strips, just the rope
 
-    // How many times do we need to repeat strips to fill ~2× viewport width?
-    // Each strip card is ~90px wide including gap. Target: at least 16 cards per group.
-    const minCards = Math.max(16, strips.length * 2);
-    const repeats  = Math.ceil(minCards / strips.length);
+    // Add exactly the strips the admin published — no repetition, no duplication
+    strips.forEach((strip, i) => {
+      stripGroupPrimary.appendChild(buildStripCard(strip, i));
+    });
 
-    // Build primary group (fills one viewport width)
-    for (let r = 0; r < repeats; r++) {
-      strips.forEach((strip, i) => {
-        stripGroupPrimary.appendChild(buildStripCard(strip, r * strips.length + i));
-      });
-    }
-
-    // Clone group is an exact mirror — gives the seamless infinite scroll loop
+    // Clone group: silent mirror for seamless infinite CSS scroll loop (not visible as duplicates)
     if (stripGroupClone) {
-      stripGroupPrimary.querySelectorAll('.hanging-strip-card').forEach((card, i) => {
-        const clone = card.cloneNode(true);
-        stripGroupClone.appendChild(clone);
+      stripGroupPrimary.querySelectorAll('.hanging-strip-card').forEach(card => {
+        stripGroupClone.appendChild(card.cloneNode(true));
       });
     }
   }
