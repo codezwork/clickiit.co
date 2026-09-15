@@ -97,31 +97,6 @@
       </div>
 
       <div class="topbar-right">
-        <!-- Google Sheets Two-Way Sync Status Pill -->
-        <button id="openSheetConfigBtn" class="btn-sheet-pill" type="button"
-          title="Configure Google Sheets Two-Way Sync & Alerts">
-          <span class="sheet-status-dot" id="sheetStatusDot"></span>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-            <line x1="3" y1="9" x2="21" y2="9"></line>
-            <line x1="3" y1="15" x2="21" y2="15"></line>
-            <line x1="9" y1="3" x2="9" y2="21"></line>
-          </svg>
-          <span id="sheetStatusText">Google Sheets</span>
-        </button>
-
-        <button id="syncSheetBtn" class="btn-sync-sheet" type="button" title="Sync now from Google Sheet"
-          style="display:none;">
-          <svg class="sync-icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10"></polyline>
-            <polyline points="1 20 1 14 7 14"></polyline>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-          </svg>
-          <span>Sync Sheet</span>
-        </button>
-
         <div class="admin-datetime" id="liveClock">--:--:--</div>
         <button id="refreshDataBtn" class="btn-icon" title="Refresh all data">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
@@ -545,72 +520,11 @@
     </div>
   </div>
 
-  <!-- =========================================================================
-       MODAL: GOOGLE SHEETS & EMAIL NOTIFICATION CONFIGURATION
-       ========================================================================= -->
-  <div class="admin-modal-overlay" id="sheetConfigModal" style="display:none;">
-    <div class="admin-modal-box sheet-modal-box">
-      <div class="modal-header">
-        <div>
-          <span class="badge-role" style="display:inline-block; margin-bottom:4px;">✦ TWO-WAY DATABASE</span>
-          <h3 id="sheetModalTitle">Google Sheets &amp; Alerts Settings</h3>
-        </div>
-        <button class="modal-close" id="closeSheetConfigBtn" type="button" aria-label="Close modal">&times;</button>
-      </div>
-
-      <form id="sheetConfigForm" class="modal-body-form">
-        <div class="sheet-setup-guide">
-          <h4>How to connect your Google Sheet:</h4>
-          <ol>
-            <li>Create a new spreadsheet on Google Sheets: <code>Clickiit Bookings 2026</code>.</li>
-            <li>Go to <strong>Extensions &rarr; Apps Script</strong>.</li>
-            <li>Paste the ready-made code from <code>google-apps-script.js</code> (found in this project).</li>
-            <li>Click <strong>Deploy &rarr; New Deployment</strong>, choose <strong>Web app</strong>, set <em>Who has
-                access</em> to <strong>Anyone</strong>, and copy the Web App URL.</li>
-          </ol>
-        </div>
-
-        <div class="form-group">
-          <label for="googleSheetUrlInput">Google Apps Script Web App URL *</label>
-          <input type="url" id="googleSheetUrlInput" class="form-control"
-            placeholder="https://script.google.com/macros/s/.../exec" required />
-          <span class="input-hint">Must be the deployment URL ending with <code>/exec</code></span>
-        </div>
-
-        <div class="form-group">
-          <label for="notificationEmailInput">Admin Notification Email (Optional)</label>
-          <input type="email" id="notificationEmailInput" class="form-control"
-            placeholder="e.g. clickiit.studio@gmail.com" />
-          <span class="input-hint">Receive instant email notifications whenever a client books.</span>
-        </div>
-
-        <div class="sheet-test-row">
-          <button type="button" id="testSheetConnBtn" class="btn-ghost-action">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-              <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-            <span>Test Connection</span>
-          </button>
-          <span id="sheetTestFeedback" class="sheet-test-feedback"></span>
-        </div>
-
-        <div class="modal-actions">
-          <button type="button" class="btn-ghost" id="cancelSheetConfigBtn">Cancel</button>
-          <button type="submit" class="btn-primary" id="saveSheetConfigBtn">
-            <span>Save &amp; Connect</span>
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- Toast Notification Container -->
   <div id="adminToast" class="admin-toast" style="display:none;"></div>
 
   <!-- Admin Controller Script -->
-  <script src="admin.js"></script>
+  <script src="admin.js?v=9"></script>
 </body>
 
 </html>

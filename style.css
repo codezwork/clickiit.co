@@ -2349,36 +2349,37 @@ button {
 .booking-submit-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
   margin-top: 2rem;
-  flex-wrap: wrap;
+  width: 100%;
 }
 .btn-booking-submit {
-  flex: 1;
-  border-radius: 0;
-  padding: 1rem 2rem;
-  font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.btn-whatsapp-direct {
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 1.75rem;
-  background: #25D366;
-  color: #FFFFFF;
+  justify-content: center;
+  gap: 0.6rem;
   border-radius: 0;
+  padding: 1.2rem 2rem;
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all var(--transition-fast);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #25D366 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #25D366 !important;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  transition: none;
 }
-.btn-whatsapp-direct:hover {
-  background: #20BA5A;
-  transform: translateY(-2px);
+.btn-booking-submit:hover,
+.btn-booking-submit:focus,
+.btn-booking-submit:active {
+  background: #25D366 !important;
+  border-color: #25D366 !important;
+  color: #FFFFFF !important;
+  transform: none !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
 }
 
 /* --------------------------------------------------------------------------

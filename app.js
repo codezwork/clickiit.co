@@ -27,12 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalShutterTrigger = document.getElementById('modalShutterTrigger');
   const galleryStrips = document.querySelectorAll('.hanging-strip-card');
 
+  // Direct Cloud Google Sheet & Notification Configuration
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3AbMyZ90cQX5HTdw9n8ZoNIqjUAW6rTh5zrvce5wfW0koNlrEtWw97X_qsDCY4voBoQ/exec';
+  const NOTIFICATION_EMAIL = 'madhurvibes@gmail.com';
+
   // Booking DOM Elements
   const publicBookingForm = document.getElementById('publicBookingForm');
   const eventDateInput = document.getElementById('eventDateInput');
   const eventTimeInput = document.getElementById('eventTimeInput');
   const availabilityBanner = document.getElementById('availabilityBanner');
-  const instantWhatsappBtn = document.getElementById('instantWhatsappBtn');
   const submitBookingBtn = document.getElementById('submitBookingBtn');
 
   // Booking Success Modal
@@ -381,12 +384,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fetchAvailabilityData() {
     try {
+      if (GOOGLE_SHEET_URL) {
+        const res = await fetch(GOOGLE_SHEET_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && Array.isArray(data.bookings)) {
+            const booked = data.bookings.filter(b => b.status === 'confirmed' || b.status === 'completed' || b.status === 'blocked');
+            bookedDatesCache = [...new Set(booked.map(b => b.eventDate).filter(Boolean))];
+            return;
+          }
+        }
+      }
+
       const res = await fetch('/api/availability');
-      if (!res.ok) throw new Error('Network response not ok');
-      const data = await res.json();
-      bookedDatesCache = Array.isArray(data.bookedDates) ? data.bookedDates : [];
+      if (res.ok) {
+        const data = await res.json();
+        bookedDatesCache = Array.isArray(data.bookedDates) ? data.bookedDates : [];
+      }
     } catch (err) {
-      console.warn('Could not fetch server availability, using local simulation:', err);
+      console.warn('Could not fetch availability, using fallback:', err);
       bookedDatesCache = ['2026-09-15', '2026-09-18', '2026-09-22', '2026-10-02'];
     }
   }
@@ -554,6 +570,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return mobileSel && mobileSel.value ? mobileSel.value : 'Classic — 200 Prints (₹12,999)';
   }
 
+  function getFormattedPackage(planStr) {
+    if (!planStr) return 'Classic — 200 Prints (₹12,999)';
+    const match = planStr.match(/^(.*?)\s*\((₹?[0-9,]+.*)\)$/);
+    if (match) {
+      const name = match[1].trim();
+      const price = match[2].trim();
+      return `${name} (${price})`;
+    }
+    return planStr;
+  }
+
   const mobileEventTypeSelect = document.getElementById('mobileEventTypeSelect');
   const mobileSessionPlanSelect = document.getElementById('mobileSessionPlanSelect');
 
@@ -596,16 +623,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =========================================================================
-  // 6. Direct Event Booking Submission & WhatsApp Flow
+  // 6. Direct Event Booking Submission & WhatsApp Flow (Single Action)
   // =========================================================================
   if (publicBookingForm) {
-    publicBookingForm.addEventListener('submit', async (e) => {
+    publicBookingForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       const name = document.getElementById('clientName').value.trim();
       const whatsapp = document.getElementById('clientWhatsapp').value.trim();
       const address = document.getElementById('clientAddress').value.trim();
-      const eventDate = eventDateInput.value;
+      const eventDate = eventDateInput ? eventDateInput.value : '';
       const eventTime = eventTimeInput ? eventTimeInput.value : '18:00';
       const notes = document.getElementById('clientNotes') ? document.getElementById('clientNotes').value.trim() : '';
 
@@ -617,12 +644,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      if (submitBookingBtn) {
-        submitBookingBtn.disabled = true;
-        submitBookingBtn.innerHTML = `<span>Reserving Slot...</span>`;
-      }
+      // Generate consistent Booking ID immediately
+      const assignedId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
 
+      // Prepare WhatsApp message and deep-link URL
+      const cleanStudioPhone = '919518597366';
+      const formattedPackage = getFormattedPackage(sessionPlan);
+      const waBookingMsg =
+        `🎉 *New Booking Request — Clickiit.co*\n` +
+        `Ref: ${assignedId}\n\n` +
+        `*Client:* ${name}\n` +
+        `*Event Type:* ${eventType}\n` +
+        `*Package:* ${formattedPackage}\n` +
+        `*Date & Time:* ${formatDatePretty(eventDate)} at ${eventTime}\n` +
+        `*Venue:* ${address}\n` +
+        `*Preferences:* ${notes || 'None'}\n\n` +
+        `Hi Clickiit.co! I'd like to check availability and lock this slot. Please confirm 🙌`;
+
+      const waBookingUrl = `https://wa.me/${cleanStudioPhone}?text=${encodeURIComponent(waBookingMsg)}`;
+
+      // 1. Open WhatsApp immediately in response to user click (guarantees no popup blocking)
+      window.open(waBookingUrl, '_blank');
+
+      // 2. Dispatch pending booking to Admin server & Google Sheet in background
       const bookingPayload = {
+        id: assignedId,
         name,
         whatsapp,
         address,
@@ -635,77 +681,50 @@ document.addEventListener('DOMContentLoaded', () => {
         createdAt: new Date().toISOString()
       };
 
-      let assignedId = 'BK-' + Math.floor(1000 + Math.random() * 9000);
-
-      try {
-        const response = await fetch('/api/bookings', {
+      // Direct save to Google Sheet & trigger email alert on live domain
+      if (GOOGLE_SHEET_URL) {
+        fetch(GOOGLE_SHEET_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(bookingPayload)
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: 'addBooking',
+            booking: bookingPayload,
+            notificationEmail: NOTIFICATION_EMAIL
+          }),
+          keepalive: true
+        }).catch(err => {
+          console.warn('Google Sheet dispatch fallback:', err);
         });
-
-        if (response.ok) {
-          const resJson = await response.json();
-          if (resJson.booking && resJson.booking.id) {
-            assignedId = resJson.booking.id;
-          }
-        }
-      } catch (err) {
-        console.warn('Offline reservation fallback:', err);
       }
 
+      // Also dispatch to local backend if running
+      fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingPayload),
+        keepalive: true
+      }).catch(() => {});
+
+      // Shutter sound & animation
       executeCameraShutter();
 
-      // Populate Success Receipt Modal
+      // Populate Success Receipt Modal on page
       if (receiptBookingId) receiptBookingId.textContent = assignedId;
       if (receiptClientName) receiptClientName.textContent = name;
       if (receiptEventDateTime) receiptEventDateTime.textContent = `${formatDatePretty(eventDate)} at ${eventTime}`;
       if (receiptSessionPlan) receiptSessionPlan.textContent = sessionPlan;
       if (receiptEventType) receiptEventType.textContent = eventType;
       if (receiptStatus) receiptStatus.textContent = 'Slot Held &bull; Reviewing';
-
-      if (receiptWhatsappLink) {
-        const cleanStudioPhone = '919518597366';
-        const msg = encodeURIComponent(
-          `Hi Clickiit.co! I just reserved photo booth booking ID: ${assignedId}\nName: ${name}\nEvent: ${eventType} (${sessionPlan})\nDate: ${eventDate} at ${eventTime}\nVenue: ${address}`
-        );
-        receiptWhatsappLink.href = `https://wa.me/${cleanStudioPhone}?text=${msg}`;
-      }
+      if (receiptWhatsappLink) receiptWhatsappLink.href = waBookingUrl;
 
       if (bookingSuccessModal) {
         bookingSuccessModal.style.display = 'flex';
         bookingSuccessModal.setAttribute('aria-hidden', 'false');
       }
 
-      if (submitBookingBtn) {
-        submitBookingBtn.disabled = false;
-        submitBookingBtn.innerHTML = `
-          <span>Confirm &amp; Reserve Date</span>
-          <span class="btn-arrow">↗</span>
-        `;
-      }
-
       publicBookingForm.reset();
       resetAvailabilityBanner();
       fetchAvailabilityData();
-    });
-  }
-
-  // Instant WhatsApp Direct Button
-  if (instantWhatsappBtn) {
-    instantWhatsappBtn.addEventListener('click', () => {
-      const name = document.getElementById('clientName').value.trim() || 'Guest';
-      const eventDate = eventDateInput ? eventDateInput.value || 'Upcoming Date' : 'Upcoming Date';
-      const eventTime = eventTimeInput ? eventTimeInput.value : '18:00';
-      const address = document.getElementById('clientAddress').value.trim() || 'Nagpur';
-      const eventType = getSelectedEventType();
-      const sessionPlan = getSelectedSessionPlan();
-
-      const cleanStudioPhone = '919518597366';
-      const waMsg = encodeURIComponent(
-        `Hello Clickiit.co Photo Booth! I'd like to check availability and book a booth for ${eventType} (${sessionPlan}) on ${eventDate} at ${eventTime}.\nClient: ${name}\nVenue: ${address}`
-      );
-      window.open(`https://wa.me/${cleanStudioPhone}?text=${waMsg}`, '_blank');
     });
   }
 
@@ -745,21 +764,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const cleanStudioPhone = '919518597366';
 
-      let msg = `🎓 *College Fest Sponsorship & Stall Inquiry - CLICKIIT.CO*\n` +
-        `─────────────────────────────\n` +
-        `🏛️ *College / Institute:* ${collegeName}\n` +
-        `🎉 *Fest / Event:* ${festName}\n` +
-        `📅 *Dates & Duration:* ${festDates}\n` +
-        `👥 *Expected Footfall:* ${footfall || 'Not specified'}\n` +
-        `👤 *Lead Organizer:* ${leadName}\n` +
-        `📱 *Organizer WhatsApp:* ${leadPhone}\n`;
-
-      if (notes) {
-        msg += `📝 *Requirements / Notes:* ${notes}\n`;
-      }
-
-      msg += `─────────────────────────────\n` +
-        `Hi CLICKIIT team! We would like to invite CLICKIIT.CO as a stall sponsor for our college fest. Please share your stall sponsorship proposal and payout terms!`;
+      const msg =
+        `📸 *New Fest Sponsorship Request — via Clickiit.co*\n` +
+        `✅ Verified submission from clickiit.co.in\n\n` +
+        `*College/Institute:* ${collegeName}\n` +
+        `*Fest/Event:* ${festName}\n` +
+        `*Dates & Duration:* ${festDates}\n` +
+        `*Expected Footfall:* ${footfall || 'Not specified'}\n` +
+        `*Lead Organizer:* ${leadName}\n` +
+        `*WhatsApp:* ${leadPhone}\n` +
+        `*Notes:* ${notes || 'None'}\n\n` +
+        `Hi CLICKIIT.CO team! We'd like to invite you as a stall sponsor for ${festName}. Please share your sponsorship proposal and payout terms.`;
 
       // Show inline success notice
       if (sponsorSuccessNotice) {

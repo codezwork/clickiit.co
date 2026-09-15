@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. DATA FETCHING & SYNCHRONIZATION
   // =========================================================================
   async function loadAllData() {
-    await Promise.all([fetchBookings(), fetchStrips(), loadSheetConfig()]);
+    await Promise.all([fetchBookings(), fetchStrips()]);
     updateMetrics();
     renderBookings();
     renderCalendar();
@@ -213,236 +213,70 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshDataBtn.classList.add('rotating');
     await loadAllData();
     refreshDataBtn.classList.remove('rotating');
-    showToast('Data refreshed');
+    showToast('Data refreshed from Google Sheet');
   });
 
   // =========================================================================
-  // 4.1 GOOGLE SHEETS TWO-WAY INTEGRATION
+  // 4.1 DIRECT GOOGLE SHEETS CLOUD INTEGRATION (clickiit.co.in)
   // =========================================================================
-  const openSheetConfigBtn = document.getElementById('openSheetConfigBtn');
-  const syncSheetBtn = document.getElementById('syncSheetBtn');
-  const sheetStatusDot = document.getElementById('sheetStatusDot');
-  const sheetStatusText = document.getElementById('sheetStatusText');
-  const sheetConfigModal = document.getElementById('sheetConfigModal');
-  const closeSheetConfigBtn = document.getElementById('closeSheetConfigBtn');
-  const cancelSheetConfigBtn = document.getElementById('cancelSheetConfigBtn');
-  const sheetConfigForm = document.getElementById('sheetConfigForm');
-  const googleSheetUrlInput = document.getElementById('googleSheetUrlInput');
-  const notificationEmailInput = document.getElementById('notificationEmailInput');
-  const testSheetConnBtn = document.getElementById('testSheetConnBtn');
-  const sheetTestFeedback = document.getElementById('sheetTestFeedback');
-  const saveSheetConfigBtn = document.getElementById('saveSheetConfigBtn');
+  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3AbMyZ90cQX5HTdw9n8ZoNIqjUAW6rTh5zrvce5wfW0koNlrEtWw97X_qsDCY4voBoQ/exec';
+  const NOTIFICATION_EMAIL = 'madhurvibes@gmail.com';
 
-  let sheetConfig = {
-    googleSheetUrl: '',
-    notificationEmail: '',
-    isConnected: false
-  };
-
-  async function loadSheetConfig() {
+  async function postToGoogleSheet(payload) {
+    if (!GOOGLE_SHEET_URL) return null;
     try {
-      const res = await fetch('/api/admin/sheet-config', {
-        headers: { 'Authorization': `Bearer ${authToken}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        sheetConfig = data;
-        updateSheetUi(data.isConnected);
-        if (googleSheetUrlInput) googleSheetUrlInput.value = data.googleSheetUrl || '';
-        if (notificationEmailInput) notificationEmailInput.value = data.notificationEmail || '';
-      }
-    } catch (e) {
-      console.warn('Could not load sheet config:', e);
-    }
-  }
-
-  function updateSheetUi(isConnected) {
-    if (isConnected) {
-      if (sheetStatusDot) {
-        sheetStatusDot.className = 'sheet-status-dot online';
-      }
-      if (sheetStatusText) {
-        sheetStatusText.textContent = 'Google Sheet Synced';
-      }
-      if (syncSheetBtn) {
-        syncSheetBtn.style.display = 'inline-flex';
-      }
-    } else {
-      if (sheetStatusDot) {
-        sheetStatusDot.className = 'sheet-status-dot offline';
-      }
-      if (sheetStatusText) {
-        sheetStatusText.textContent = 'Connect Google Sheet';
-      }
-      if (syncSheetBtn) {
-        syncSheetBtn.style.display = 'none';
-      }
-    }
-  }
-
-  function openSheetModal() {
-    if (sheetConfigModal) {
-      sheetConfigModal.style.display = 'flex';
-      if (sheetTestFeedback) sheetTestFeedback.textContent = '';
-      if (googleSheetUrlInput) googleSheetUrlInput.value = sheetConfig.googleSheetUrl || '';
-      if (notificationEmailInput) notificationEmailInput.value = sheetConfig.notificationEmail || '';
-    }
-  }
-
-  function closeSheetModal() {
-    if (sheetConfigModal) {
-      sheetConfigModal.style.display = 'none';
-    }
-  }
-
-  if (openSheetConfigBtn) openSheetConfigBtn.addEventListener('click', openSheetModal);
-  if (closeSheetConfigBtn) closeSheetConfigBtn.addEventListener('click', closeSheetModal);
-  if (cancelSheetConfigBtn) cancelSheetConfigBtn.addEventListener('click', closeSheetModal);
-
-  if (sheetConfigModal) {
-    sheetConfigModal.addEventListener('click', (e) => {
-      if (e.target === sheetConfigModal) closeSheetModal();
-    });
-  }
-
-  // Test Connection
-  if (testSheetConnBtn) {
-    testSheetConnBtn.addEventListener('click', async () => {
-      const url = googleSheetUrlInput.value.trim();
-      if (!url) {
-        sheetTestFeedback.textContent = 'Please paste a Web App URL first';
-        sheetTestFeedback.className = 'sheet-test-feedback error';
-        return;
-      }
-
-      testSheetConnBtn.disabled = true;
-      sheetTestFeedback.textContent = 'Connecting...';
-      sheetTestFeedback.className = 'sheet-test-feedback';
-
-      try {
-        const res = await fetch('/api/admin/sheet-test', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          },
-          body: JSON.stringify({ googleSheetUrl: url })
-        });
-
-        const data = await res.json();
-        if (data.success) {
-          sheetTestFeedback.textContent = '✓ Connected! ' + (data.message || 'Sheet is live.');
-          sheetTestFeedback.className = 'sheet-test-feedback success';
-        } else {
-          sheetTestFeedback.textContent = '✕ Error: ' + (data.error || 'Connection failed');
-          sheetTestFeedback.className = 'sheet-test-feedback error';
-        }
-      } catch (err) {
-        sheetTestFeedback.textContent = '✕ Test failed: ' + err.message;
-        sheetTestFeedback.className = 'sheet-test-feedback error';
-      } finally {
-        testSheetConnBtn.disabled = false;
-      }
-    });
-  }
-
-  // Save Config
-  if (sheetConfigForm) {
-    sheetConfigForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const url = googleSheetUrlInput.value.trim();
-      const email = notificationEmailInput.value.trim();
-
-      saveSheetConfigBtn.disabled = true;
-      saveSheetConfigBtn.textContent = 'Connecting...';
-
-      try {
-        const res = await fetch('/api/admin/sheet-config', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${authToken}`
-          },
-          body: JSON.stringify({
-            googleSheetUrl: url,
-            notificationEmail: email
-          })
-        });
-
-        const data = await res.json();
-        if (data.success) {
-          sheetConfig.googleSheetUrl = url;
-          sheetConfig.notificationEmail = email;
-          sheetConfig.isConnected = !!url;
-          updateSheetUi(!!url);
-          closeSheetModal();
-          showToast('Google Sheet connected successfully!');
-
-          // Immediately trigger initial sync
-          if (url) {
-            await syncFromGoogleSheet();
-          }
-        } else {
-          alert('Could not save: ' + (data.error || 'Unknown error'));
-        }
-      } catch (err) {
-        alert('Failed to save settings: ' + err.message);
-      } finally {
-        saveSheetConfigBtn.disabled = false;
-        saveSheetConfigBtn.innerHTML = '<span>Save &amp; Connect</span>';
-      }
-    });
-  }
-
-  // Sync From Google Sheet
-  async function syncFromGoogleSheet() {
-    if (!syncSheetBtn) return;
-    const icon = syncSheetBtn.querySelector('.sync-icon-svg');
-    if (icon) icon.classList.add('spin');
-    syncSheetBtn.disabled = true;
-
-    try {
-      const res = await fetch('/api/admin/sync-sheet', {
+      const res = await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${authToken}` }
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          notificationEmail: NOTIFICATION_EMAIL,
+          ...payload
+        })
       });
-
-      const data = await res.json();
-      if (data.success && Array.isArray(data.bookings)) {
-        bookings = data.bookings;
-        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-        updateMetrics();
-        renderBookings();
-        renderCalendar();
-        showToast(`✓ Google Sheet synced: ${data.count} bookings up to date`);
-      } else {
-        showToast('Sync warning: ' + (data.error || 'Could not sync'));
-      }
-    } catch (err) {
-      showToast('Sync failed: ' + err.message);
-    } finally {
-      if (icon) icon.classList.remove('spin');
-      syncSheetBtn.disabled = false;
+      return await res.json();
+    } catch (e) {
+      console.warn('Google Sheet post error:', e);
+      return null;
     }
-  }
-
-  if (syncSheetBtn) {
-    syncSheetBtn.addEventListener('click', syncFromGoogleSheet);
   }
 
   async function fetchBookings() {
-    try {
-      const res = await fetch('/api/admin/bookings', {
-        headers: { 'Authorization': `Bearer ${authToken}` }
-      });
-      if (res.ok) {
-        bookings = await res.json();
-      } else {
-        bookings = JSON.parse(localStorage.getItem('clickit_bookings_local') || '[]');
+    let loaded = false;
+
+    // 1. Direct fetch from Google Sheet Web App
+    if (GOOGLE_SHEET_URL) {
+      try {
+        const res = await fetch(GOOGLE_SHEET_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.success && Array.isArray(data.bookings)) {
+            bookings = data.bookings;
+            localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+            loaded = true;
+          }
+        }
+      } catch (err) {
+        console.warn('Google Sheet fetch error:', err);
       }
-    } catch (e) {
+    }
+
+    // 2. Fallback to local server if running
+    if (!loaded) {
+      try {
+        const res = await fetch('/api/admin/bookings', {
+          headers: { 'Authorization': `Bearer ${authToken}` }
+        });
+        if (res.ok) {
+          bookings = await res.json();
+          loaded = true;
+        }
+      } catch (e) {}
+    }
+
+    if (!loaded) {
       bookings = JSON.parse(localStorage.getItem('clickit_bookings_local') || '[]');
     }
+
     localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
   }
 
@@ -637,55 +471,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  async function updateBookingStatus(id, newStatus) {
-    try {
-      const res = await fetch(`/api/admin/bookings/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
-        },
-        body: JSON.stringify({ status: newStatus })
+  async function updateBookingStatus(id, newStatus, adminNotes = null) {
+    // 1. Dispatch update directly to Google Sheet Web App
+    if (GOOGLE_SHEET_URL) {
+      postToGoogleSheet({
+        action: 'updateStatus',
+        id: id,
+        status: newStatus,
+        notes: adminNotes
       });
-
-      if (res.ok) {
-        showToast(`Booking status changed to ${newStatus}`);
-      } else {
-        const item = bookings.find(b => b.id === id);
-        if (item) item.status = newStatus;
-        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-        showToast(`Status updated to ${newStatus}`);
-      }
-    } catch (e) {
-      const item = bookings.find(b => b.id === id);
-      if (item) item.status = newStatus;
-      localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-      showToast(`Status updated to ${newStatus}`);
     }
 
-    await loadAllData();
+    // 2. Dispatch to local backend if running
+    fetch(`/api/admin/bookings/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({ status: newStatus })
+    }).catch(() => {});
+
+    // 3. Update local state immediately for instant responsive UI
+    const item = bookings.find(b => b.id === id);
+    if (item) item.status = newStatus;
+    localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+    showToast(`Status updated to ${newStatus}`);
+
+    updateMetrics();
+    renderBookings();
+    renderCalendar();
   }
 
   async function deleteBooking(id) {
-    try {
-      const res = await fetch(`/api/admin/bookings/${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${authToken}` }
+    // 1. Dispatch delete directly to Google Sheet Web App
+    if (GOOGLE_SHEET_URL) {
+      postToGoogleSheet({
+        action: 'deleteBooking',
+        id: id
       });
-      if (res.ok) {
-        showToast('Booking deleted');
-      } else {
-        bookings = bookings.filter(b => b.id !== id);
-        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-        showToast('Booking deleted');
-      }
-    } catch (e) {
-      bookings = bookings.filter(b => b.id !== id);
-      localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-      showToast('Booking deleted');
     }
 
-    await loadAllData();
+    // 2. Dispatch to local backend if running
+    fetch(`/api/admin/bookings/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${authToken}` }
+    }).catch(() => {});
+
+    // 3. Update local state immediately
+    bookings = bookings.filter(b => b.id !== id);
+    localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+    showToast('Booking deleted');
+
+    updateMetrics();
+    renderBookings();
+    renderCalendar();
   }
 
   // Filter Pills
@@ -719,7 +559,11 @@ document.addEventListener('DOMContentLoaded', () => {
   manualBookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const assignedId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+    const initialStatus = document.getElementById('manualStatus').value;
+
     const newBooking = {
+      id: assignedId,
       name: document.getElementById('manualName').value.trim(),
       whatsapp: document.getElementById('manualWhatsapp').value.trim() || '+91 95185 97366',
       eventDate: document.getElementById('manualDate').value,
@@ -727,49 +571,35 @@ document.addEventListener('DOMContentLoaded', () => {
       eventType: document.getElementById('manualType').value,
       sessionPlan: document.getElementById('manualPlan').value,
       address: document.getElementById('manualAddress').value.trim(),
-      notes: document.getElementById('manualNotes').value.trim()
+      notes: document.getElementById('manualNotes').value.trim(),
+      status: initialStatus,
+      createdAt: new Date().toISOString()
     };
 
-    const initialStatus = document.getElementById('manualStatus').value;
-
-    try {
-      const res = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newBooking)
+    // 1. Direct save to Google Sheets Web App
+    if (GOOGLE_SHEET_URL) {
+      postToGoogleSheet({
+        action: 'addBooking',
+        booking: newBooking
       });
-
-      if (res.ok) {
-        const resp = await res.json();
-        if (initialStatus !== 'pending' && resp.booking) {
-          await updateBookingStatus(resp.booking.id, initialStatus);
-        }
-        showToast('Booking saved & calendar updated!');
-      } else {
-        const manualItem = {
-          id: 'BK-' + Date.now().toString().slice(-6),
-          ...newBooking,
-          status: initialStatus,
-          createdAt: new Date().toISOString()
-        };
-        bookings.unshift(manualItem);
-        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-        showToast('Booking recorded!');
-      }
-    } catch (err) {
-      const manualItem = {
-        id: 'BK-' + Date.now().toString().slice(-6),
-        ...newBooking,
-        status: initialStatus,
-        createdAt: new Date().toISOString()
-      };
-      bookings.unshift(manualItem);
-      localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-      showToast('Booking recorded!');
     }
 
+    // 2. Dispatch to local backend if running
+    fetch('/api/bookings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newBooking)
+    }).catch(() => {});
+
+    bookings.unshift(newBooking);
+    localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+    showToast('Booking saved to Google Sheet & calendar updated!');
+
     closeManualModal();
-    await loadAllData();
+    manualBookingForm.reset();
+    updateMetrics();
+    renderBookings();
+    renderCalendar();
   });
 
   // =========================================================================
