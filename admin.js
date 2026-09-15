@@ -21,6 +21,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let calendarYear = new Date().getFullYear();
   let selectedDateStr = '';
   let stripImageBase64 = '';
+  let selectedStripFile = null;
+
+  // Supabase Cloud Configuration
+  const SUPABASE_URL = 'https://gqcynoumwixuriguwtjz.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxY3lub3Vtd2l4dXJpZ3V3dGp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzg0NDQsImV4cCI6MjEwNTA1NDQ0NH0.qaBMHFcIa20s2AM8RevFFXmvBEU44NFf_YeYgwdnRiY';
+
+  let supabaseClient = null;
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    try {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+      console.warn('Supabase client init warning:', e);
+    }
+  }
 
   // Elements
   const loginScreen = document.getElementById('loginScreen');
@@ -210,54 +224,34 @@ document.addEventListener('DOMContentLoaded', () => {
     refreshDataBtn.classList.add('rotating');
     await loadAllData();
     refreshDataBtn.classList.remove('rotating');
-    showToast('Data refreshed from Google Sheet');
+    showToast('Data refreshed from Supabase Cloud');
   });
 
   // =========================================================================
-  // 4.1 DIRECT GOOGLE SHEETS CLOUD INTEGRATION (clickiit.co.in)
+  // 4.1 REAL-TIME SUPABASE CLOUD SYNC
   // =========================================================================
-  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3AbMyZ90cQX5HTdw9n8ZoNIqjUAW6rTh5zrvce5wfW0koNlrEtWw97X_qsDCY4voBoQ/exec';
-  const NOTIFICATION_EMAIL = 'madhurvibes@gmail.com';
-
-  async function postToGoogleSheet(payload) {
-    if (!GOOGLE_SHEET_URL) return null;
-    try {
-      const res = await fetch(GOOGLE_SHEET_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          notificationEmail: NOTIFICATION_EMAIL,
-          ...payload
-        })
-      });
-      return await res.json();
-    } catch (e) {
-      console.warn('Google Sheet post error:', e);
-      return null;
-    }
-  }
-
   async function fetchBookings() {
     let loaded = false;
 
-    // 1. Direct fetch from Google Sheet Web App
-    if (GOOGLE_SHEET_URL) {
+    // 1. Direct fetch from Supabase (instant, <100ms)
+    if (supabaseClient) {
       try {
-        const res = await fetch(GOOGLE_SHEET_URL);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.success && Array.isArray(data.bookings)) {
-            bookings = data.bookings;
-            localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-            loaded = true;
-          }
+        const { data, error } = await supabaseClient
+          .from('bookings')
+          .select('*')
+          .order('createdAt', { ascending: false });
+
+        if (!error && Array.isArray(data)) {
+          bookings = data;
+          localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+          loaded = true;
         }
       } catch (err) {
-        console.warn('Google Sheet fetch error:', err);
+        console.warn('Supabase fetch bookings error:', err);
       }
     }
 
-    // 2. Fallback to local server if running
+    // 2. Fallback to API server if running
     if (!loaded) {
       try {
         const res = await fetch('/api/admin/bookings', {
@@ -278,6 +272,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function fetchStrips() {
+    // 1. Direct fetch from Supabase
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient
+          .from('strips')
+          .select('*')
+          .order('createdAt', { ascending: false });
+
+        if (!error && Array.isArray(data)) {
+          strips = data;
+          localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
+          return;
+        }
+      } catch (err) {
+        console.warn('Supabase fetch strips error:', err);
+      }
+    }
+
+    // 2. Fallback to API server / cache
     try {
       const res = await fetch('/api/strips');
       if (res.ok) {
@@ -469,29 +482,38 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function updateBookingStatus(id, newStatus, adminNotes = null) {
-    // 1. Dispatch update directly to Google Sheet Web App
-    if (GOOGLE_SHEET_URL) {
-      postToGoogleSheet({
-        action: 'updateStatus',
-        id: id,
-        status: newStatus,
-        notes: adminNotes
-      });
+    const updates = { status: newStatus };
+    if (adminNotes !== null) updates.notes = adminNotes;
+    updates.updatedAt = new Date().toISOString();
+
+    // 1. Direct update to Supabase Cloud Database
+    if (supabaseClient) {
+      supabaseClient
+        .from('bookings')
+        .update(updates)
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) console.warn('Supabase status update error:', error.message);
+        })
+        .catch(e => console.warn('Supabase update catch:', e));
     }
 
-    // 2. Dispatch to local backend if running
-    fetch(`/api/admin/bookings/${id}`, {
+    // 2. Dispatch to local / serverless backend
+    fetch(`/api/admin/bookings?id=${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${authToken}`
       },
-      body: JSON.stringify({ status: newStatus })
+      body: JSON.stringify(updates)
     }).catch(() => {});
 
     // 3. Update local state immediately for instant responsive UI
     const item = bookings.find(b => b.id === id);
-    if (item) item.status = newStatus;
+    if (item) {
+      item.status = newStatus;
+      if (adminNotes !== null) item.notes = adminNotes;
+    }
     localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
     showToast(`Status updated to ${newStatus}`);
 
@@ -501,16 +523,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function deleteBooking(id) {
-    // 1. Dispatch delete directly to Google Sheet Web App
-    if (GOOGLE_SHEET_URL) {
-      postToGoogleSheet({
-        action: 'deleteBooking',
-        id: id
-      });
+    // 1. Direct delete from Supabase Cloud Database
+    if (supabaseClient) {
+      supabaseClient
+        .from('bookings')
+        .delete()
+        .eq('id', id)
+        .then(({ error }) => {
+          if (error) console.warn('Supabase delete error:', error.message);
+        })
+        .catch(e => console.warn('Supabase delete catch:', e));
     }
 
-    // 2. Dispatch to local backend if running
-    fetch(`/api/admin/bookings/${id}`, {
+    // 2. Dispatch to local / serverless backend
+    fetch(`/api/admin/bookings?id=${id}`, {
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${authToken}` }
     }).catch(() => {});
@@ -573,12 +599,15 @@ document.addEventListener('DOMContentLoaded', () => {
       createdAt: new Date().toISOString()
     };
 
-    // 1. Direct save to Google Sheets Web App
-    if (GOOGLE_SHEET_URL) {
-      postToGoogleSheet({
-        action: 'addBooking',
-        booking: newBooking
-      });
+    // 1. Direct save to Supabase Cloud Database
+    if (supabaseClient) {
+      supabaseClient
+        .from('bookings')
+        .insert([newBooking])
+        .then(({ error }) => {
+          if (error) console.warn('Supabase manual booking error:', error.message);
+        })
+        .catch(e => console.warn('Supabase manual booking catch:', e));
     }
 
     // 2. Dispatch to local backend if running
@@ -590,7 +619,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bookings.unshift(newBooking);
     localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-    showToast('Booking saved to Google Sheet & calendar updated!');
+    showToast('Booking saved to Supabase & calendar updated!');
 
     closeManualModal();
     manualBookingForm.reset();
@@ -762,50 +791,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const reason = prompt(`Reason to block ${dateStr}:`, 'Studio Blocked / Maintenance');
     if (reason === null) return;
 
-    try {
-      const res = await fetch('/api/admin/block-date', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
-        },
-        body: JSON.stringify({ date: dateStr, reason })
-      });
+    const blockedItem = {
+      id: 'BLK-' + Date.now().toString().slice(-6),
+      name: reason,
+      whatsapp: '+91 95185 97366',
+      address: '-',
+      eventDate: dateStr,
+      eventTime: 'All Day',
+      eventType: 'Reserved / Unavailable',
+      sessionPlan: 'Full Day',
+      notes: 'Reserved by studio administrator',
+      status: 'blocked',
+      createdAt: new Date().toISOString()
+    };
 
-      if (res.ok) {
-        showToast(`Date ${dateStr} blocked`);
-      } else {
-        bookings.unshift({
-          id: 'BLK-' + Date.now().toString().slice(-6),
-          name: reason,
-          whatsapp: '+91 95185 97366',
-          address: '-',
-          eventDate: dateStr,
-          eventTime: 'All Day',
-          eventType: 'Reserved / Unavailable',
-          sessionPlan: 'Full Day',
-          status: 'blocked',
-          createdAt: new Date().toISOString()
-        });
-        localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-        showToast(`Date ${dateStr} blocked`);
+    // 1. Save directly to Supabase
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('bookings').insert([blockedItem]);
+      } catch (e) {
+        console.warn('Supabase block date error:', e);
       }
-    } catch (e) {
-      bookings.unshift({
-        id: 'BLK-' + Date.now().toString().slice(-6),
-        name: reason,
-        whatsapp: '+91 95185 97366',
-        address: '-',
-        eventDate: dateStr,
-        eventTime: 'All Day',
-        eventType: 'Reserved / Unavailable',
-        sessionPlan: 'Full Day',
-        status: 'blocked',
-        createdAt: new Date().toISOString()
-      });
-      localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
-      showToast(`Date ${dateStr} blocked`);
     }
+
+    // 2. Dispatch to API server
+    fetch('/api/admin/block-date', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({ date: dateStr, reason })
+    }).catch(() => {});
+
+    bookings.unshift(blockedItem);
+    localStorage.setItem('clickit_bookings_local', JSON.stringify(bookings));
+    showToast(`Date ${dateStr} blocked`);
 
     await loadAllData();
     inspectDate(dateStr);
@@ -829,6 +850,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleFileSelect(e) {
     const file = e.target.files[0];
     if (!file) return;
+    selectedStripFile = file;
 
     const reader = new FileReader();
     reader.onload = (loadEvt) => {
@@ -843,6 +865,7 @@ document.addEventListener('DOMContentLoaded', () => {
   removePreviewBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     stripImageBase64 = '';
+    selectedStripFile = null;
     stripFileInput.value = '';
     previewImageTag.src = '';
     dropzonePrompt.style.display = 'flex';
@@ -852,60 +875,89 @@ document.addEventListener('DOMContentLoaded', () => {
   addStripForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const imageUrl = stripImageBase64 || stripUrlInput.value.trim();
+    let finalImageUrl = stripUrlInput.value.trim();
 
-    if (!imageUrl) {
+    // 1. Upload to Supabase Storage bucket 'strips' if a file was selected
+    if (selectedStripFile && supabaseClient) {
+      showToast('Uploading strip image to Supabase...');
+      const fileExt = selectedStripFile.name.split('.').pop() || 'png';
+      const fileName = `strip-${Date.now()}-${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+      try {
+        const { data: uploadData, error: uploadErr } = await supabaseClient
+          .storage
+          .from('strips')
+          .upload(fileName, selectedStripFile, { upsert: true });
+
+        if (!uploadErr) {
+          const { data: urlData } = supabaseClient
+            .storage
+            .from('strips')
+            .getPublicUrl(fileName);
+          if (urlData && urlData.publicUrl) {
+            finalImageUrl = urlData.publicUrl;
+          }
+        } else {
+          console.warn('Supabase storage upload notice:', uploadErr.message);
+        }
+      } catch (err) {
+        console.warn('Storage upload error, using base64 fallback:', err);
+      }
+    }
+
+    if (!finalImageUrl) finalImageUrl = stripImageBase64;
+
+    if (!finalImageUrl) {
       alert('Please select an image file or enter an image URL.');
       return;
     }
 
-    // Auto-generate title from timestamp (admin only, not shown on public site)
     const autoTitle = 'Strip ' + new Date().toISOString().slice(0, 10);
-
     const newStripData = {
+      id: 'strip-' + Date.now(),
       title: autoTitle,
       dateTag: new Date().toLocaleDateString('en-IN'),
       displayTarget: 'both',
-      imageUrl
+      imageUrl: finalImageUrl,
+      createdAt: new Date().toISOString()
     };
 
-    try {
-      const res = await fetch('/api/admin/strips', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${authToken}`
-        },
-        body: JSON.stringify(newStripData)
-      });
-
-      if (res.ok) {
-        showToast('Photo strip published to website! ✓');
-        await fetchStrips();
-        localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
-      } else {
-        const fallbackStrip = {
-          id: 'strip-' + Date.now(),
-          ...newStripData,
-          createdAt: new Date().toISOString()
-        };
-        strips.unshift(fallbackStrip);
-        localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
-        showToast('Photo strip saved locally!');
+    // 2. Direct save to Supabase Database
+    let savedToSupabase = false;
+    if (supabaseClient) {
+      try {
+        const { data, error } = await supabaseClient
+          .from('strips')
+          .insert([newStripData])
+          .select()
+          .single();
+        if (!error && data) {
+          savedToSupabase = true;
+          showToast('Photo strip published to Supabase! ✓');
+        }
+      } catch (e) {
+        console.warn('Supabase strip insert notice:', e);
       }
-    } catch (err) {
-      const fallbackStrip = {
-        id: 'strip-' + Date.now(),
-        ...newStripData,
-        createdAt: new Date().toISOString()
-      };
-      strips.unshift(fallbackStrip);
+    }
+
+    // 3. Dispatch to API server
+    fetch('/api/admin/strips', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify(newStripData)
+    }).catch(() => {});
+
+    if (!savedToSupabase) {
+      strips.unshift(newStripData);
       localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
-      showToast('Photo strip saved locally!');
+      showToast('Photo strip saved! ✓');
     }
 
     addStripForm.reset();
     stripImageBase64 = '';
+    selectedStripFile = null;
     previewImageTag.src = '';
     dropzonePrompt.style.display = 'flex';
     dropzonePreview.style.display = 'none';
@@ -950,23 +1002,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function deleteStrip(id) {
-    try {
-      const res = await fetch(`/api/admin/strips/${id}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': `Bearer ${authToken}` }
-      });
-      if (res.ok) {
-        showToast('Photo strip removed');
-      } else {
-        strips = strips.filter(s => s.id !== id);
-        localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
-        showToast('Photo strip removed');
+    // 1. Direct delete from Supabase
+    if (supabaseClient) {
+      try {
+        await supabaseClient.from('strips').delete().eq('id', id);
+      } catch (e) {
+        console.warn('Supabase delete strip notice:', e);
       }
-    } catch (e) {
-      strips = strips.filter(s => s.id !== id);
-      localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
-      showToast('Photo strip removed');
     }
+
+    // 2. Dispatch to API server
+    fetch(`/api/admin/strips?id=${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${authToken}` }
+    }).catch(() => {});
+
+    strips = strips.filter(s => s.id !== id);
+    localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
+    showToast('Photo strip removed');
 
     await loadAllData();
   }

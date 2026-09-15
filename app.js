@@ -27,9 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalShutterTrigger = document.getElementById('modalShutterTrigger');
   const galleryStrips = document.querySelectorAll('.hanging-strip-card');
 
-  // Direct Cloud Google Sheet & Notification Configuration
-  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbw3AbMyZ90cQX5HTdw9n8ZoNIqjUAW6rTh5zrvce5wfW0koNlrEtWw97X_qsDCY4voBoQ/exec';
-  const NOTIFICATION_EMAIL = 'madhurvibes@gmail.com';
+  // Supabase Cloud Configuration (Instant real-time database & storage)
+  const SUPABASE_URL = 'https://gqcynoumwixuriguwtjz.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxY3lub3Vtd2l4dXJpZ3V3dGp6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk0Nzg0NDQsImV4cCI6MjEwNTA1NDQ0NH0.qaBMHFcIa20s2AM8RevFFXmvBEU44NFf_YeYgwdnRiY';
+
+  let supabaseClient = null;
+  if (window.supabase && typeof window.supabase.createClient === 'function') {
+    try {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+      console.warn('Supabase client init warning:', e);
+    }
+  }
 
   // Booking DOM Elements
   const publicBookingForm = document.getElementById('publicBookingForm');
@@ -421,10 +430,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /** Fetch strips from backend; fall back to localStorage. */
+  /** Fetch strips from Supabase; fall back to /api/strips and localStorage. */
   async function loadPublicStrips() {
     let strips = [];
     try {
+      if (supabaseClient) {
+        const { data, error } = await supabaseClient
+          .from('strips')
+          .select('*')
+          .order('createdAt', { ascending: false });
+
+        if (!error && Array.isArray(data) && data.length > 0) {
+          strips = data;
+          localStorage.setItem('clickit_strips_local', JSON.stringify(strips));
+          renderPublicStrips(strips);
+          return;
+        }
+      }
+
       const res = await fetch('/api/strips');
       if (res.ok) {
         const data = await res.json();
@@ -460,15 +483,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fetchAvailabilityData() {
     try {
-      if (GOOGLE_SHEET_URL) {
-        const res = await fetch(GOOGLE_SHEET_URL);
-        if (res.ok) {
-          const data = await res.json();
-          if (data && data.success && Array.isArray(data.bookings)) {
-            const booked = data.bookings.filter(b => b.status === 'confirmed' || b.status === 'completed' || b.status === 'blocked');
-            bookedDatesCache = [...new Set(booked.map(b => b.eventDate).filter(Boolean))];
-            return;
-          }
+      if (supabaseClient) {
+        const { data, error } = await supabaseClient
+          .from('bookings')
+          .select('eventDate, eventTime, sessionPlan, status')
+          .in('status', ['confirmed', 'completed', 'blocked']);
+
+        if (!error && Array.isArray(data)) {
+          bookedDatesCache = [...new Set(data.map(b => b.eventDate).filter(Boolean))];
+          return;
         }
       }
 
@@ -757,20 +780,17 @@ document.addEventListener('DOMContentLoaded', () => {
         createdAt: new Date().toISOString()
       };
 
-      // Direct save to Google Sheet & trigger email alert on live domain
-      if (GOOGLE_SHEET_URL) {
-        fetch(GOOGLE_SHEET_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            action: 'addBooking',
-            booking: bookingPayload,
-            notificationEmail: NOTIFICATION_EMAIL
-          }),
-          keepalive: true
-        }).catch(err => {
-          console.warn('Google Sheet dispatch fallback:', err);
-        });
+      // Direct save to Supabase Cloud Database in background
+      if (supabaseClient) {
+        supabaseClient
+          .from('bookings')
+          .insert([bookingPayload])
+          .then(({ error }) => {
+            if (error) console.warn('Supabase booking save fallback:', error.message);
+          })
+          .catch(err => {
+            console.warn('Supabase booking dispatch error:', err);
+          });
       }
 
       // Also dispatch to local backend if running
