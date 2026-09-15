@@ -1008,16 +1008,16 @@ button {
   width: 100%;
 }
 
-/* Continuous background rope spanning full screen edge-to-edge */
+/* Continuous background rope spanning full screen edge-to-edge — solid single color */
 .clothesline-row::before {
   content: '';
   position: absolute;
   top: 29px;
   left: -50vw;
   right: -50vw;
-  height: 3px;
-  background: repeating-linear-gradient(90deg, #A1A1AA 0, #A1A1AA 10px, #52525B 10px, #52525B 20px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  height: 2px;
+  background: #606066;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
   z-index: 1;
   pointer-events: none;
 }
@@ -1046,17 +1046,16 @@ button {
   100% { transform: translateX(0); }
 }
 
-/* Moving foreground rope that travels with the clamps */
+/* Moving foreground rope of the exact same solid single color */
 .moving-rope-line {
   position: absolute;
   top: 9px;
   left: 0;
   right: 0;
-  height: 3px;
-  background: repeating-linear-gradient(90deg, #E4E4E7 0, #E4E4E7 10px, #71717A 10px, #71717A 20px);
-  opacity: 0.9;
+  height: 2px;
+  background: #606066;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   z-index: 2;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .marquee-strip-group {
@@ -1120,6 +1119,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  transition: transform 0.2s ease;
 }
 .mini-strip-img {
   width: 100%;
@@ -1130,12 +1130,34 @@ button {
   display: none;
 }
 
-/* Subtle organic tilt variations */
-.tilt-n2 { transform: rotate(-2.5deg); }
-.tilt-n1 { transform: rotate(-1.2deg); }
-.tilt-p1 { transform: rotate(1.2deg); }
-.tilt-p2 { transform: rotate(2.4deg); }
-.tilt-p3 { transform: rotate(3.2deg); }
+/* Realistic organic inclinations for physical photo strips & clamps */
+.hanging-strip-card.has-strip,
+.hanging-strip-card.clamp-only {
+  transform-origin: 50% 10px;
+}
+
+.tilt-n3 { transform: rotate(-5.5deg); }
+.tilt-n2 { transform: rotate(-3.5deg); }
+.tilt-n1 { transform: rotate(-1.8deg); }
+.tilt-p1 { transform: rotate(2.0deg); }
+.tilt-p2 { transform: rotate(3.8deg); }
+.tilt-p3 { transform: rotate(5.8deg); }
+
+/* Subtle organic tilt of the strip paper from the clamp */
+.tilt-n3 .mini-strip-surface { transform: rotate(-2.8deg); transform-origin: 50% 0; }
+.tilt-n2 .mini-strip-surface { transform: rotate(-1.5deg); transform-origin: 50% 0; }
+.tilt-n1 .mini-strip-surface { transform: rotate(-0.8deg); transform-origin: 50% 0; }
+.tilt-p1 .mini-strip-surface { transform: rotate(0.8deg); transform-origin: 50% 0; }
+.tilt-p2 .mini-strip-surface { transform: rotate(1.8deg); transform-origin: 50% 0; }
+.tilt-p3 .mini-strip-surface { transform: rotate(2.8deg); transform-origin: 50% 0; }
+
+/* Micro-angles on clothespins */
+.tilt-n3 .wooden-clothespin { transform: translateX(-50%) rotate(-2.5deg); }
+.tilt-n2 .wooden-clothespin { transform: translateX(-50%) rotate(-1.2deg); }
+.tilt-n1 .wooden-clothespin { transform: translateX(-50%) rotate(-0.6deg); }
+.tilt-p1 .wooden-clothespin { transform: translateX(-50%) rotate(0.6deg); }
+.tilt-p2 .wooden-clothespin { transform: translateX(-50%) rotate(1.4deg); }
+.tilt-p3 .wooden-clothespin { transform: translateX(-50%) rotate(2.5deg); }
 
 /* --------------------------------------------------------------------------
    9. PACKAGES & BOOTH HIRE

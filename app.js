@@ -391,8 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /** Build one clamp element on the rope — either holding a photo strip or an empty clamp */
   function buildSlotCard(strip, slotIndex) {
     const card = document.createElement('div');
+    const tilt = TILT_CLASSES[slotIndex % TILT_CLASSES.length];
+
     if (strip && strip.imageUrl) {
-      const tilt = TILT_CLASSES[slotIndex % TILT_CLASSES.length];
       card.className = `hanging-strip-card has-strip ${tilt}`;
       card.innerHTML = `
         <div class="wooden-clothespin"><div class="peg-clip"></div></div>
@@ -400,8 +401,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${strip.imageUrl}" alt="Photo strip" class="mini-strip-img" loading="lazy" />
         </div>`;
     } else {
-      // Empty clamp hanging from the moving rope
-      card.className = 'hanging-strip-card clamp-only';
+      // Empty clamp hanging from the moving rope with organic micro-tilt
+      card.className = `hanging-strip-card clamp-only ${tilt}`;
       card.innerHTML = `
         <div class="wooden-clothespin"><div class="peg-clip"></div></div>`;
     }
